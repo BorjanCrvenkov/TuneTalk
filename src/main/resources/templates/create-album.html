@@ -1,0 +1,49 @@
+<div style="border: 2px dotted lightgray;width: 80%;margin-left: 150px;margin-top: 20px;" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <h1 th:text="(${album} != null ? 'Edit Album' : 'Create New Album')"></h1>
+
+    <form style="width: 95%;padding-left: 60px;margin-top: 10px;" class="form-signin mt-xl-5 form" method="post" action="/albums/create">
+
+        <div class="mb-3">
+            <label for="albumName" class="form-label">Album name:</label>
+            <input name="albumName"  th:value="(${album} != null ? ${album.getAlbumName()} : '')"
+                   id="albumName" type="text"
+                   class="form-control" placeholder="Enter album name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="dateReleased" class="form-label">Album Release Date:</label>
+            <input name="dateReleased" th:value="(${album} != null ? ${album.getDateReleased()} : '')"
+                   id="dateReleased" type="date" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="rating" class="form-label">Song Rating:</label>
+            <input name="rating"  th:value="(${album} != null ? ${album.getRating()} : '')"
+                   id="rating" type="number" step=".1" class="form-control"
+                   placeholder="Enter album rating"  min="0" max="10" required>
+        </div>
+
+        <ul>
+            <li th:each="artist : ${artists}" th:text="${artist.getArtistName()}"></li>
+        </ul>
+
+<!--        <span th:text="(${album} != null ? 'Current Artist: ' + ${artist.getArtistName()} : '')"></span><br><br>-->
+
+        <div class="mb-3">
+                <label for="search">Search artist:</label>
+
+                <input th:name="artistId" list="search" id="answerInput" required>
+                <datalist id="search" >
+                    <option th:each="artist : ${artistList}" th:text="${artist.getArtistName()}" th:value="${artist.getArtistId()}">
+                    </option>
+                </datalist>
+                <input type="hidden" name="answer" id="answerInput-hidden">
+        <a href="/artists/create" class="btn btn-light">Add missing artist</a>
+
+        </div>
+
+        <button type="submit" style="margin-bottom: 40px;" class="btn btn-block btn-primary">Confirm</button>
+    </form>
+
+</div>

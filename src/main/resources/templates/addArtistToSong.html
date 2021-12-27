@@ -1,0 +1,17 @@
+<form th:method="post" th:action="@{'/songs/addArtist/{id}' (id=${song.getSongId()})}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <h1 th:text="'Add artist to song: ' + ${song.getTitle}"></h1>
+
+    <label for="search">Search artist:</label>
+    <br>
+
+    <input th:name="artistId" list="search" id="answerInput">
+    <datalist id="search" >
+        <option th:each="artist : ${artistsList}" th:text="${artist.getArtistName()}" th:value="${artist.getArtistId()}">
+        </option>
+    </datalist>
+    <input type="hidden" name="answer" id="answerInput-hidden">
+
+    <button type="submit">Add</button>
+</form>

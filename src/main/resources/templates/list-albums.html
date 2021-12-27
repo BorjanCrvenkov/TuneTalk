@@ -1,0 +1,25 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <a class="btn btn-primary"  href="/albums/create">Add new album</a>
+    <br>
+    <form th:method="post" action="/albums/search">
+        <label for="search">Search album by name:</label>
+
+        <input th:name="albumId" list="search" id="answerInput">
+        <datalist id="search" >
+            <option th:each="album : ${albumList}" th:text="${album.getAlbumName()}" th:value="${album.getAlbumId()}">
+            </option>
+        </datalist>
+        <input type="hidden" name="answer" id="answerInput-hidden">
+
+        <button type="submit">Search</button>
+    </form>
+
+
+
+    <span th:each="album : ${albumList}">
+        <a th:href="@{'/albums/{id}' (id=${album.getAlbumId()})}">
+            <th:block th:text="${album.getAlbumName()}"/></a>
+        <br>
+    </span>
+
+</div>

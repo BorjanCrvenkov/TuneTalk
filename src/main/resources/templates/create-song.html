@@ -1,0 +1,47 @@
+<div style="border: 2px dotted lightgray;width: 80%;margin-left: 150px;margin-top: 20px;" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <h1 th:text="(${song} != null ? 'Edit Song' : 'Create New Song')"></h1>
+
+    <form style="width: 95%;padding-left: 60px;margin-top: 10px;" class="form-signin mt-xl-5 form" method="post" action="/songs/create/{id} (id=${song.getSongId()})}">
+        <div class="mb-3">
+            <label for="title" th:value="(${song} != null ? ${song.getTitle()} : '')"
+                   class="form-label">Title:</label>
+            <input name="title" id="title" type="text" class="form-control" placeholder="Enter artist name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="dateReleased" class="form-label">Song Release Date:</label>
+            <input name="dateReleased" th:value="(${song} != null ? ${song.getDateReleased()} : '')"
+                   id="dateReleased" type="datetime-local" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="rating" class="form-label">Song Rating:</label>
+            <input name="rating" th:value="(${song} != null ? ${song.getRating()} : '')"
+                   id="rating" type="number" step=".1" class="form-control" placeholder="Enter song rating"  min="0" max="10" required>
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">Song by artists</label>
+
+            <ul>
+                <li th:each="artist : ${artistList}" >
+                    <p th:text="${artist.getArtistName()}"></p>
+                </li>
+            </ul>
+            <a th:href="@{'/songs/addArtist/{id}' (id=${song.getSongId()})}">Add another artist to song</a>
+        </div>
+
+        <h5>Further information is optional</h5>
+
+        <div class="mb-3">
+            <label for="lyrics" class="form-label">Lyrics:</label>
+            <input name="lyrics"
+                   id="lyrics" type="text" class="form-control" placeholder="Enter song lyrics">
+        </div>
+
+        <button type="submit" style="margin-bottom: 40px;" class="btn btn-block btn-primary">Confirm</button>
+    </form>
+
+</div>

@@ -1,0 +1,22 @@
+<header xmlns:th="http://www.thymeleaf.org">
+    <nav class="navbar navbar-light" style="background-color: lightgray;">
+        <a href="/home">
+            <img src="../../static/images/TuneTalk_Logo.png" height="100" width="100" th:src="@{images/TuneTalk_Logo.png}"/>
+        </a>
+        <a href="/artists"><h4>Artists</h4></a>
+        <a href="/albums"><h4>Albums</h4></a>
+        <a href="/songs"><h4>Songs</h4></a>
+        <a href="/genres"><h4>Genres</h4></a>
+
+        <span th:if="${user == null}">
+                <a href="/login" class="btn btn-light">Login</a>
+        </span>
+
+        <span th:if="${user != null}">
+            <th:block th:text="${user.getUsername()}"></th:block>
+                <a href="/logout" class="btn btn-light">Logout</a>
+        </span>
+
+
+    </nav>
+</header>

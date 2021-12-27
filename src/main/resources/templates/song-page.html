@@ -1,0 +1,82 @@
+<style>
+    #basic-info p{
+        width: 550px;padding-left: 50px;
+    }
+
+
+</style>
+
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <h1 id="songName" th:text="${song.getTitle()}"></h1>
+    <a th:href="@{'/songs/edit/{id}' (id=${song.getSongId()})}">Edit page</a>
+
+    <div style="border-bottom: 2px solid lightgray;">
+        <p>Released by:</p>
+        <span th:each="artist : ${artists}">
+            <a th:text="${artist.getArtistName()}" th:href="@{'/artists/{id}' (id=${artist.getArtistId()})}"></a>
+            <br>
+        </span>
+
+        <p>Song genres:</p>
+        <ul>
+            <li th:each="genre : ${genres}" >
+                <p th:text="${genre.getGenreName()}"></p>
+            </li>
+        </ul>
+
+
+        <span th:if="${album == null}">
+            <p>Song is not in album</p>
+        </span>
+
+        <span th:unless="${album == null}">
+            <p>Album Name:</p>
+            <a th:href="@{'/albums/{id}' (id=${album.getAlbumId()})}" th:text="${album.getAlbumName()}"></a>
+        </span>
+
+        <p>Rating: <th:block th:text="${song.getRating()}"></th:block></p>
+        <p>Date released: <th:block th:text="${song.getDateReleased()}"></th:block></p>
+
+        <span th:if="${song.getLyrics() == null}">
+            <p>Song doesn`t have lyrics.</p>
+        </span>
+
+        <span th:unless="${song.getLyrics() == null}">
+            <p>Lyrics:</p>
+            <p th:text="${song.getLyrics()}"></p>
+        </span>
+
+    </div>
+
+<!--    <div id="comments" style="border: 1px solid black; width: 700px">-->
+<!--        <h4>Comments</h4>-->
+<!--        <th:block th:each="comment : ${song.getComments()}">-->
+<!--            <div style="border: 5px solid red; margin-top: 20px">-->
+<!--                <h4>First Comment</h4>-->
+<!--                <p><b th:text="'Comment by: ' + ${comment.getUser().getUsername()}"></b>-->
+<!--                    <b th:text="'Date posted: ' + ${comment.getDatePosted()}"></b></p>-->
+
+<!--                <p th:text="'Comment text: ' + ${comment.getText()}"></p>-->
+<!--            </div>-->
+
+
+
+<!--            <div th:fragment="f_call(comment)"-->
+<!--                 th:unless="${#lists.isEmpty(comment.getReplies())}" style="border: 5px solid blue; margin-top: 20px">-->
+<!--                <h4>Replies</h4>-->
+
+<!--                <div th:each="reply : ${comment.getReplies()}" th:inline="text">-->
+<!--                    <p><b th:text="'Comment by: ' + ${reply.getUser().getUsername()}"></b>-->
+<!--                        <b th:text="'Date posted: ' + ${reply.getDatePosted()}"></b></p>-->
+
+<!--                    <p th:text="'Comment text: ' + ${reply.getText()}"></p>-->
+
+<!--                    <div th:replace="this::f_call(${reply})"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </th:block>-->
+<!--    </div>-->
+
+</div>
+
+

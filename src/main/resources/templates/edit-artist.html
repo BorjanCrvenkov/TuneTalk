@@ -1,0 +1,43 @@
+<style>
+    input{
+        text-align: center;
+    }
+</style>
+
+<div style="border: 2px dotted lightgray;width: 80%;margin-left: 150px;margin-top: 20px;" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <h1 th:text="(${artist} != null ? 'Edit Artist' : 'Create New Artist')"></h1>
+
+    <form style="width: 95%;padding-left: 60px;margin-top: 10px;" class="form-signin mt-xl-5 form" method="post" th:action="@{/artists/edit/{id} (id=${artist.getArtistId()})}">
+
+        <div class="mb-3">
+            <label for="artistName" class="form-label">Artist Name:</label>
+            <input id="artistName" name="artistName" th:value="(${artist} != null ? ${artist.getArtistName()} : '')" type="text" class="form-control" placeholder="Enter artist name" required>
+        </div>
+
+        <h5>Further information is optional</h5>
+
+        <div class="mb-3">
+            <label for="realName" class="form-label">Artist Real Name:</label>
+            <input name="realName" th:value="(${artist} != null ? ${artist.getRealName()} : '')"
+                   id="realName" type="text" class="form-control" placeholder="Enter artist real name">
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Age:</label>
+            <input name="age" th:value="(${artist} != null ? ${artist.getAge()} : '')"
+                   id="age" type="number" class="form-control" placeholder="Enter artist age"  min="0" max="125">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Artist Description:</label>
+            <input name="description" th:value="(${artist} != null ? ${artist.getDescription()} : '')"
+                   id="description" type="text" class="form-control" placeholder="Enter artist description">
+        </div>
+
+        <button type="submit" style="margin-bottom: 40px;" class="btn btn-block btn-primary">Confirm</button>
+
+    </form>
+
+
+
+</div>

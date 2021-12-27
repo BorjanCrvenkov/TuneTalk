@@ -1,0 +1,26 @@
+<div xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <h1 th:text="${genre.getGenreName()}"></h1>
+
+    <h1>Vo GenreController da se smenat albumsInGenre i songsInGenre </h1>
+    <div>
+        <h4>Albums from this genre</h4>
+
+        <li th:each="album : ${albumsInGenre}">
+            <a th:href="@{'/albums/{id}' (id=${album.getAlbumId()})}" th:text="${album.getAlbumName()}"></a>
+        </li>
+    </div>
+
+    <div>
+        <h4>Songs from this genre</h4>
+    </div>
+    <ul>
+        <li th:each="song : ${songsInGenre}">
+            <a th:href="@{'/songs/{id}' (id=${song.getSongId()})}" th:text="${song.getTitle()}"></a>
+        </li>
+    </ul>
+
+
+
+
+</div>

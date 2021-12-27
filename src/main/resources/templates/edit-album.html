@@ -1,0 +1,54 @@
+<div style="border: 2px dotted lightgray;width: 80%;margin-left: 150px;margin-top: 20px;" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <h1 th:text="(${album} != null ? 'Edit Album' : 'Create New Album')"></h1>
+
+    <form style="width: 95%;padding-left: 60px;margin-top: 10px;" class="form-signin mt-xl-5 form" method="post" th:action="@{/albums/edit/{id} (id=${album.getAlbumId()})}">
+
+        <div class="mb-3">
+            <label for="albumName" class="form-label">Album name:</label>
+            <input name="albumName"  th:value="(${album} != null ? ${album.getAlbumName()} : '')"
+                   id="albumName" type="text"
+                   class="form-control" placeholder="Enter album name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="dateReleased" class="form-label">Album Release Date:</label>
+            <input name="dateReleased" th:value="(${album} != null ? ${album.getDateReleased()} : '')"
+                   id="dateReleased" type="date" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="rating" class="form-label">Song Rating:</label>
+            <input name="rating"  th:value="(${album} != null ? ${album.getRating()} : '')"
+                   id="rating" type="number" step=".1" class="form-control"
+                   placeholder="Enter song rating"  min="0" max="10" required>
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">Album by artists</label>
+            <br>
+            <span th:each="artist : ${artists}">
+                <a th:text="${artist.getArtistName()}" th:href="@{'/artists/{id}' (id=${artist.getArtistId()})}"></a>
+                <a th:href="@{'/albums/deleteArtistFromAlbum/{albumId}/{artistId}' (albumId=${album.getAlbumId()},artistId=${artist.getArtistId()})}">Delete this artist from album</a>
+                <br>
+            </span>
+            <a th:href="@{'/albums/addArtist/{id}' (id=${album.getAlbumId()})}">Add another artist to album</a>
+        </div>
+
+        <div class="mb-3">
+
+            <p>Album genres:</p>
+            <ul>
+                <li th:each="genre : ${genres}" >
+                    <p th:text="${genre.getGenreName()}"></p>
+                    <a th:href="@{'/albums/deleteGenreFromAlbum/{albumId}/{genreId}' (albumId=${album.getAlbumId()},genreId=${genre.getGenreId()})}">Delete this genre from album</a>
+                </li>
+            </ul>
+            <a th:href="@{'/albums/addGenre/{id}' (id=${album.getAlbumId()})}">Add another genre to album</a>
+        </div>
+
+        <button type="submit" style="margin-bottom: 40px;" class="btn btn-block btn-primary">Confirm</button>
+    </form>
+
+</div>

@@ -1,0 +1,30 @@
+<style>
+    li{
+        list-style-type: none;
+    }
+</style>
+
+<div id="songs" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <a class="btn btn-primary"  href="/songs/create">Add new song</a>
+    <br>
+    <form th:method="post" action="/songs/search">
+        <label for="search">Search album by name:</label>
+
+        <input th:name="songId" list="search" id="answerInput">
+        <datalist id="search" >
+            <option th:each="song : ${songsList}" th:text="${song.getTitle()}" th:value="${song.getSongId()}">
+            </option>
+        </datalist>
+        <input type="hidden" name="answer" id="answerInput-hidden">
+
+        <button type="submit">Search</button>
+    </form>
+
+    <ul th:each="song : ${songsList}">
+        <li>
+            <a th:href="@{'/songs/{id}' (id=${song.getSongId()})}">
+            <th:block th:text="${song.getTitle()}"/></a>
+        </li>
+    </ul>
+
+</div>

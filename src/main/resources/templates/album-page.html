@@ -1,0 +1,98 @@
+<style>
+    .dela {
+        display: inline-block;
+        margin-top: 30px;
+        margin-left: 150px;
+        width: 500px;
+        border: 2px dotted lightblue;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+
+
+
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <h1 id="albumName" th:text="${album.getAlbumName()}"></h1>
+    <a th:href="@{'/albums/edit/{id}' (id=${album.getAlbumId()})}">Edit page</a>
+
+    <div style="border-bottom: 2px solid lightgray;">;
+        <p>Released by:</p>
+        <span th:each="artist : ${artists}">
+            <a th:text="${artist.getArtistName()}" th:href="@{'/artists/{id}' (id=${artist.getArtistId()})}"></a>
+            <br>
+        </span>
+
+        <p>Album genres:</p>
+        <ul>
+            <li th:each="genre : ${genres}" >
+                <p th:text="${genre.getGenreName()}"></p>
+            </li>
+        </ul>
+
+
+
+        <p>Rating: <th:block th:text="${album.getRating()}"></th:block> </p>
+        <p>Date released: <th:block th:text="${album.getDateReleased()}"></th:block> </p>
+    </div>
+
+
+
+    <div class="dela">
+        <h4>Songs in album</h4>
+        <table>
+            <tr>
+                <th>Song Name</th>
+                <th>Date_Released</th>
+                <th>Rating</th>
+                <th th:text="'Delete this song from ' + ${album.getAlbumName()}"></th>
+            </tr>
+
+            <tr th:each="song : ${songs}">
+                <th><a th:text="${song.getTitle()}" th:href="@{'/songs/{id}' (id=${song.getSongId()})}"></a></th>
+                <th th:text="${song.getDateReleased()}">Date_Released</th>
+                <th th:text="${song.getRating()}">Rating</th>
+                <th><a th:href="@{'/albums/deleteSongFromAlbum/{albumId}/{songId}' (albumId=${album.getAlbumId()},songId=${song.getSongId()})}">Delete this song</a></th>
+            </tr>
+        </table>
+    </div>
+
+<!--    <div id="comments" style="border: 1px solid black; width: 700px">-->
+<!--        <h4>Comments</h4>-->
+<!--        <th:block th:each="comment : ${album.getComments()}">-->
+<!--            <div style="border: 5px solid red; margin-top: 20px">-->
+<!--                <h4>First Comment</h4>-->
+<!--                <p><b th:text="'Comment by: ' + ${comment.getUser().getUsername()}"></b>-->
+<!--                    <b th:text="'Date posted: ' + ${comment.getDatePosted()}"></b></p>-->
+
+<!--                <p th:text="'Comment text: ' + ${comment.getText()}"></p>-->
+<!--            </div>-->
+
+
+
+<!--            <div th:fragment="f_call(comment)"-->
+<!--                 th:unless="${#lists.isEmpty(comment.getReplies())}" style="border: 5px solid blue; margin-top: 20px">-->
+<!--                <h4>Replies</h4>-->
+
+<!--                <div th:each="reply : ${comment.getReplies()}" th:inline="text">-->
+<!--                    <p><b th:text="'Comment by: ' + ${reply.getUser().getUsername()}"></b>-->
+<!--                        <b th:text="'Date posted: ' + ${reply.getDatePosted()}"></b></p>-->
+
+<!--                    <p th:text="'Comment text: ' + ${reply.getText()}"></p>-->
+
+<!--                    <div th:replace="this::f_call(${reply})"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </th:block>-->
+<!--    </div>-->
+<!--</div>-->

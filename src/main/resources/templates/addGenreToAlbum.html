@@ -1,0 +1,17 @@
+<form th:method="post" th:action="@{'/albums/addGenre/{id}' (id=${album.getAlbumId()})}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <h1 th:text="'Add genre to album: ' + ${album.getAlbumName()}"></h1>
+
+    <label for="search">Search genre:</label>
+    <br>
+
+    <input th:name="genreId" list="search" id="answerInput">
+    <datalist id="search" >
+        <option th:each="genre : ${genres}" th:text="${genre.getGenreName()}" th:value="${genre.getGenreId()}">
+        </option>
+    </datalist>
+    <input type="hidden" name="answer" id="answerInput-hidden">
+
+    <button type="submit">Add</button>
+</form>
