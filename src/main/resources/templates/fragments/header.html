@@ -13,8 +13,8 @@
         </span>
 
         <span th:if="${session.user != null}">
-            <th:block th:text="${user.getUsername()}"></th:block>
-                <a href="/logout" class="btn btn-light">Logout</a>
+            <a href="/user" th:text="${session.user.getUsername()}"></a>
+            <a href="/logout" class="btn btn-light">Logout</a>
         </span>
 
 

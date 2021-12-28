@@ -1,10 +1,7 @@
 package finki.bazi.tunetalk.service.impl;
 
 import finki.bazi.tunetalk.model.Users;
-import finki.bazi.tunetalk.model.exceptions.EmailAlreadyExistsException;
-import finki.bazi.tunetalk.model.exceptions.InvalidEmailException;
-import finki.bazi.tunetalk.model.exceptions.PasswordsDoNotMatchException;
-import finki.bazi.tunetalk.model.exceptions.UsernameAlreadyExistsException;
+import finki.bazi.tunetalk.model.exceptions.*;
 import finki.bazi.tunetalk.repository.UserRepository;
 import finki.bazi.tunetalk.service.UserService;
 import org.springframework.stereotype.Service;
@@ -61,5 +58,16 @@ public class UserServiceImpl implements UserService {
 
         Users user = new Users(username, password, name, surname, email, mobilePhone, age, aboutUser);
         userRepository.save(user);
+    }
+
+    @Override
+    public Users logIn(String username, String password) {
+        Users user = this.getUserByUsernameAndPassword(username, password);
+
+        if(user == null){
+            throw new UserWithCredentialsDoesNotExistsException(username,password);
+        }
+
+        return user;
     }
 }

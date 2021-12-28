@@ -9,4 +9,6 @@ public interface UserService {
     void createNewUser(String name, String surname, int age, String email,
                        String mobilePhone, String username, String password,
                        String repeatedPassword, String aboutUser);
+
+    Users logIn(String username,String password);
 }

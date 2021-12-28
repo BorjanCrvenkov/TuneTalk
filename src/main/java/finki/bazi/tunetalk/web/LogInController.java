@@ -2,6 +2,7 @@ package finki.bazi.tunetalk.web;
 
 
 import finki.bazi.tunetalk.model.Users;
+import finki.bazi.tunetalk.model.exceptions.UserWithCredentialsDoesNotExistsException;
 import finki.bazi.tunetalk.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,13 +32,24 @@ public class LogInController {
     @PostMapping
     public String logIn(@RequestParam String username,
                         @RequestParam String password,
-                        HttpServletRequest req){
+                        HttpServletRequest req,
+                        Model model){
 
-        Users user = userService.getUserByUsernameAndPassword(username,password);
-        req.getSession().setAttribute("user",user);
+        try{
+            Users user = userService.logIn(username, password);
+            req.getSession().setAttribute("user",user);
+
+            return "redirect:/home";
+
+        }catch (Exception ex){
+            model.addAttribute("error", ex.getMessage());
+            model.addAttribute("bodyContent", "login");
+            return "master-template";
+        }
 
 
-        return "redirect:/home";
+
+
     }
 
 }

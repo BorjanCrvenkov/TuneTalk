@@ -27,6 +27,7 @@ public class GenreController {
     @GetMapping
     public String getGenreListPage(Model model){
         model.addAttribute("genres",genreService.listAllGenres());
+
         model.addAttribute("bodyContent", "list-genres");
         return "master-template";
     }
@@ -68,10 +69,18 @@ public class GenreController {
     }
 
     @PostMapping("/create")
-    public String createNewGenre(@RequestParam String genreName){
+    public String createNewGenre(@RequestParam String genreName,Model model){
 
-        genreService.createNewGenre(genreName);
-        return "redirect:/genres";
+        try{
+            genreService.createNewGenre(genreName);
+            return "redirect:/genres";
+        }catch (Exception ex){
+            model.addAttribute("error", ex.getMessage());
+            model.addAttribute("bodyContent", "create-genre");
+            return "master-template";
+        }
+
+
     }
 
 }
