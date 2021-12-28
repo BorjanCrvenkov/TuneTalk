@@ -33,50 +33,6 @@ public class SongServiceImpl implements SongService {
         return songRepository.findAll();
     }
 
-    @Override
-    public List<Song> findAllSongsByTitle(String title) {
-        return songRepository.findAllByTitle(title);
-    }
-
-    @Override
-    public List<Song> findSongsByDate(LocalDate dateReleased) {
-        return songRepository.findAllByDateReleased(dateReleased);
-    }
-
-    @Override
-    public List<Song> findSongsByRating(float rating) {
-        return songRepository.findAllByRating(rating);
-    }
-
-    @Override
-    public List<Song> findByVerification(boolean verified) {
-        return songRepository.findAllByVerified(verified);
-    }
-
-    @Override
-    public List<Artist> getAllSongArtists(int songId) {
-        return null;
-    }
-
-    @Override
-    public Song addSong(Song song) {
-        return songRepository.save(song);
-    }
-
-    @Override
-    public void changeSongRating(int songId, float rating) {
-
-    }
-
-    @Override
-    public void changeSongTitle(int songId, String title) {
-
-    }
-
-    @Override
-    public void changeSongVerified(int songId, boolean verified) {
-
-    }
 
     @Override
     public void changeSongDateReleased(int songId, LocalDate dateReleased) {

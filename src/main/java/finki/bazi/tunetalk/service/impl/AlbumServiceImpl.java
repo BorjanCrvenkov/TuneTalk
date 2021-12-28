@@ -34,70 +34,11 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public List<Album> findAllAlbumsByName(String albumName) {
-        return albumRepository.findAllByAlbumNameLike(albumName);
-    }
-
-    @Override
-    public List<Album> findAlbumsByDate(LocalDate dateReleased) {
-        return albumRepository.findAllByDateReleased(dateReleased);
-    }
-
-    @Override
-    public List<Album> findAlbumsByRating(float rating) {
-        return albumRepository.findAllByRating(rating);
-    }
-
-    @Override
-    public List<Album> findByVerification(boolean verified) {
-        return albumRepository.findAllByVerified(verified);
-    }
-
-    @Override
-    public List<Song> getAllSongsInAlbum(int albumId) {
-        return null;
-    }
-
-    @Override
-    public Song addSongToAlbum(Song song, Album album) {
-        return null;
-    }
-
-    @Override
-    public Song removeSongFromAlbum(Song song, Album album) {
-        return null;
-    }
-
-    @Override
-    public void changeAlbumRating(int albumId, float rating) {
-        Album album = albumRepository.findByAlbumId(albumId);
-        album.setRating(rating);
-    }
-
-    @Override
-    public void changeAlbumName(int albumId, String albumName) {
-        Album album = albumRepository.findByAlbumId(albumId);
-        album.setAlbumName(albumName);
-    }
-
-    @Override
-    public void changeAlbumVerified(int albumId, boolean verified) {
-        Album album = albumRepository.findByAlbumId(albumId);
-        album.setVerified(verified);
-    }
-
-    @Override
-    public void changeAlbumDateReleased(int albumId, LocalDate dateReleased) {
-        Album album = albumRepository.findByAlbumId(albumId);
-        album.setDateReleased(dateReleased);
-    }
-
-    @Override
     public List<Album> findAllAlbumsByArtistId(Integer artistId) {
         List<Integer> albumsIds = albumRepository.findAllAlbumsIdByArtistId(artistId);
         List<Album> albums = new ArrayList<>();
-        for(int i=0;i<albumsIds.size();i++){
-            albums.add(this.findById(albumsIds.get(i)));
+        for (Integer albumsId : albumsIds) {
+            albums.add(this.findById(albumsId));
         }
 
         return albums;

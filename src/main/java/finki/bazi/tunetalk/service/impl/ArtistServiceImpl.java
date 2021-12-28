@@ -27,72 +27,12 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public void changeArtistName(int artistId, String name) {
-        Artist artist = findArtistById(artistId);
-        artist.setArtistName(name);
-    }
-
-    @Override
-    public void changeArtistAge(int artistId, int age) {
-        Artist artist = findArtistById(artistId);
-        artist.setAge(age);
-    }
-
-    @Override
-    public void changeArtistRealName(int artistId, String realName) {
-        Artist artist = findArtistById(artistId);
-        artist.setRealName(realName);
-    }
-
-    @Override
-    public void changeArtistDescription(int artistId, String description) {
-        Artist artist = findArtistById(artistId);
-        artist.setDescription(description);
-    }
-
-    @Override
-    public void changeArtistVerified(int artistId,boolean verified) {
-        Artist artist = findArtistById(artistId);
-        artist.setVerified(verified);
-    }
-
-    @Override
     public Artist findArtistById(int artistId) {
         return artistRepository.findByArtistId(artistId);
     }
 
     @Override
-    public List<Artist> getAllArtistsByAge(int age) {
-        return artistRepository.findAllByAge(age);
-    }
-
-    @Override
-    public List<Artist> getAllArtistsByRealName(String realName) {
-        return artistRepository.findAllByRealName(realName);
-    }
-
-    @Override
-    public List<Artist> getAllArtistsByVerified(boolean verified) {
-        return artistRepository.findAllByVerified(verified);
-    }
-
-    @Override
     public List<Song> getAllSongsByArtistId(int artistId) {
-        return null;
-    }
-
-    @Override
-    public Song addSongToArtist(Song song, Artist artist) {
-        return null;
-    }
-
-    @Override
-    public Song removeSongFromArtist(Song song, Artist artist) {
-        return null;
-    }
-
-    @Override
-    public Album addAlbumToArtist(Album album, Artist artist) {
         return null;
     }
 

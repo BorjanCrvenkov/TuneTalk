@@ -13,24 +13,6 @@ public interface SongService {
 
     List<Song> findAllSongs();
 
-    List<Song> findAllSongsByTitle(String title);
-
-    List<Song> findSongsByDate(LocalDate dateReleased);
-
-    List<Song> findSongsByRating(float rating);
-
-    List<Song> findByVerification(boolean verified);
-
-    List<Artist> getAllSongArtists(int SongId);
-
-    Song addSong(Song song);
-
-    void changeSongRating(int songId,float rating);
-
-    void changeSongTitle(int songId,String title);
-
-    void changeSongVerified(int songId,boolean verified);
-
     void changeSongDateReleased(int songId,LocalDate dateReleased);
 
     List<Song> findAllSongsByArtistId(Integer artistId);

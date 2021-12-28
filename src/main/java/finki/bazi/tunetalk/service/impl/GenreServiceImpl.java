@@ -42,63 +42,10 @@ public class GenreServiceImpl implements GenreService {
         return genreRepository.findByGenreId(genreId);
     }
 
-    @Override
-    public List<Genre> findGenresByName(String genreName) {
-        return genreRepository.findAllByGenreNameLike(genreName);
-    }
 
     @Override
     public List<Album> getAllAlbumsByGenreId(int genreId) {
         return null;
-    }
-
-    @Override
-    public List<Song> getAllSongsByGenreId(int genreId) {
-        return null;
-    }
-
-    @Override
-    public List<User> getAllUsersThatLikeGenre(int genreId) {
-        return null;
-    }
-
-    @Override
-    public void changeGenreName(int genreId, String newName) {
-        Genre genre = genreRepository.findByGenreId(genreId);
-        genre.setGenreName(newName);
-    }
-
-    @Override
-    public Album addAlbumToGenre(int albumId, int genreId) {
-
-        return null;
-    }
-
-    @Override
-    public Song addSongToGenre(int songId, int genreId) {
-
-        return null;
-    }
-
-    @Override
-    public User addUserToGenre(int userId, int genreId) {
-
-        return null;
-    }
-
-    @Override
-    public void removeAlbumFromGenre(int albumId, int genreId) {
-       ;
-    }
-
-    @Override
-    public void removeSongFromGenre(int songId, int genreId) {
-
-    }
-
-    @Override
-    public void removeUserFromGenre(int userId, int genreId) {
-
     }
 
     @Override

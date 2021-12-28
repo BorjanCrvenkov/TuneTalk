@@ -11,31 +11,9 @@ public interface ArtistService {
 
     List<Artist> findAll();
 
-    void changeArtistName(int artistId,String name);
-
-    void changeArtistAge(int artistId,int age);
-
-    void changeArtistRealName(int artistId,String realName);
-
-    void changeArtistDescription(int artistId,String description);
-
-    void changeArtistVerified(int artistId,boolean verified);
-
     Artist findArtistById(int artistId);
 
-    List<Artist> getAllArtistsByAge(int age);
-
-    List<Artist> getAllArtistsByRealName(String realName);
-
-    List<Artist> getAllArtistsByVerified(boolean verified);
-
     List<Song> getAllSongsByArtistId(int artistId);
-
-    Song addSongToArtist(Song song,Artist artist);
-
-    Song removeSongFromArtist(Song song,Artist artist);
-
-    Album addAlbumToArtist(Album album, Artist artist);
 
     Album removeAlbumFromArtist(Album album,Artist artist);
 
