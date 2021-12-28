@@ -3,9 +3,6 @@ package finki.bazi.tunetalk.service.impl;
 
 import finki.bazi.tunetalk.model.Album;
 import finki.bazi.tunetalk.model.Genre;
-import finki.bazi.tunetalk.model.Song;
-import finki.bazi.tunetalk.model.User;
-import finki.bazi.tunetalk.model.exceptions.ArtistNameAlreadyExistsException;
 import finki.bazi.tunetalk.model.exceptions.GenreNameAlreadyExistsException;
 import finki.bazi.tunetalk.repository.AlbumRepository;
 import finki.bazi.tunetalk.repository.GenreRepository;

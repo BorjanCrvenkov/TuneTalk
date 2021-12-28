@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @Entity
 //@Table(name="user", schema = "public")
-public class User implements Serializable {
+public class Users implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,19 +35,19 @@ public class User implements Serializable {
 
     private String aboutMe;
 
-    public User(String username, String password, String name, String surname, String email, LocalDate dateCreated, String mobilePhone, Integer age, String aboutMe) {
+    public Users(String username, String password, String name, String surname, String email, String mobilePhone, Integer age, String aboutMe) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.dateCreated = dateCreated;
+        this.dateCreated = LocalDate.now();
         this.mobilePhone = mobilePhone;
         this.age = age;
         this.aboutMe = aboutMe;
     }
 
-    public User() {
+    public Users() {
 
     }
 

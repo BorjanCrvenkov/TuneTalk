@@ -1,7 +1,8 @@
 package finki.bazi.tunetalk.web;
 
 
-import finki.bazi.tunetalk.model.User;
+import finki.bazi.tunetalk.model.Users;
+import finki.bazi.tunetalk.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/login")
 public class LogInController {
+
+    private final UserService userService;
+
+    public LogInController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public String getHomePage(Model model) {
@@ -27,7 +33,7 @@ public class LogInController {
                         @RequestParam String password,
                         HttpServletRequest req){
 
-        User user = new User(username,password,"Name","Surname","email@email.com", LocalDate.now(),"",20,"");
+        Users user = userService.getUserByUsernameAndPassword(username,password);
         req.getSession().setAttribute("user",user);
 
 

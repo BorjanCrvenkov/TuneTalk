@@ -1,5 +1,6 @@
 package finki.bazi.tunetalk.web;
 
+import finki.bazi.tunetalk.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/register")
 public class RegisterController {
 
+    private final UserService userService;
+
+    public RegisterController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public String getRegisterPage(Model model) {
         model.addAttribute("bodyContent", "register");
         return "master-template";
-    }
-
-    private boolean verifyEmail(String email){
-        return email.contains("@") && email.contains(".com"); // ako ima @ i .com validen e
     }
 
     @PostMapping
@@ -34,15 +36,7 @@ public class RegisterController {
                            @RequestParam(required = false) String aboutUser){
 
 
-        if(!verifyEmail(email)){
-//            throw exception();
-        }
-
-//        if(nesto od ova e null ili "" )
-//        if(username exists)
-//        if(email exists)
-//        if(password!=repeatedPassword)
-
+        userService.createNewUser(name, surname, age, email, mobilePhone, username, password, repeatedPassword, aboutUser);
         return "redirect:/login";
     }
 }

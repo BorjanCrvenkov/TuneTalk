@@ -3,8 +3,6 @@ package finki.bazi.tunetalk.service;
 
 import finki.bazi.tunetalk.model.Album;
 import finki.bazi.tunetalk.model.Genre;
-import finki.bazi.tunetalk.model.Song;
-import finki.bazi.tunetalk.model.User;
 
 import java.util.List;
 

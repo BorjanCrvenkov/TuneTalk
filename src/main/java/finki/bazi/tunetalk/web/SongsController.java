@@ -32,7 +32,7 @@ public class SongsController {
 
     @GetMapping
     public String getAllSongsPage(Model model, HttpServletRequest req){
-        User user = (User) req.getSession().getAttribute("user");
+        Users user = (Users) req.getSession().getAttribute("user");
         model.addAttribute("user",user);
 
         List<Song> songs = songService.findAllSongs();

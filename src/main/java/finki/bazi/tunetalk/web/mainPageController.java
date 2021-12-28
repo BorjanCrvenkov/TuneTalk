@@ -1,6 +1,6 @@
 package finki.bazi.tunetalk.web;
 
-import finki.bazi.tunetalk.model.User;
+import finki.bazi.tunetalk.model.Users;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ public class mainPageController {
 
     @GetMapping
     public String getHomePage(Model model, HttpServletRequest req) {
-        User user = (User) req.getSession().getAttribute("user");
+        Users user = (Users) req.getSession().getAttribute("user");
         model.addAttribute("user",user);
 
         model.addAttribute("bodyContent", "main-page");
