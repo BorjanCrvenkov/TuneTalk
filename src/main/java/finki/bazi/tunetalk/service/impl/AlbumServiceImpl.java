@@ -137,5 +137,23 @@ public class AlbumServiceImpl implements AlbumService {
         albumRepository.deleteGenreFromAlbum(genreId,albumId);
     }
 
+    @Override
+    public void updateAlbum(Integer albumId,String albumName, LocalDate dateReleased, float rating) {
+        albumRepository.updateAlbum(albumId, albumName, dateReleased, rating);
+    }
+
+    @Override
+    public List<Album> findAlbumsByGenreId(Integer genreId) {
+        List<Integer> albumIds = albumRepository.findAlbumsByGenreId(genreId);
+        List<Album> albums = new ArrayList<>();
+
+        for(Integer id : albumIds){
+            albums.add(this.findById(id));
+        }
+
+        return albums;
+
+    }
+
 
 }

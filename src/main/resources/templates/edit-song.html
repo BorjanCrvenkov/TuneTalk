@@ -2,17 +2,19 @@
 
     <h1 th:text="(${song} != null ? 'Edit Song' : 'Create New Song')"></h1>
 
-    <form style="width: 95%;padding-left: 60px;margin-top: 10px;" class="form-signin mt-xl-5 form" method="post" action="/songs/edit/{id} (id=${song.getSongId()})}">
+    <form style="width: 95%;padding-left: 60px;margin-top: 10px;" class="form-signin mt-xl-5 form" method="post" th:action="@{/songs/edit/{id} (id=${song.getSongId()})}">
         <div class="mb-3">
-            <label for="title" th:value="(${song} != null ? ${song.getTitle()} : '')"
+            <label for="title"
                    class="form-label">Title:</label>
-            <input name="title" id="title" type="text" class="form-control" placeholder="Enter artist name" required>
+            <input name="title" id="title" type="text" class="form-control" th:value="(${song} != null ? ${song.getTitle()} : '')" placeholder="Enter song title " required>
         </div>
 
         <div class="mb-3">
+
             <label for="dateReleased" class="form-label">Song Release Date:</label>
             <input name="dateReleased" th:value="(${song} != null ? ${song.getDateReleased()} : '')"
-                   id="dateReleased" type="datetime-local" class="form-control" required>
+                   id="dateReleased" type="date" class="form-control" required>
+
         </div>
 
         <div class="mb-3">

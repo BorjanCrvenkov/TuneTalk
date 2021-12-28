@@ -54,4 +54,15 @@ public interface AlbumRepository extends JpaRepository<Album, Integer> {
     @Query(value = "delete from album_genre where album_id = :albumId and genre_id = :genreId",nativeQuery = true)
     void deleteGenreFromAlbum(@Param("genreId") Integer genreId,@Param("albumId") Integer albumId);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update album set album_name = :albumName, date_released = :dateReleased, rating = :rating where album_id = :albumId",nativeQuery = true)
+    void updateAlbum(@Param("albumId") Integer albumId,
+                     @Param("albumName") String albumName,
+                     @Param("dateReleased") LocalDate dateReleased,
+                     @Param("rating") float rating);
+
+    @Query(value = "select album_id from album_genre where genre_id = :genreId",nativeQuery = true)
+    List<Integer> findAlbumsByGenreId(@Param("genreId") Integer genreId);
+
 }

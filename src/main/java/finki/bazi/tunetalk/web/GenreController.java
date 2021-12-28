@@ -36,12 +36,29 @@ public class GenreController {
         Genre genre = genreService.findGenreById(id);
         model.addAttribute("genre",genre);
 
-        model.addAttribute("songsInGenre",songService.findAllSongs());
+        model.addAttribute("songsInGenre", songService.findSongsByGenreId(id));
 
-        model.addAttribute("albumsInGenre",albumService.findAllAlbums());
+        model.addAttribute("albumsInGenre",albumService.findAlbumsByGenreId(id));
 
         model.addAttribute("bodyContent", "genre-page");
         return "master-template";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getGenreEditPage(Model model, @PathVariable Integer id){
+        Genre genre = genreService.findGenreById(id);
+        model.addAttribute("genre",genre);
+
+
+        model.addAttribute("bodyContent", "edit-genre");
+        return "master-template";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String postGenreEditPage(@PathVariable Integer id,
+                                    @RequestParam String genreName){
+        genreService.updateGenre(id,genreName);
+        return "redirect:/genres";
     }
 
 }

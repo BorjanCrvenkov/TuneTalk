@@ -42,4 +42,8 @@ public interface SongService {
     void addGenreToSong(Integer genreId,Integer songId);
 
     void deleteGenreFromSong(Integer genreId,Integer songId);
+
+    void updateSong(Integer songId,String songTitle,LocalDate dateReleased,float rating,String lyrics);
+
+    List<Song> findSongsByGenreId(Integer genreId);
 }

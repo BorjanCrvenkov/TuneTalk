@@ -135,4 +135,11 @@ public class GenreServiceImpl implements GenreService {
         }
         return genres;
     }
+
+    @Override
+    public void updateGenre(Integer genreId, String genreName) {
+        genreRepository.updateGenre(genreId,genreName);
+    }
+
+
 }

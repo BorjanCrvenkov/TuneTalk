@@ -84,12 +84,13 @@ public class SongsController {
     }
 
     @PostMapping("/edit/{id}")
-    public String SongEditPage(@RequestParam String title,
-                                @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
-                                @RequestParam float rating,
-                                @RequestParam int artistId){
+    public String SongEditPage(@PathVariable Integer id,
+                               @RequestParam String title,
+                               @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
+                               @RequestParam float rating,
+                               @RequestParam(required = false) String lyrics){
 
-
+        songService.updateSong(id,title,dateReleased,rating,lyrics);
         return "redirect:/albums";
     }
 

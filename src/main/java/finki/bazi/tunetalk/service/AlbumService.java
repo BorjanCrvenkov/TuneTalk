@@ -3,6 +3,8 @@ package finki.bazi.tunetalk.service;
 
 import finki.bazi.tunetalk.model.Album;
 import finki.bazi.tunetalk.model.Song;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -48,4 +50,8 @@ public interface AlbumService {
     void addGenreToAlbum(Integer genreId,Integer albumId);
 
     void deleteGenreFromAlbum(Integer genreId,Integer albumId);
+
+    void updateAlbum(Integer albumId,String albumName,LocalDate dateReleased,float rating);
+
+    List<Album> findAlbumsByGenreId(Integer genreId);
 }

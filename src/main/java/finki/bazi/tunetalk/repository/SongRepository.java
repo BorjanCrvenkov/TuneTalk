@@ -46,4 +46,16 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
     @Query(value = "delete from song_genre where song_id = :songId and genre_id = :genreId",nativeQuery = true)
     void deleteGenreFromSong(@Param("genreId") Integer genreId,@Param("songId") Integer songId);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update song set title = :songTitle, date_released = :dateReleased, rating = :rating, lyrics = :lyrics where song_id = :songId",nativeQuery = true)
+    void updateSong(@Param("songId") Integer songId,
+                    @Param("songTitle") String songTitle,
+                    @Param("dateReleased") LocalDate dateReleased,
+                    @Param("rating") float rating,
+                    @Param("lyrics") String lyrics);
+
+    @Query(value = "select song_id from song_genre where genre_id = :genreId",nativeQuery = true)
+    List<Integer> findSongsByGenreId(@Param("genreId") Integer genreId);
+
 }

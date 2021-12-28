@@ -40,4 +40,6 @@ public interface GenreService {
 
     List<Genre> findGenresBySongId(Integer songId);
 
+    void updateGenre(Integer genreId,String genreName);
+
 }

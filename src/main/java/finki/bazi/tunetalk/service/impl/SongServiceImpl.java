@@ -121,4 +121,22 @@ public class SongServiceImpl implements SongService {
     public void deleteGenreFromSong(Integer genreId, Integer songId) {
         songRepository.deleteGenreFromSong(genreId, songId);
     }
+
+    @Override
+    public void updateSong(Integer songId, String songTitle, LocalDate dateReleased, float rating, String lyrics) {
+        songRepository.updateSong(songId, songTitle, dateReleased, rating, lyrics);
+    }
+
+    @Override
+    public List<Song> findSongsByGenreId(Integer genreId) {
+        List<Integer> songIds = songRepository.findSongsByGenreId(genreId);
+        List<Song> songs = new ArrayList<>();
+
+        for(Integer id : songIds){
+            songs.add(this.findById(id));
+        }
+
+        return songs;
+
+    }
 }

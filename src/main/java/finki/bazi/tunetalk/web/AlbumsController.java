@@ -101,11 +101,11 @@ public class AlbumsController {
     }
 
     @PostMapping("/edit/{id}")
-    public String AlbumEditPage(@RequestParam String albumName,
+    public String AlbumEditPage(@PathVariable Integer id,
+                                @RequestParam String albumName,
                                 @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
-                                @RequestParam float rating,
-                                @RequestParam int artistId){
-
+                                @RequestParam float rating){
+        albumService.updateAlbum(id, albumName, dateReleased, rating);
         return "redirect:/albums";
     }
 
