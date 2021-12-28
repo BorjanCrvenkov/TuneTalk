@@ -2,7 +2,7 @@
 
     <h1>Genres</h1>
 
-    <a class="btn btn-primary"  href="/genres/create">Add new genre</a>
+    <a th:if="${session.user != null}" class="btn btn-primary"  href="/genres/create">Add new genre</a>
 
     <ul>
         <li th:each="genre : ${genres}" >

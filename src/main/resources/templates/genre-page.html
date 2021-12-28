@@ -2,7 +2,7 @@
 
     <h1 th:text="${genre.getGenreName()}"></h1>
 
-    <a th:href="@{'/genres/edit/{id}' (id=${genre.getGenreId()})}">Edit page</a>
+    <a th:if="${session.user != null}" th:href="@{'/genres/edit/{id}' (id=${genre.getGenreId()})}">Edit page</a>
 
     <div>
         <h4>Albums from this genre</h4>

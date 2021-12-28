@@ -8,11 +8,11 @@
         <a href="/songs"><h4>Songs</h4></a>
         <a href="/genres"><h4>Genres</h4></a>
 
-        <span th:if="${user == null}">
+        <span th:if="${session.user == null}">
                 <a href="/login" class="btn btn-light">Login</a>
         </span>
 
-        <span th:if="${user != null}">
+        <span th:if="${session.user != null}">
             <th:block th:text="${user.getUsername()}"></th:block>
                 <a href="/logout" class="btn btn-light">Logout</a>
         </span>

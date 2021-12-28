@@ -1,5 +1,6 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <a class="btn btn-primary"  href="/artists/create">Add new artist</a>
+    <a th:if="${session.user != null}" class="btn btn-primary"  href="/artists/create">Add new artist</a>
+
     <br>
     <form th:method="post" action="/artists/search">
         <label for="search">Search album by name:</label>

@@ -24,9 +24,9 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <h1 id="albumName" th:text="${album.getAlbumName()}"></h1>
-    <a th:href="@{'/albums/edit/{id}' (id=${album.getAlbumId()})}">Edit page</a>
+    <a th:if="${session.user != null}" th:href="@{'/albums/edit/{id}' (id=${album.getAlbumId()})}">Edit page</a>
 
-    <div style="border-bottom: 2px solid lightgray;">;
+    <div style="border-bottom: 2px solid lightgray;">
         <p>Released by:</p>
         <span th:each="artist : ${artists}">
             <a th:text="${artist.getArtistName()}" th:href="@{'/artists/{id}' (id=${artist.getArtistId()})}"></a>

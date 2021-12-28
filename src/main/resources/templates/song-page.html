@@ -8,7 +8,7 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <h1 id="songName" th:text="${song.getTitle()}"></h1>
-    <a th:href="@{'/songs/edit/{id}' (id=${song.getSongId()})}">Edit page</a>
+    <a th:if="${session.user != null}" th:href="@{'/songs/edit/{id}' (id=${song.getSongId()})}">Edit page</a>
 
     <div style="border-bottom: 2px solid lightgray;">
         <p>Released by:</p>
