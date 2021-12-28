@@ -16,22 +16,11 @@ public class Genre implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer genreId;
 
-    private String genreName; // moze i enum?
+    private String genreName;
 
-    @ManyToMany
-    private List<Album> albums = new ArrayList<>();;
 
-    @ManyToMany
-    private List<Song> songs = new ArrayList<>();;
-
-    @ManyToMany
-    private List<User> userLikes = new ArrayList<>();;
-
-    public Genre(String genreName, List<Album> albums, List<Song> songs, List<User> userLikes) {
+    public Genre(String genreName) {
         this.genreName = genreName;
-        this.albums = albums;
-        this.songs = songs;
-        this.userLikes = userLikes;
     }
 
     public Genre() {
@@ -54,27 +43,4 @@ public class Genre implements Serializable {
         this.genreName = genreName;
     }
 
-    public List<Album> getAlbums() {
-        return albums;
-    }
-
-    public void setAlbums(List<Album> albums) {
-        this.albums = albums;
-    }
-
-    public List<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
-    }
-
-    public List<User> getUserLikes() {
-        return userLikes;
-    }
-
-    public void setUserLikes(List<User> userLikes) {
-        this.userLikes = userLikes;
-    }
 }

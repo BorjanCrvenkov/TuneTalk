@@ -5,6 +5,8 @@ import finki.bazi.tunetalk.model.Album;
 import finki.bazi.tunetalk.model.Genre;
 import finki.bazi.tunetalk.model.Song;
 import finki.bazi.tunetalk.model.User;
+import finki.bazi.tunetalk.model.exceptions.ArtistNameAlreadyExistsException;
+import finki.bazi.tunetalk.model.exceptions.GenreNameAlreadyExistsException;
 import finki.bazi.tunetalk.repository.AlbumRepository;
 import finki.bazi.tunetalk.repository.GenreRepository;
 import finki.bazi.tunetalk.repository.SongRepository;
@@ -47,20 +49,17 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public List<Album> getAllAlbumsByGenreId(int genreId) {
-        Genre genre = genreRepository.findByGenreId(genreId);
-        return genre.getAlbums();
+        return null;
     }
 
     @Override
     public List<Song> getAllSongsByGenreId(int genreId) {
-        Genre genre = genreRepository.findByGenreId(genreId);
-        return genre.getSongs();
+        return null;
     }
 
     @Override
     public List<User> getAllUsersThatLikeGenre(int genreId) {
-        Genre genre = genreRepository.findByGenreId(genreId);
-        return genre.getUserLikes();
+        return null;
     }
 
     @Override
@@ -71,47 +70,35 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public Album addAlbumToGenre(int albumId, int genreId) {
-        Genre genre = genreRepository.findByGenreId(genreId);
-        Album album = albumRepository.findByAlbumId(albumId);
-        genre.getAlbums().add(album);
-        return album;
+
+        return null;
     }
 
     @Override
     public Song addSongToGenre(int songId, int genreId) {
-        Genre genre = genreRepository.findByGenreId(genreId);
-        Song song = songRepository.findBySongId(songId);
-        genre.getSongs().add(song);
-        return song;
+
+        return null;
     }
 
     @Override
     public User addUserToGenre(int userId, int genreId) {
-        Genre genre = genreRepository.findByGenreId(genreId);
-        User user = userRepository.getById(userId);
-        genre.getUserLikes().add(user);
-        return user;
+
+        return null;
     }
 
     @Override
     public void removeAlbumFromGenre(int albumId, int genreId) {
-        Genre genre = genreRepository.findByGenreId(genreId);
-        Album album = albumRepository.findByAlbumId(albumId);
-        genre.getAlbums().remove(album);
+       ;
     }
 
     @Override
     public void removeSongFromGenre(int songId, int genreId) {
-        Genre genre = genreRepository.findByGenreId(genreId);
-        Song song = songRepository.findBySongId(songId);
-        genre.getSongs().remove(song);
+
     }
 
     @Override
     public void removeUserFromGenre(int userId, int genreId) {
-        Genre genre = genreRepository.findByGenreId(genreId);
-        User user = userRepository.getById(userId);
-        genre.getUserLikes().remove(user);
+
     }
 
     @Override
@@ -139,6 +126,20 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public void updateGenre(Integer genreId, String genreName) {
         genreRepository.updateGenre(genreId,genreName);
+    }
+
+    private boolean genreNameExists(String genreName){
+        return genreRepository.findGenreByGenreName(genreName) != null;
+    }
+
+    @Override
+    public void createNewGenre(String genreName) {
+        Genre genre = new Genre(genreName);
+        if(genreNameExists(genreName)){
+            throw new GenreNameAlreadyExistsException(genreName);
+        }else {
+            genreRepository.save(genre);
+        }
     }
 
 

@@ -129,8 +129,7 @@ public class ArtistServiceImpl implements ArtistService {
         return artists;
     }
 
-    @Override
-    public boolean checkIfArtistNameExists(String name) {
+    private boolean checkIfArtistNameExists(String name) {
         return artistRepository.getArtistByArtistName(name) != null;
     }
 

@@ -45,8 +45,6 @@ public interface ArtistService {
 
     List<Artist> findArtistsBySongId(Integer songId);
 
-    boolean checkIfArtistNameExists(String name);
-
     void createNewArtist(String artistName, String realName, Integer age,String description);
 
     void updateArtist(Integer id, String artistName, String realName, Integer age,String description);

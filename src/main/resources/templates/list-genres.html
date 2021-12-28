@@ -2,6 +2,8 @@
 
     <h1>Genres</h1>
 
+    <a class="btn btn-primary"  href="/genres/create">Add new genre</a>
+
     <ul>
         <li th:each="genre : ${genres}" >
             <a th:href="@{'/genres/{id}' (id=${genre.getGenreId()})}" th:text="${genre.getGenreName()}"></a>

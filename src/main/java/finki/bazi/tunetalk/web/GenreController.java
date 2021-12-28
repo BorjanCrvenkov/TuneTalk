@@ -61,4 +61,17 @@ public class GenreController {
         return "redirect:/genres";
     }
 
+    @GetMapping("/create")
+    public String getCreateNewGenrePage(Model model){
+        model.addAttribute("bodyContent", "create-genre");
+        return "master-template";
+    }
+
+    @PostMapping("/create")
+    public String createNewGenre(@RequestParam String genreName){
+
+        genreService.createNewGenre(genreName);
+        return "redirect:/genres";
+    }
+
 }
