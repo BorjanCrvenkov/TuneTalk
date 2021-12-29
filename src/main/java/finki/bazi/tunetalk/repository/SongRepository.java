@@ -58,4 +58,6 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
     @Query(value = "select song_id from song_genre where genre_id = :genreId",nativeQuery = true)
     List<Integer> findSongsByGenreId(@Param("genreId") Integer genreId);
 
+    List<Song> findAllByTitleContaining(String text);
+
 }

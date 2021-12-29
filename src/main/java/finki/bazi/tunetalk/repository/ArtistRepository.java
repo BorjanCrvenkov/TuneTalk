@@ -47,4 +47,6 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer> {
 
     @Query(value = "select artist_id from album_released where song_released.album_id = :id",nativeQuery = true)
     List<Integer> findArtistIdByAlbumId(@Param("id") Integer albumId);
+
+    List<Artist> findAllByArtistNameContainingOrRealNameContaining(String text,String text1);
 }

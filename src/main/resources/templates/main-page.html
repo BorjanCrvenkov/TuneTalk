@@ -1,15 +1,34 @@
-<div xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-    <ul>
-        <li th:each="user : ${users}">
-            <span th:text="${user.getName()}"></span>
-        </li>
-    </ul>
+        <form method="post" action="/home/search">
+            <input name="text" class="form-control mr-sm-2" type="search" placeholder="Search for artists, albums, songs" aria-label="Search">
+            <br>
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+        </form>
 
-    <form class="form">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search for artists, albums, songs" aria-label="Search">
-        <br>
-        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    </div>
+
+<ul>
+    <li th:each="object : ${objects}">
+        <span th:if="${object instanceof T(finki.bazi.tunetalk.model.Album)}">
+
+
+            <p>
+            <a th:href="@{'/albums/{id}' (id=${object.getAlbumId()})}" th:text="${object.getAlbumName()}"></a> Album
+            </p>
+        </span>
+
+        <span th:if="${object instanceof T(finki.bazi.tunetalk.model.Artist)}">
+            <a th:href="@{'/artists/{id}' (id=${object.getArtistId()})}" th:text="${object.getArtistName()}"></a> Artist
+        </span>
+
+
+        <span th:if="${object instanceof T(finki.bazi.tunetalk.model.Song)}">
+            <a th:href="@{'/songs/{id}' (id=${object.getSongId()})}" th:text="${object.getTitle()}"></a> Song
+        </span>
+    </li>
+</ul>
+
 
 </div>

@@ -65,4 +65,6 @@ public interface AlbumRepository extends JpaRepository<Album, Integer> {
     @Query(value = "select album_id from album_genre where genre_id = :genreId",nativeQuery = true)
     List<Integer> findAlbumsByGenreId(@Param("genreId") Integer genreId);
 
+    List<Album> findAllByAlbumNameContaining(String text);
+
 }
