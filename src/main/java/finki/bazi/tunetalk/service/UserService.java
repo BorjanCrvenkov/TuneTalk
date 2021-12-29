@@ -1,8 +1,13 @@
 package finki.bazi.tunetalk.service;
 
+import finki.bazi.tunetalk.model.Comment;
 import finki.bazi.tunetalk.model.Users;
 
+import java.util.List;
+
 public interface UserService {
+
+    Users findByUserId(Integer userId);
 
     Users getUserByUsernameAndPassword(String username, String password);
 
@@ -11,4 +16,10 @@ public interface UserService {
                        String repeatedPassword, String aboutUser);
 
     Users logIn(String username,String password);
+
+    Integer findUserByCommentId(Integer commentId);
+
+    void likeComment(Integer userid,Integer commentId);
+
+    void dislikeComment(Integer userid,Integer commentId);
 }

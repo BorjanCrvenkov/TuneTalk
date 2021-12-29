@@ -1,10 +1,15 @@
 package finki.bazi.tunetalk.service.impl;
 
+import finki.bazi.tunetalk.model.Comment;
 import finki.bazi.tunetalk.model.Users;
 import finki.bazi.tunetalk.model.exceptions.*;
 import finki.bazi.tunetalk.repository.UserRepository;
+import finki.bazi.tunetalk.service.CommentsService;
 import finki.bazi.tunetalk.service.UserService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -13,6 +18,11 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public Users findByUserId(Integer userId) {
+        return userRepository.findByUserId(userId);
     }
 
     @Override
@@ -70,4 +80,50 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+
+    @Override
+    public Integer findUserByCommentId(Integer commentId) {
+        return userRepository.findByCommentId(commentId);
+    }
+
+    @Override
+    public void likeComment(Integer userid, Integer commentId) {
+
+        if(this.userRepository.checkIfUserDislikesComment(userid, commentId) != 0){
+            this.userRepository.removeUserDislikesComment(userid, commentId);
+            this.userRepository.likeComment(userid, commentId);
+            // ako e disliked  komentarot izbrisi go dislike-ot i dodadi like
+
+        }else  if(this.userRepository.checkIfUserLikesComment(userid, commentId) != 0){
+            this.userRepository.removeUserLikesComment(userid,commentId);
+            // ako vekje e like-nat komentarot napravi unlike
+
+        }else{
+            this.userRepository.removeUserLikesComment(userid,commentId);
+            // like comment
+        }
+
+
+
+    }
+
+    @Override
+    public void dislikeComment(Integer userid, Integer commentId) {
+
+        if(this.userRepository.checkIfUserLikesComment(userid, commentId) != 0){
+            this.userRepository.removeUserLikesComment(userid, commentId);
+            this.userRepository.dislikeComment(userid, commentId);
+            // ako e liked  komentarot izbrisi go like-ot i dodadi dislike
+
+        }else  if(this.userRepository.checkIfUserDislikesComment(userid, commentId) != 0){
+            this.userRepository.removeUserLikesComment(userid,commentId);
+            // ako vekje e dislike-nat komentarot napravi undislike
+
+        }else{
+            this.userRepository.removeUserLikesComment(userid,commentId);
+            // dislike comment
+        }
+
+    }
+
 }

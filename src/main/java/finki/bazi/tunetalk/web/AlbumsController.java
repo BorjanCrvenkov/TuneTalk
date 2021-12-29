@@ -1,14 +1,8 @@
 package finki.bazi.tunetalk.web;
 
 
-import finki.bazi.tunetalk.model.Album;
-import finki.bazi.tunetalk.model.Artist;
-import finki.bazi.tunetalk.model.Song;
-import finki.bazi.tunetalk.model.Users;
-import finki.bazi.tunetalk.service.AlbumService;
-import finki.bazi.tunetalk.service.ArtistService;
-import finki.bazi.tunetalk.service.GenreService;
-import finki.bazi.tunetalk.service.SongService;
+import finki.bazi.tunetalk.model.*;
+import finki.bazi.tunetalk.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,12 +20,16 @@ public class AlbumsController {
     private final ArtistService artistService;
     private final SongService songService;
     private final GenreService genreService;
+    private final CommentsService commentsService;
+    private final UserService userService;
 
-    public AlbumsController(AlbumService albumService, ArtistService artistService, SongService songService, GenreService genreService) {
+    public AlbumsController(AlbumService albumService, ArtistService artistService, SongService songService, GenreService genreService, CommentsService commentsService, UserService userService) {
         this.albumService = albumService;
         this.artistService = artistService;
         this.songService = songService;
         this.genreService = genreService;
+        this.commentsService = commentsService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -80,6 +78,11 @@ public class AlbumsController {
         model.addAttribute("songs",songs);
 
         model.addAttribute("genres", genreService.findGenresByAlbumId(id));
+
+        List<Comment> comments = commentsService.findCommentsByAlbumId(id);
+        model.addAttribute("comments",comments);
+
+        model.addAttribute("map", commentsService.commentsAndUsers(comments));
 
         model.addAttribute("bodyContent", "album-page");
         return "master-template";
@@ -174,6 +177,22 @@ public class AlbumsController {
     @GetMapping("/deleteGenreFromAlbum/{albumId}/{genreId}")
     public String deleteGenreFromAlbum(@PathVariable Integer albumId,@PathVariable Integer genreId){
         albumService.deleteGenreFromAlbum(genreId,albumId);
+        return "redirect:/albums/"+albumId;
+    }
+
+    @GetMapping("/addComment/{albumId}")
+    public String addAlbumComment(@PathVariable Integer albumId,
+                                  @RequestParam String text,HttpServletRequest req){
+        Users user = (Users) req.getSession().getAttribute("user");
+        commentsService.createNewComment(text,null,user.getUserId(),albumId,null);
+        return "redirect:/albums/"+albumId;
+    }
+
+    @GetMapping("/addComment/{albumId}/{firstCommentId}")
+    public String addAlbumCommentReply(@PathVariable Integer albumId, @PathVariable(required = false) Integer firstCommentId,
+                                  @RequestParam String text,HttpServletRequest req){
+        Users user = (Users) req.getSession().getAttribute("user");
+        commentsService.createNewComment(text,firstCommentId,user.getUserId(),albumId,null);
         return "redirect:/albums/"+albumId;
     }
 

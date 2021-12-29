@@ -1,10 +1,7 @@
 package finki.bazi.tunetalk.web;
 
 import finki.bazi.tunetalk.model.*;
-import finki.bazi.tunetalk.service.AlbumService;
-import finki.bazi.tunetalk.service.ArtistService;
-import finki.bazi.tunetalk.service.GenreService;
-import finki.bazi.tunetalk.service.SongService;
+import finki.bazi.tunetalk.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +19,14 @@ public class SongsController {
     private final AlbumService albumService;
     private final ArtistService artistService;
     private final GenreService genreService;
+    private final CommentsService commentsService;
 
-    public SongsController(SongService songService, AlbumService albumService, ArtistService artistService, GenreService genreService) {
+    public SongsController(SongService songService, AlbumService albumService, ArtistService artistService, GenreService genreService, CommentsService commentsService) {
         this.songService = songService;
         this.albumService = albumService;
         this.artistService = artistService;
         this.genreService = genreService;
+        this.commentsService = commentsService;
     }
 
     @GetMapping
@@ -64,6 +63,11 @@ public class SongsController {
         model.addAttribute("artists",artistService.findArtistsBySongId(id));
 
         model.addAttribute("genres", genreService.findGenresBySongId(id));
+
+        List<Comment> comments = commentsService.findCommentsBySongId(id);
+        model.addAttribute("comments",comments);
+
+        model.addAttribute("map", commentsService.commentsAndUsers(comments));
 
         model.addAttribute("bodyContent", "song-page");
 
@@ -151,6 +155,22 @@ public class SongsController {
     @GetMapping("/deleteGenreFromSong/{songId}/{genreId}")
     public String deletegenreFromSong(@PathVariable Integer songId,@PathVariable Integer genreId){
         songService.deleteGenreFromSong(genreId,songId);
+        return "redirect:/songs/"+songId;
+    }
+
+    @GetMapping("/addComment/{songId}")
+    public String addSongComment(@PathVariable Integer songId,
+                                 @RequestParam String text,HttpServletRequest req){
+        Users user = (Users) req.getSession().getAttribute("user");
+        commentsService.createNewComment(text,null,user.getUserId(),null,songId);
+        return "redirect:/songs/"+songId;
+    }
+
+    @GetMapping("/addComment/{songId}/{firstCommentId}")
+    public String addSongCommentReply(@PathVariable Integer songId, @PathVariable(required = false) Integer firstCommentId,
+                                 @RequestParam String text,HttpServletRequest req){
+        Users user = (Users) req.getSession().getAttribute("user");
+        commentsService.createNewComment(text,firstCommentId,user.getUserId(),null,songId);
         return "redirect:/songs/"+songId;
     }
 
