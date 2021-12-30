@@ -24,7 +24,20 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <h1 id="albumName" th:text="${album.getAlbumName()}"></h1>
-    <a th:if="${session.user != null}" th:href="@{'/albums/edit/{id}' (id=${album.getAlbumId()})}">Edit page</a>
+
+    <div th:if="${session.user != null}">
+
+        <div th:if="${session.user.isAdmin() == true}">
+            <a th:if="${album.isVerified() == false}" th:href="@{'/albums/verify/{albumId}' (albumId=${album.getAlbumId()})}">Verify</a>
+            <a th:if="${album.isVerified() == true}" th:href="@{'/albums/unverify/{albumId}' (albumId=${album.getAlbumId()})}">Unverify</a>
+        </div>
+
+        <div th:if="${album.isVerified() == false}">
+            <a th:href="@{'/albums/edit/{id}' (id=${album.getAlbumId()})}">Edit page</a>
+        </div>
+
+
+    </div>
 
     <div style="border-bottom: 2px solid lightgray;">
         <p>Released by:</p>
@@ -83,14 +96,7 @@
             <div style="border: 5px solid red; margin-top: 20px">
                 <h4>Comment</h4>
 
-                <th:block th:each="instance : ${map}">
-                    <span th:if="${instance.key.getCommentId() == comment.getCommentId()}">
-                        <p th:text="'Comment by: ' +${instance.value.getUsername()} "></p>
-
-                    </span>
-
-                </th:block>
-
+                <p th:text="'Comment by: ' +${comment.getUser().getUsername()} ">
 
                 <p><b th:text="'Date posted: ' + ${comment.getDatePosted()}"></b></p>
 
@@ -119,14 +125,6 @@
                 <h4>Replies</h4>
 
                 <div th:each="reply : ${comment.getReplies()}" th:inline="text">
-
-                    <th:block th:each="instance : ${map}">
-                    <span th:if="${instance.key.getCommentId() == comment.getCommentId()}">
-                        <p th:text="'Comment by: ' +${instance.value.getUsername()} "></p>
-
-                    </span>
-
-                    </th:block>
 
                         <p><b th:text="'Date posted: ' + ${reply.getDatePosted()}"></b></p>
 

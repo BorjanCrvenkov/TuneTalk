@@ -67,8 +67,6 @@ public class SongsController {
         List<Comment> comments = commentsService.findCommentsBySongId(id);
         model.addAttribute("comments",comments);
 
-        model.addAttribute("map", commentsService.commentsAndUsers(comments));
-
         model.addAttribute("bodyContent", "song-page");
 
         return "master-template";
@@ -171,6 +169,18 @@ public class SongsController {
                                  @RequestParam String text,HttpServletRequest req){
         Users user = (Users) req.getSession().getAttribute("user");
         commentsService.createNewComment(text,firstCommentId,user.getUserId(),null,songId);
+        return "redirect:/songs/"+songId;
+    }
+
+    @GetMapping("/verify/{songId}")
+    public String verifySong(@PathVariable Integer songId){
+        songService.verifySong(songId);
+        return "redirect:/songs/"+songId;
+    }
+
+    @GetMapping("/unverify/{songId}")
+    public String unverifySong(@PathVariable Integer songId){
+        songService.unverifySong(songId);
         return "redirect:/songs/"+songId;
     }
 

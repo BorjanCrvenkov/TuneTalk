@@ -60,4 +60,13 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
 
     List<Song> findAllByTitleContaining(String text);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update song set verified = true where song_id = :songId",nativeQuery = true)
+    void verifySong(@Param("songId")Integer songId);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update song set verified = false where song_id = :songId",nativeQuery = true)
+    void unverifySong(@Param("songId")Integer songId);
 }

@@ -8,7 +8,22 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <h1 id="songName" th:text="${song.getTitle()}"></h1>
-    <a th:if="${session.user != null}" th:href="@{'/songs/edit/{id}' (id=${song.getSongId()})}">Edit page</a>
+
+    <div th:if="${session.user != null}">
+
+        <div th:if="${session.user.isAdmin() == true}">
+            <a th:if="${song.isVerified() == false}" th:href="@{'/songs/verify/{songId}' (songId=${song.getSongId()})}">Verify</a>
+            <a th:if="${song.isVerified() == true}" th:href="@{'/songs/unverify/{songId}' (songId=${song.getSongId()})}">Unverify</a>
+        </div>
+
+        <div th:if="${song.isVerified() == false}">
+            <a th:href="@{'/songs/edit/{id}' (id=${song.getSongId()})}">Edit page</a>
+        </div>
+
+
+    </div>
+
+
 
     <div style="border-bottom: 2px solid lightgray;">
         <p>Released by:</p>
@@ -64,13 +79,7 @@
             <div style="border: 5px solid red; margin-top: 20px">
                 <h4>Comment</h4>
 
-                <th:block th:each="instance : ${map}">
-                    <span th:if="${instance.key.getCommentId() == comment.getCommentId()}">
-                        <p th:text="'Comment by: ' +${instance.value.getUsername()} "></p>
-
-                    </span>
-
-                </th:block>
+                <p th:text="'Comment by: ' +${comment.getUser().getUsername()} "></p>
 
 
                 <p><b th:text="'Date posted: ' + ${comment.getDatePosted()}"></b></p>
@@ -101,13 +110,7 @@
 
                 <div th:each="reply : ${comment.getReplies()}" th:inline="text">
 
-                    <th:block th:each="instance : ${map}">
-                    <span th:if="${instance.key.getCommentId() == comment.getCommentId()}">
-                        <p th:text="'Comment by: ' +${instance.value.getUsername()} "></p>
-
-                    </span>
-
-                    </th:block>
+                    <p th:text="'Comment by: ' +${comment.getUser().getUsername()} "></p>
 
                     <p><b th:text="'Date posted: ' + ${reply.getDatePosted()}"></b></p>
 

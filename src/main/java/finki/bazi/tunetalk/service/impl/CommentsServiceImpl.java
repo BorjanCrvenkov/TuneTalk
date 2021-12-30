@@ -52,26 +52,11 @@ public class CommentsServiceImpl implements CommentsService {
         return comments;
     }
 
-    @Override
-    public Map<Comment, Users> commentsAndUsers(List<Comment> comments) {
-        Map<Comment, Users> commentUsersMap = new HashMap<>();
-
-        for(Comment c : comments){
-            Integer userId = commentRepository.findUserByCommentId(c.getCommentId());
-            Users user = userService.findByUserId(userId);
-            commentUsersMap.put(c,user);
-        }
-
-        return commentUsersMap;
-
-    }
-
-
-
     private void rekurzija(Integer id){
         List<Comment> replies = findAllCommentRepliesByCommentId(id);
 
         for(Comment r : replies){
+            r.setUser(userService.findUserByCommentId(r.getCommentId()));
             rekurzija(r.getCommentId());
         }
 
@@ -86,6 +71,7 @@ public class CommentsServiceImpl implements CommentsService {
 
         for(Integer id : commentIds){
             Comment comment = this.findCommentById(id);
+            comment.setUser(userService.findUserByCommentId(id));
             rekurzija(id);
             comments.add(comment);
         }
@@ -100,6 +86,7 @@ public class CommentsServiceImpl implements CommentsService {
 
         for(Integer id : commentIds){
             Comment comment = this.findCommentById(id);
+            comment.setUser(userService.findUserByCommentId(id));
             rekurzija(id);
             comments.add(comment);
         }

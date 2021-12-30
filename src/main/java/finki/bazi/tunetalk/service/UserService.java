@@ -17,7 +17,7 @@ public interface UserService {
 
     Users logIn(String username,String password);
 
-    Integer findUserByCommentId(Integer commentId);
+    Users findUserByCommentId(Integer commentId);
 
     void likeComment(Integer userid,Integer commentId);
 

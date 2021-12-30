@@ -96,5 +96,15 @@ public class AlbumServiceImpl implements AlbumService {
 
     }
 
+    @Override
+    public void verifyAlbum(Integer albumId) {
+        albumRepository.verifyAlbum(albumId);
+    }
+
+    @Override
+    public void unverifyAlbum(Integer albumId) {
+        albumRepository.unverifyAlbum(albumId);
+    }
+
 
 }

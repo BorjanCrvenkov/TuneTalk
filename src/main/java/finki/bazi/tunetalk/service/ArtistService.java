@@ -33,4 +33,7 @@ public interface ArtistService {
 
     List<Artist> findArtistsByAlbumId(Integer albumId);
 
+    void verifyArtist(Integer artistId);
+    void unverifyArtist(Integer artistId);
+
 }

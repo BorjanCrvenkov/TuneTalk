@@ -6,6 +6,7 @@ import finki.bazi.tunetalk.model.exceptions.*;
 import finki.bazi.tunetalk.repository.UserRepository;
 import finki.bazi.tunetalk.service.CommentsService;
 import finki.bazi.tunetalk.service.UserService;
+import org.h2.engine.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,11 +47,19 @@ public class UserServiceImpl implements UserService {
         return email.contains("@") && email.contains(".com"); // ako ima @ i .com validen e
     }
 
+    private boolean checkIfUsernameContainsAdmin(String username){
+        return username.toLowerCase().contains("admin");
+    }
+
 
     @Override
     public void createNewUser(String name, String surname, int age, String email, String mobilePhone, String username, String password, String repeatedPassword, String aboutUser) {
         if(checkIfUsernameExists(username)){
             throw new UsernameAlreadyExistsException(username);
+        }
+
+        if(checkIfUsernameContainsAdmin(username)){
+            throw new UsernameCantContainAdminException();
         }
 
         if(!verifyEmail(email)){
@@ -70,6 +79,10 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    private boolean checkIfUserIsAdmin(String username){
+        return username.contains("ADMIN_193");
+    }
+
     @Override
     public Users logIn(String username, String password) {
         Users user = this.getUserByUsernameAndPassword(username, password);
@@ -78,12 +91,16 @@ public class UserServiceImpl implements UserService {
             throw new UserWithCredentialsDoesNotExistsException(username,password);
         }
 
+        user.setAdmin(checkIfUserIsAdmin(username));
+
         return user;
     }
 
     @Override
-    public Integer findUserByCommentId(Integer commentId) {
-        return userRepository.findByCommentId(commentId);
+    public Users findUserByCommentId(Integer commentId) {
+
+        Integer id = userRepository.findByCommentId(commentId);
+        return findByUserId(id);
     }
 
     @Override

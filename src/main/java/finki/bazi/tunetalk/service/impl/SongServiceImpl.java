@@ -95,4 +95,14 @@ public class SongServiceImpl implements SongService {
         return songs;
 
     }
+
+    @Override
+    public void verifySong(Integer songId) {
+        songRepository.verifySong(songId);
+    }
+
+    @Override
+    public void unverifySong(Integer songId) {
+        songRepository.unverifySong(songId);
+    }
 }

@@ -32,4 +32,7 @@ public interface AlbumService {
     void updateAlbum(Integer albumId,String albumName,LocalDate dateReleased,float rating);
 
     List<Album> findAlbumsByGenreId(Integer genreId);
+
+    void verifyAlbum(Integer albumId);
+    void unverifyAlbum(Integer albumId);
 }

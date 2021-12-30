@@ -35,6 +35,9 @@ public class Users implements Serializable {
 
     private String aboutMe;
 
+    @Transient
+    private boolean admin;
+
     public Users(String username, String password, String name, String surname, String email, String mobilePhone, Integer age, String aboutMe) {
         this.username = username;
         this.password = password;
@@ -45,6 +48,7 @@ public class Users implements Serializable {
         this.mobilePhone = mobilePhone;
         this.age = age;
         this.aboutMe = aboutMe;
+        this.admin = username.contains("ADMIN_193");
     }
 
     public Users() {
@@ -129,5 +133,13 @@ public class Users implements Serializable {
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }

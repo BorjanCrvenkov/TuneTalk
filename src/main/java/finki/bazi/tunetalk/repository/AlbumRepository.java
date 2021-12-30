@@ -67,4 +67,14 @@ public interface AlbumRepository extends JpaRepository<Album, Integer> {
 
     List<Album> findAllByAlbumNameContaining(String text);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update album set verified = true where album_id = :albumId",nativeQuery = true)
+    void verifyAlbum(@Param("albumId")Integer albumId);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update album set verified = false where album_id = :albumId",nativeQuery = true)
+    void unverifyAlbum(@Param("albumId")Integer albumId);
+
 }

@@ -28,4 +28,7 @@ public interface SongService {
     void updateSong(Integer songId,String songTitle,LocalDate dateReleased,float rating,String lyrics);
 
     List<Song> findSongsByGenreId(Integer genreId);
+
+    void verifySong(Integer songId);
+    void unverifySong(Integer songId);
 }

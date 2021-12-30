@@ -17,7 +17,6 @@ public interface CommentsService {
 
     List<Comment> findCommentsByAlbumId(Integer albumId);
 
-    Map<Comment,Users> commentsAndUsers(List<Comment> comments);
 
     List<Comment> findCommentsBySongId(Integer songId);
 

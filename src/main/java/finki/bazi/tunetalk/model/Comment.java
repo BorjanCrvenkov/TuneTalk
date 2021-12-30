@@ -37,6 +37,9 @@ public class Comment implements Serializable {
     @ElementCollection
     private List<Comment> replies;
 
+    @Transient
+    private Users user;
+
     public Comment(String text,LocalDate datePosted, Integer firstCommentId, Integer userId, Integer albumId, Integer songId) {
         this.datePosted = datePosted;
         this.text = text;
@@ -114,5 +117,13 @@ public class Comment implements Serializable {
 
     public void setReplies(List<Comment> replies) {
         this.replies = replies;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 }

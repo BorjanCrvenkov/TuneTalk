@@ -82,8 +82,6 @@ public class AlbumsController {
         List<Comment> comments = commentsService.findCommentsByAlbumId(id);
         model.addAttribute("comments",comments);
 
-        model.addAttribute("map", commentsService.commentsAndUsers(comments));
-
         model.addAttribute("bodyContent", "album-page");
         return "master-template";
     }
@@ -193,6 +191,18 @@ public class AlbumsController {
                                   @RequestParam String text,HttpServletRequest req){
         Users user = (Users) req.getSession().getAttribute("user");
         commentsService.createNewComment(text,firstCommentId,user.getUserId(),albumId,null);
+        return "redirect:/albums/"+albumId;
+    }
+
+    @GetMapping("/verify/{albumId}")
+    public String verifyAlbum(@PathVariable Integer albumId){
+        albumService.verifyAlbum(albumId);
+        return "redirect:/albums/"+albumId;
+    }
+
+    @GetMapping("/unverify/{albumId}")
+    public String unverifyAlbum(@PathVariable Integer albumId){
+        albumService.unverifyAlbum(albumId);
         return "redirect:/albums/"+albumId;
     }
 

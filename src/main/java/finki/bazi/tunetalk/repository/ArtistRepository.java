@@ -49,4 +49,14 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer> {
     List<Integer> findArtistIdByAlbumId(@Param("id") Integer albumId);
 
     List<Artist> findAllByArtistNameContainingOrRealNameContaining(String text,String text1);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update artist set verified = true where artist_id = :artistId",nativeQuery = true)
+    void verifyArtist(@Param("artistId")Integer artistId);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update artist set verified = false where artist_id = :artistId",nativeQuery = true)
+    void unverifyArtist(@Param("artistId")Integer artistId);
 }

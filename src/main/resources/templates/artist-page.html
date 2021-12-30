@@ -22,7 +22,21 @@
 
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <h1 id="artistName" th:text="${artist.getArtistName()}"></h1>
-  <a th:if="${session.user != null}" th:href="@{'/artists/edit/{id}' (id=${artist.getArtistId()})}">Edit page</a>
+
+
+  <div th:if="${session.user != null}">
+
+    <div th:if="${session.user.isAdmin() == true}">
+      <a th:if="${artist.isVerified() == false}" th:href="@{'/artists/verify/{artistId}' (artistId=${artist.getArtistId()})}">Verify</a>
+      <a th:if="${artist.isVerified() == true}" th:href="@{'/artists/unverify/{artistId}' (artistId=${artist.getArtistId()})}">Unverify</a>
+    </div>
+
+    <div th:if="${artist.isVerified() == false}">
+      <a th:href="@{'/artists/edit/{id}' (id=${artist.getArtistId()})}">Edit page</a>
+    </div>
+
+
+  </div>
 
   <div id="basic-info">
     <p th:text="(${artist.getRealName()} != null ? 'Real name: ' + ${artist.getRealName()} : 'Real name: Unknown')"></p>

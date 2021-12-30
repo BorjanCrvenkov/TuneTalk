@@ -110,4 +110,14 @@ public class ArtistServiceImpl implements ArtistService {
         return artists;
     }
 
+    @Override
+    public void verifyArtist(Integer artistId) {
+        artistRepository.verifyArtist(artistId);
+    }
+
+    @Override
+    public void unverifyArtist(Integer artistId) {
+        artistRepository.unverifyArtist(artistId);
+    }
+
 }

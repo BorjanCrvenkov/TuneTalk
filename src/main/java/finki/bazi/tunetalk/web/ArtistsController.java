@@ -107,4 +107,16 @@ public class ArtistsController {
 
     }
 
+    @GetMapping("/verify/{artistId}")
+    public String verifyArtist(@PathVariable Integer artistId){
+        artistService.verifyArtist(artistId);
+        return "redirect:/artists/"+artistId;
+    }
+
+    @GetMapping("/unverify/{artistId}")
+    public String unverifyArtistm(@PathVariable Integer artistId){
+        artistService.unverifyArtist(artistId);
+        return "redirect:/artists/"+artistId;
+    }
+
 }
