@@ -42,15 +42,19 @@ public class SongsController {
     }
 
     @GetMapping("/create")
-    public String getCreateNewAlbumPage(Model model){
-//        model.addAttribute("artistList", DataHolder.artists);
+    public String getCreateNewSongPage(Model model){
         model.addAttribute("bodyContent", "create-song");
         return "master-template";
     }
 
     @PostMapping("/create")
-    public String createNewArtist(){
-        return "redirect:/home";
+    public String createNewSong(@RequestParam String title,
+                                @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
+                                @RequestParam float rating,
+                                @RequestParam String lyrics){
+        this.songService.createNewSong(title, dateReleased, rating, lyrics);
+
+        return "redirect:/songs";
     }
 
     @GetMapping("/{id}")

@@ -20,6 +20,6 @@ public interface CommentsService {
 
     List<Comment> findCommentsBySongId(Integer songId);
 
-    void createNewComment(String text,Integer firstCommentId,Integer userId,Integer albumId,Integer songId);
+    Comment createNewComment(String text,Integer firstCommentId,Integer userId,Integer albumId,Integer songId);
 
 }

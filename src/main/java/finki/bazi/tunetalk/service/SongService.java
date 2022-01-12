@@ -31,4 +31,6 @@ public interface SongService {
 
     void verifySong(Integer songId);
     void unverifySong(Integer songId);
+
+    Song createNewSong(String title, LocalDate dateReleased, float rating, String lyrics);
 }

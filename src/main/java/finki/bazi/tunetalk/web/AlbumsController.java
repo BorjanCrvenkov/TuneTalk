@@ -58,7 +58,7 @@ public class AlbumsController {
                                  @RequestParam float rating,
                                  @RequestParam int artistId){
 
-        albumService.addNewAlbum(albumName,dateReleased,rating,artistId);
+        albumService.createNewAlbum(albumName,dateReleased,rating,artistId);
 
         return "redirect:/home";
     }

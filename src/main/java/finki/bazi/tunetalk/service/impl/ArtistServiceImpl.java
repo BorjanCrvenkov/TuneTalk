@@ -49,24 +49,15 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     public List<Artist> getArtistsByAlbumId(Integer albumId) {
         List<Integer> artistIds = artistRepository.findArtistsIdByAlbumId(albumId);
-        List<Artist> artists = new ArrayList<>();
-        for(Integer i : artistIds){
-            artists.add(this.findArtistById(i));
-        }
 
-        return artists;
+        return artistRepository.findAllById(artistIds);
     }
 
     @Override
     public List<Artist> findArtistsBySongId(Integer songId) {
         List<Integer> artistIds = artistRepository.findArtistIdBySongId(songId);
-        List<Artist> artists = new ArrayList<>();
 
-        for(Integer artistId : artistIds){
-            artists.add(this.findArtistById(artistId));
-        }
-
-        return artists;
+        return artistRepository.findAllById(artistIds);
     }
 
     private boolean checkIfArtistNameExists(String name) {
@@ -74,12 +65,12 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public void createNewArtist(String artistName, String realName, Integer age, String description) {
+    public Artist createNewArtist(String artistName, String realName, Integer age, String description) {
         Artist artist = new Artist(artistName,realName,age,description);
         if(this.checkIfArtistNameExists(artistName)){
             throw new ArtistNameAlreadyExistsException(artistName);
         }
-        artistRepository.save(artist);
+        return artistRepository.save(artist);
     }
 
     @Override
@@ -101,13 +92,7 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     public List<Artist> findArtistsByAlbumId(Integer albumId) {
         List<Integer> artistIds = artistRepository.findArtistIdByAlbumId(albumId);
-        List<Artist> artists = new ArrayList<>();
-
-        for(Integer artistId : artistIds){
-            artists.add(this.findArtistById(artistId));
-        }
-
-        return artists;
+        return artistRepository.findAllById(artistIds);
     }
 
     @Override

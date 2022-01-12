@@ -1,6 +1,6 @@
 package finki.bazi.tunetalk.model;
 
-import finki.bazi.tunetalk.model.enumerations.CommentType;
+
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

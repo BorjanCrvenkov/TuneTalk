@@ -10,8 +10,6 @@ import org.h2.engine.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -54,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void createNewUser(String name, String surname, LocalDate birthday, String email, String mobilePhone, String username, String password, String repeatedPassword, String aboutUser) {
+    public Users createNewUser(String name, String surname, LocalDate birthday, String email, String mobilePhone, String username, String password, String repeatedPassword, String aboutUser) {
         if(checkIfUsernameExists(username)){
             throw new UsernameAlreadyExistsException(username);
         }
@@ -77,7 +75,7 @@ public class UserServiceImpl implements UserService {
         }
 
         Users user = new Users(username, password, name, surname, email, mobilePhone, birthday, aboutUser);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     private boolean checkIfUserIsAdmin(String username){

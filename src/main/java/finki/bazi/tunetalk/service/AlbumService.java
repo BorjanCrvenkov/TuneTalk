@@ -19,7 +19,7 @@ public interface AlbumService {
 
     Album findAlbumBySongId(Integer songId);
 
-    Album addNewAlbum(String albumName,LocalDate dateReleased, float rating, int artistId);
+    Album createNewAlbum(String albumName,LocalDate dateReleased, float rating, int artistId);
 
     void deleteArtistFromAlbum(Integer artistId,Integer albumId);
 

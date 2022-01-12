@@ -21,6 +21,6 @@ public interface GenreService {
 
     void updateGenre(Integer genreId,String genreName);
 
-    void createNewGenre(String genreName);
+    Genre createNewGenre(String genreName);
 
 }

@@ -12,7 +12,7 @@ public interface UserService {
 
     Users getUserByUsernameAndPassword(String username, String password);
 
-    void createNewUser(String name, String surname, LocalDate birthday, String email,
+    Users createNewUser(String name, String surname, LocalDate birthday, String email,
                        String mobilePhone, String username, String password,
                        String repeatedPassword, String aboutUser);
 

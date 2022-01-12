@@ -23,7 +23,7 @@ public interface ArtistService {
 
     List<Artist> findArtistsBySongId(Integer songId);
 
-    void createNewArtist(String artistName, String realName, Integer age,String description);
+    Artist createNewArtist(String artistName, String realName, Integer age,String description);
 
     void updateArtist(Integer id, String artistName, String realName, Integer age,String description);
 

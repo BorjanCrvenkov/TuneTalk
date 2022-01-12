@@ -25,31 +25,19 @@ public class CommentsServiceImpl implements CommentsService {
 
     @Override
     public Comment findCommentById(Integer commentId) {
-        return commentRepository.findByCommentId(commentId);
+        return commentRepository.findById(commentId).get();
     }
 
     @Override
     public List<Comment> findAllCommentRepliesByCommentId(Integer commentId) {
         List<Integer> commentIds = commentRepository.findAllCommentRepliesByCommentId(commentId);
-        List<Comment> comments = new ArrayList<>();
-
-        for(Integer id : commentIds){
-            comments.add(this.findCommentById(id));
-        }
-
-        return comments;
+        return this.commentRepository.findAllById(commentIds);
     }
 
     @Override
     public List<Comment> findAllMainComments() {
         List<Integer> commentIds = commentRepository.findAllMainComments();
-        List<Comment> comments = new ArrayList<>();
-
-        for(Integer id : commentIds){
-            comments.add(this.findCommentById(id));
-        }
-
-        return comments;
+        return this.commentRepository.findAllById(commentIds);
     }
 
     private void rekurzija(Integer id){
@@ -95,9 +83,9 @@ public class CommentsServiceImpl implements CommentsService {
     }
 
     @Override
-    public void createNewComment(String text, Integer firstCommentId, Integer userId, Integer albumId, Integer songId) {
+    public Comment createNewComment(String text, Integer firstCommentId, Integer userId, Integer albumId, Integer songId) {
         Comment comment = new Comment(text, LocalDate.now(),firstCommentId,userId,albumId,songId);
-        commentRepository.save(comment);
+        return commentRepository.save(comment);
     }
 
 

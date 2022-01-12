@@ -36,12 +36,8 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<Album> findAllAlbumsByArtistId(Integer artistId) {
         List<Integer> albumsIds = albumRepository.findAllAlbumsIdByArtistId(artistId);
-        List<Album> albums = new ArrayList<>();
-        for (Integer albumsId : albumsIds) {
-            albums.add(this.findById(albumsId));
-        }
 
-        return albums;
+        return albumRepository.findAllById(albumsIds);
     }
 
     @Override
@@ -50,12 +46,13 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public Album addNewAlbum(String albumName, LocalDate dateReleased, float rating, int artistId) {
+    public Album createNewAlbum(String albumName, LocalDate dateReleased, float rating, int artistId) {
         Album album = new Album(albumName,dateReleased,rating,false);
-        albumRepository.save(album);
+
         Integer albumId = albumRepository.findAlbumIdByAlbumNameDateReleasedAndRating(albumName,dateReleased,rating);
         artistService.addArtistToAlbum(artistId,albumId);
-        return album;
+
+        return albumRepository.save(album);
     }
 
     @Override
@@ -86,13 +83,7 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<Album> findAlbumsByGenreId(Integer genreId) {
         List<Integer> albumIds = albumRepository.findAlbumsByGenreId(genreId);
-        List<Album> albums = new ArrayList<>();
-
-        for(Integer id : albumIds){
-            albums.add(this.findById(id));
-        }
-
-        return albums;
+        return albumRepository.findAllById(albumIds);
 
     }
 

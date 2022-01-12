@@ -48,23 +48,13 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public List<Genre> findGenresByAlbumId(Integer albumId) {
         List<Integer> genreIds = genreRepository.findGenresByAlbumId(albumId);
-        List<Genre> genres = new ArrayList<>();
-
-        for(Integer id :genreIds){
-            genres.add(this.findGenreById(id));
-        }
-        return genres;
+        return this.genreRepository.findAllById(genreIds);
     }
 
     @Override
     public List<Genre> findGenresBySongId(Integer songId) {
         List<Integer> genreIds = genreRepository.findGenresBySongId(songId);
-        List<Genre> genres = new ArrayList<>();
-
-        for(Integer id :genreIds){
-            genres.add(this.findGenreById(id));
-        }
-        return genres;
+        return this.genreRepository.findAllById(genreIds);
     }
 
     @Override
@@ -77,12 +67,12 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public void createNewGenre(String genreName) {
+    public Genre createNewGenre(String genreName) {
         Genre genre = new Genre(genreName);
         if(genreNameExists(genreName)){
             throw new GenreNameAlreadyExistsException(genreName);
         }else {
-            genreRepository.save(genre);
+            return genreRepository.save(genre);
         }
     }
 

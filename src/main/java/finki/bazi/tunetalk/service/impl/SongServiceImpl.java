@@ -42,25 +42,13 @@ public class SongServiceImpl implements SongService {
     @Override
     public List<Song> findAllSongsByArtistId(Integer artistId) {
         List<Integer> songIds = songRepository.findAllSongsIdByArtistId(artistId);
-        List<Song> songs = new ArrayList<>();
-
-        for (Integer songId : songIds) {
-            songs.add(this.findById(songId));
-        }
-
-        return songs;
+        return this.songRepository.findAllById(songIds);
     }
 
     @Override
     public List<Song> findAllSongsByAlbumId(Integer albumId) {
         List<Integer> songIds = songRepository.findAllSongsIdByAlbumId(albumId);
-        List<Song> songs = new ArrayList<>();
-
-        for (Integer songId : songIds) {
-            songs.add(this.findById(songId));
-        }
-
-        return songs;
+        return this.songRepository.findAllById(songIds);
     }
 
     @Override
@@ -86,13 +74,7 @@ public class SongServiceImpl implements SongService {
     @Override
     public List<Song> findSongsByGenreId(Integer genreId) {
         List<Integer> songIds = songRepository.findSongsByGenreId(genreId);
-        List<Song> songs = new ArrayList<>();
-
-        for(Integer id : songIds){
-            songs.add(this.findById(id));
-        }
-
-        return songs;
+        return this.songRepository.findAllById(songIds);
 
     }
 
@@ -104,5 +86,11 @@ public class SongServiceImpl implements SongService {
     @Override
     public void unverifySong(Integer songId) {
         songRepository.unverifySong(songId);
+    }
+
+    @Override
+    public Song createNewSong(String title, LocalDate dateReleased, float rating, String lyrics) {
+        Song song = new Song(title,dateReleased,rating,lyrics,false);
+        return this.songRepository.save(song);
     }
 }
