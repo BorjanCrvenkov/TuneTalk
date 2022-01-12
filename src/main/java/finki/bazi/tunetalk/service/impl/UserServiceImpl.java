@@ -9,6 +9,7 @@ import finki.bazi.tunetalk.service.UserService;
 import org.h2.engine.User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void createNewUser(String name, String surname, int age, String email, String mobilePhone, String username, String password, String repeatedPassword, String aboutUser) {
+    public void createNewUser(String name, String surname, LocalDate birthday, String email, String mobilePhone, String username, String password, String repeatedPassword, String aboutUser) {
         if(checkIfUsernameExists(username)){
             throw new UsernameAlreadyExistsException(username);
         }
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordsDoNotMatchException();
         }
 
-        Users user = new Users(username, password, name, surname, email, mobilePhone, age, aboutUser);
+        Users user = new Users(username, password, name, surname, email, mobilePhone, birthday, aboutUser);
         userRepository.save(user);
     }
 

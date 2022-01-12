@@ -1,12 +1,15 @@
 package finki.bazi.tunetalk.web;
 
 import finki.bazi.tunetalk.service.UserService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/register")
@@ -27,7 +30,7 @@ public class RegisterController {
     @PostMapping
     public String register(@RequestParam String name,
                            @RequestParam String surname,
-                           @RequestParam int age,
+                           @RequestParam("birthday") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthday,
                            @RequestParam String email,
                            @RequestParam(required = false) String mobilePhone,
                            @RequestParam String username,
@@ -36,7 +39,7 @@ public class RegisterController {
                            @RequestParam(required = false) String aboutUser,Model model){
 
         try{
-            userService.createNewUser(name, surname, age, email, mobilePhone, username, password, repeatedPassword, aboutUser);
+            userService.createNewUser(name, surname, birthday, email, mobilePhone, username, password, repeatedPassword, aboutUser);
             return "redirect:/login";
         }catch (Exception ex){
             model.addAttribute("error", ex.getMessage());

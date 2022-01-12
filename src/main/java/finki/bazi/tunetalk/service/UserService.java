@@ -3,6 +3,7 @@ package finki.bazi.tunetalk.service;
 import finki.bazi.tunetalk.model.Comment;
 import finki.bazi.tunetalk.model.Users;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface UserService {
@@ -11,7 +12,7 @@ public interface UserService {
 
     Users getUserByUsernameAndPassword(String username, String password);
 
-    void createNewUser(String name, String surname, int age, String email,
+    void createNewUser(String name, String surname, LocalDate birthday, String email,
                        String mobilePhone, String username, String password,
                        String repeatedPassword, String aboutUser);
 

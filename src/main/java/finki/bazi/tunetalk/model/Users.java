@@ -31,14 +31,15 @@ public class Users implements Serializable {
 
     private String mobilePhone;
 
-    private Integer age;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthday;
 
     private String aboutMe;
 
     @Transient
     private boolean admin;
 
-    public Users(String username, String password, String name, String surname, String email, String mobilePhone, Integer age, String aboutMe) {
+    public Users(String username, String password, String name, String surname, String email, String mobilePhone, LocalDate birthday, String aboutMe) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -46,7 +47,7 @@ public class Users implements Serializable {
         this.email = email;
         this.dateCreated = LocalDate.now();
         this.mobilePhone = mobilePhone;
-        this.age = age;
+        this.birthday = birthday;
         this.aboutMe = aboutMe;
         this.admin = username.contains("ADMIN_193");
     }
@@ -119,12 +120,12 @@ public class Users implements Serializable {
         this.mobilePhone = mobilePhone;
     }
 
-    public Integer getAge() {
-        return age;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public String getAboutMe() {
