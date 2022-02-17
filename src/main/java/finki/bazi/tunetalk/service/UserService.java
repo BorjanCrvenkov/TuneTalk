@@ -1,10 +1,8 @@
 package finki.bazi.tunetalk.service;
 
-import finki.bazi.tunetalk.model.Comment;
 import finki.bazi.tunetalk.model.Users;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public interface UserService {
 

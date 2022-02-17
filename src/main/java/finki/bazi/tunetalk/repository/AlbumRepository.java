@@ -76,5 +76,4 @@ public interface AlbumRepository extends JpaRepository<Album, Integer> {
     @Modifying(clearAutomatically = true)
     @Query(value = "update album set verified = false where album_id = :albumId",nativeQuery = true)
     void unverifyAlbum(@Param("albumId")Integer albumId);
-
 }

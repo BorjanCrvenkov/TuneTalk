@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-//@Table(name="album", schema = "public")
 public class Album implements Serializable {
 
     @Id

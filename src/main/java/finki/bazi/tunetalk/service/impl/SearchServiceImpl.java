@@ -16,7 +16,8 @@ public class SearchServiceImpl implements SearchService {
     private final SongRepository songRepository;
     private final ArtistRepository artistRepository;
 
-    public SearchServiceImpl(AlbumRepository albumRepository, SongRepository songRepository, ArtistRepository artistRepository) {
+    public SearchServiceImpl(AlbumRepository albumRepository, SongRepository songRepository,
+            ArtistRepository artistRepository) {
         this.albumRepository = albumRepository;
         this.songRepository = songRepository;
         this.artistRepository = artistRepository;
@@ -26,9 +27,7 @@ public class SearchServiceImpl implements SearchService {
     public List<Object> searchByText(String text) {
         List<Object> objects = new ArrayList<>();
 
-        String textLike = "%"+text+"%";
-
-        objects.addAll(artistRepository.findAllByArtistNameContainingOrRealNameContaining(text,text));
+        objects.addAll(artistRepository.findAllByArtistNameContainingOrRealNameContaining(text, text));
         objects.addAll(albumRepository.findAllByAlbumNameContaining(text));
         objects.addAll(songRepository.findAllByTitleContaining(text));
 

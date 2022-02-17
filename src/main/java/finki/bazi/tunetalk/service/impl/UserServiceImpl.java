@@ -1,12 +1,9 @@
 package finki.bazi.tunetalk.service.impl;
 
-import finki.bazi.tunetalk.model.Comment;
 import finki.bazi.tunetalk.model.Users;
 import finki.bazi.tunetalk.model.exceptions.*;
 import finki.bazi.tunetalk.repository.UserRepository;
-import finki.bazi.tunetalk.service.CommentsService;
 import finki.bazi.tunetalk.service.UserService;
-import org.h2.engine.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

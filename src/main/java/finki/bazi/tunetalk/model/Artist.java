@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 @Data
 @Entity
-//@Table(name="artist", schema = "public")
 public class Artist implements Serializable {
 
     @Id

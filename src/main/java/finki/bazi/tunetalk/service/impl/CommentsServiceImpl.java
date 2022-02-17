@@ -1,15 +1,12 @@
 package finki.bazi.tunetalk.service.impl;
 
 import finki.bazi.tunetalk.model.Comment;
-import finki.bazi.tunetalk.model.Song;
-import finki.bazi.tunetalk.model.Users;
 import finki.bazi.tunetalk.repository.CommentRepository;
 import finki.bazi.tunetalk.service.CommentsService;
 import finki.bazi.tunetalk.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service

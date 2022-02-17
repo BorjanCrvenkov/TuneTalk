@@ -2,9 +2,6 @@ package finki.bazi.tunetalk.service;
 
 
 import finki.bazi.tunetalk.model.Album;
-import finki.bazi.tunetalk.model.Song;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;

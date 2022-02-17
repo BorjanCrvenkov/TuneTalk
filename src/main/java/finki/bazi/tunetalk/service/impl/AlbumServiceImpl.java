@@ -2,14 +2,12 @@ package finki.bazi.tunetalk.service.impl;
 
 
 import finki.bazi.tunetalk.model.Album;
-import finki.bazi.tunetalk.model.Song;
 import finki.bazi.tunetalk.repository.AlbumRepository;
 import finki.bazi.tunetalk.service.AlbumService;
 import finki.bazi.tunetalk.service.ArtistService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

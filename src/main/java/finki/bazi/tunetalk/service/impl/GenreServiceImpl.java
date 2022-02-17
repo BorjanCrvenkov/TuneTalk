@@ -11,7 +11,6 @@ import finki.bazi.tunetalk.repository.UserRepository;
 import finki.bazi.tunetalk.service.GenreService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

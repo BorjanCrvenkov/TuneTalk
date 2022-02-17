@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-//@Table(name="user", schema = "public")
 public class Users implements Serializable {
 
     @Id

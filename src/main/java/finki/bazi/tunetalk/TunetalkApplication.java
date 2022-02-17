@@ -8,16 +8,13 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class TunetalkApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(TunetalkApplication.class, args);
     }
 
-
-
-//    @Bean
-//    PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder(10);
-//    }
+    // @Bean
+    // PasswordEncoder passwordEncoder() {
+    // return new BCryptPasswordEncoder(10);
+    // }
 
 }

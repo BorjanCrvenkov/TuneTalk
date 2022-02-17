@@ -1,7 +1,6 @@
 package finki.bazi.tunetalk.service;
 
 
-import finki.bazi.tunetalk.model.Artist;
 import finki.bazi.tunetalk.model.Song;
 
 import java.time.LocalDate;

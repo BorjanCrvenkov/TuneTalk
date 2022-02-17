@@ -4,12 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
-//@Table(name="genre", schema = "public")
 public class Genre implements Serializable {
 
     @Id

@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-//@RequestMapping(value = {"/", "/home","/TuneTalk","/tunetalk","/tuneTalk"})
-@RequestMapping("/home")
+@RequestMapping({"/","/home"})
 public class mainPageController {
-
     private final AlbumService albumService;
     private final ArtistService artistService;
     private final SongService songService;
