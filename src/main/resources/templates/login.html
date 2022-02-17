@@ -1,8 +1,8 @@
-<div id="loginDiv" style="width: 90%;margin: 100px;border: 2px dotted lightgray;">
+<!-- <div id="loginDiv" style="width: 90%;margin: 100px;border: 2px dotted lightgray;">
     <form id="loginForm" class="form" method="post" action="/login" style="padding: 30px;">
         <div class="mb-3">
             <div class="mb-3">
-                <label for="username" class="form-label" >Username:</label>
+                <label for="username" class="form-label">Username:</label>
                 <input id="username" name="username" type="text" class="form-control" required>
             </div>
         </div>
@@ -13,6 +13,37 @@
         <button type="submit" class="btn btn-block btn btn-primary">Login</button>
     </form>
 
-    <a id="registerButton" href="/register" class="btn btn-block btn-light" style="margin-left: 30px;width: 95%;margin-bottom: 40px;">Register here</a>
+    <a id="registerButton" href="/register" class="btn btn-block btn-light"
+        style="margin-left: 30px;width: 95%;margin-bottom: 40px;">Register here</a>
 
-</div>
+</div> -->
+
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{styles/base.css}">
+    <link rel="stylesheet" th:href="@{styles/elements.css}">
+
+    <link rel="stylesheet" th:href="@{styles/auth.css}">
+
+</head>
+
+<body>
+    <div class="main-container-login">
+        <form method="post" action="/login">
+            <div class="auth-login-items-container">
+                <div class="title">
+                    <h2>Login</h2>
+                    <p style="margin-top:10px;">Welcome back</p>
+                </div>
+                <div class="horizontal-divider" style="margin:20px 0 20px 0;"></div>
+                <input name="username" class="text-input" type="text" placeholder="Username">
+                <input name="password" class="text-input" type="password" placeholder="Password">
+                <input class="button-input" type="submit" style="margin-top:20px;" value="Login">
+                <a href="/register" >
+                    <p class="caption-p">Don't have a profile?<br>Register</p>
+                </a>
+            </div>
+        </form>
+    </div>
+</body>

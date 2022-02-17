@@ -1,0 +1,42 @@
+.text-input {
+    height: 50px;
+    width: 300px;
+    padding: 0px 20px 0px 20px;
+    margin: 10px 0 10px 0;
+    outline: none;
+    border-radius: 300px;
+    background-color: var(--card);
+    border: 1px solid var(--red);
+    font-size: 15px;
+    font-family: MontserratL;
+    color: white;
+    transition: 0.3s;
+}
+
+.button-input {
+    height: 50px;
+    width: 200px;
+    margin: 10px 0 10px 0;
+    outline: none;
+    border-radius: 300px;
+    background-color: var(--action-red);
+    border: none;
+    font-size: 16px;
+    font-family: MontserratSB;
+    color: white;
+    transition: 0.3s;
+}
+
+.button-input:hover {
+    background-color: var(--dark-red);
+    transition: 0.3s;
+}
+
+
+.horizontal-divider {
+    content: "";
+    height: 1px;
+    width: 50px;
+    margin: 10px 0 10px 0;
+    background-color: var(--gray);
+}

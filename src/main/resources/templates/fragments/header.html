@@ -24,7 +24,7 @@
         </a>
         <div class="navbar-auth-container" th:if="${session.user == null}">
             <a href="/login" class="btn">Login</a>
-            <p href="/signup" class="btn-secondary">Signup</p>
+            <a href="/register" class="btn-secondary">Signup</a>
         </div>
 
         <span th:if="${session.user != null}">

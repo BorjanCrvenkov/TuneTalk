@@ -1,0 +1,56 @@
+body {
+    height: 80vh;
+    width: 100vw;
+    overflow-x: hidden;
+    background-color: var(--dark-gray);
+}
+
+.title{
+    padding-bottom: 10px;
+}
+.main-container {
+    background-color: var(--card);
+    height: 70vh;
+    width: 70vw;
+    margin: 50px 0 50px 15vw;
+    padding: 50px 50px 50px 50px;
+    border-radius: 50px;
+
+}
+
+.auth-register-items-container {
+    display: grid;
+    margin: 50px 0 0 5vw;
+    grid-template-columns: 30vw 30vw;
+
+}
+
+.div-left {
+    display: grid;
+    grid-template-rows: auto;
+}
+
+.div-right {
+    display: grid;
+    grid-template-rows: auto;
+}
+
+
+/* Login */
+.main-container-login {
+    background-color: var(--card);
+    height: 70vh;
+    width: 40vw;
+    margin: 50px 0 50px 30vw;
+    padding: 50px 50px 50px 50px;
+    border-radius: 50px;
+
+}
+
+.auth-login-items-container {
+    display: grid;
+    margin-top: 30px;
+    grid-template-rows: auto;
+    justify-items: center;
+    text-align: center;
+}

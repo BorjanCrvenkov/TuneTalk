@@ -1,47 +1,32 @@
-<div id="registerDiv">
-    <h1>Register</h1>
-    <form style="width: 95%;padding-left: 60px;margin-top: 10px;" class="form-signin mt-xl-5 form" method="post" action="/register">
-        <div class="mb-3">
-            <label for="name" class="form-label">Name:</label>
-            <input name="name" id="name" type="text" class="form-control" placeholder="Enter your name" required>
-        </div>
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{styles/base.css}">
+    <link rel="stylesheet" th:href="@{styles/elements.css}">
 
-        <div class="mb-3">
-            <label for="surname" class="form-label">Surname:</label>
-            <input name="surname" id="surname" type="text" class="form-control" placeholder="Enter your surname" required>
-        </div>
-        <div class="mb-3">
-            <label for="birthday" class="form-label">Birthday:</label>
-            <input name="birthday" id="birthday" type="date" class="form-control" placeholder="Enter your birthday"  min="10" max="125" required>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input name="email" id="email" type="email" class="form-control" placeholder="name@example.com" required>
-        </div>
+    <link rel="stylesheet" th:href="@{styles/auth.css}">
 
-        <div class="mb-3">
-            <label for="mobilePhone" class="form-label">Mobile Phone:</label>
-            <input name="mobilePhone" id="mobilePhone" type="text" class="form-control" placeholder="This is optional">
-        </div>
+</head>
 
-        <div class="mb-3">
-            <label for="username" class="form-label" >Username:</label>
-            <input name="username" id="username" type="text" class="form-control" placeholder="Pick a username" required>
+<body>
+    <div class="main-container">
+        <div class="title">
+            <h2>Create Profile</h2>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
-            <input name="password" id="password" type="password" class="form-control" placeholder="Enter your password" required>
-        </div>
-        <div class="mb-3">
-            <label for="repeatedPassword" class="form-label">Repeat password:</label>
-            <input name="repeatedPassword" id="repeatedPassword" type="password" class="form-control" placeholder="Repeat your password" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="aboutUser" class="form-label">Tell us something about yourself:</label>
-            <input name="aboutUser" id="aboutUser" type="text" class="form-control" placeholder="This is optional">
-        </div>
-        <button type="submit" style="margin-bottom: 40px;" class="btn btn-block btn-primary">Register</button>
-    </form>
-
-</div>
+        <form method="post" action="/register">
+            <div class="auth-register-items-container">
+                <div class="div-left">
+                    <input name="username" class="text-input" type="text" placeholder="Username">
+                    <input name="email" class="text-input" type="text" placeholder="Email">
+                    <input name="fullName" class="text-input" type="text" placeholder="Full Name">
+                    <input name="mobilePhone" class="text-input" type="text" placeholder="Mobile">
+                </div>
+                <div class="div-right">
+                    <input name="birthday" class="text-input" type="date" placeholder="Birthday">
+                    <input name="password" class="text-input" type="password" placeholder="Password">
+                    <input name="repeatedPassword" class="text-input" type="password" placeholder="Confirm Password">
+                    <input class="button-input" type="submit" value="Create Profile">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
