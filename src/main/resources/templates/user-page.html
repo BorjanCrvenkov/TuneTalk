@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.w3.org/1999/xhtml">
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <h1 th:text="${user.getUsername()}"></h1>
 
@@ -8,7 +8,10 @@
     <p>About me:</p>
     <p th:text="${user.getAboutMe()}"></p>
 
-
+    <p>Genres liked:</p>
+    <ul>
+        <li th:each="genre : ${genres}" th:text="${genre.genreName}"></li>
+    </ul>
 
 
 

@@ -59,4 +59,5 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer> {
     @Modifying(clearAutomatically = true)
     @Query(value = "update artist set verified = false where artist_id = :artistId",nativeQuery = true)
     void unverifyArtist(@Param("artistId")Integer artistId);
+
 }

@@ -60,8 +60,11 @@ public class CommentsServiceImpl implements CommentsService {
         for(Integer id : commentIds){
             Comment comment = this.findCommentById(id);
             comment.setUser(userService.findUserByCommentId(id));
-            rekurzija(id);
-            comments.add(comment);
+            if(comment.getFirstCommentId() == null){
+                rekurzija(id);
+                comments.add(comment);
+            }
+
         }
 
         return comments;
@@ -75,8 +78,10 @@ public class CommentsServiceImpl implements CommentsService {
         for(Integer id : commentIds){
             Comment comment = this.findCommentById(id);
             comment.setUser(userService.findUserByCommentId(id));
-            rekurzija(id);
-            comments.add(comment);
+            if(comment.getFirstCommentId() == null){
+                rekurzija(id);
+                comments.add(comment);
+            }
         }
 
         return comments;

@@ -26,6 +26,8 @@ public class SearchServiceImpl implements SearchService {
     public List<Object> searchByText(String text) {
         List<Object> objects = new ArrayList<>();
 
+        String textLike = "%"+text+"%";
+
         objects.addAll(artistRepository.findAllByArtistNameContainingOrRealNameContaining(text,text));
         objects.addAll(albumRepository.findAllByAlbumNameContaining(text));
         objects.addAll(songRepository.findAllByTitleContaining(text));

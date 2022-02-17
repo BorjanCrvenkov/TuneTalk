@@ -60,7 +60,7 @@ public class AlbumsController {
 
         albumService.createNewAlbum(albumName,dateReleased,rating,artistId);
 
-        return "redirect:/home";
+        return "redirect:/artists";
     }
 
     @GetMapping("/{id}")
@@ -107,7 +107,7 @@ public class AlbumsController {
                                 @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
                                 @RequestParam float rating){
         albumService.updateAlbum(id, albumName, dateReleased, rating);
-        return "redirect:/albums";
+        return "redirect:/albums/" + id;
     }
 
     @PostMapping("/search")
@@ -121,7 +121,7 @@ public class AlbumsController {
     }
 
     @GetMapping("/addArtist/{id}")
-    public String addArtist(@PathVariable int id,Model model){
+    public String addAlbum(@PathVariable int id,Model model){
         Album album = albumService.findById(id);
         model.addAttribute("album",album);
 
@@ -132,7 +132,7 @@ public class AlbumsController {
     }
 
     @PostMapping("/addArtist/{id}")
-    public String addArtistPost(@PathVariable int id,
+    public String addAlbumPost(@PathVariable int id,
                                 @RequestParam Integer artistId){
 
         artistService.addArtistToAlbum(artistId,id);

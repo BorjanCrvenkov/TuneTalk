@@ -108,9 +108,9 @@
                  th:unless="${#lists.isEmpty(comment.getReplies())}" style="border: 5px solid blue; margin-top: 20px">
                 <h4>Replies</h4>
 
-                <div th:each="reply : ${comment.getReplies()}" th:inline="text">
+                <div th:each="reply : ${comment.getReplies()}" th:inline="text" style="margin-left: 50px">
 
-                    <p th:text="'Comment by: ' +${comment.getUser().getUsername()} "></p>
+                    <p th:text="'Comment by: ' +${reply.getUser().getUsername()} "></p>
 
                     <p><b th:text="'Date posted: ' + ${reply.getDatePosted()}"></b></p>
 
@@ -124,12 +124,12 @@
                         <a th:href="@{'/user/song/{songId}/dislike/{commentId}' (songId=${song.getSongId()},commentId=${comment.getCommentId()})}">Dislike</a>
                     </span>
 
-                    <div th:if="${session.user != null}" style="border: 2px solid yellow">
+                    <div th:if="${session.user != null}" style="border: 2px solid yellow; margin-left: 20px">
                         <form th:method="get" th:action="@{'/songs/addComment/{songId}/{firstCommentId}' (songId=${song.getSongId()},firstCommentId=${reply.getFirstCommentId()})}">
                             <h4>Add reply comment</h4>
                             <p>Comment text:</p>
                             <input name="text" id="text" type="text">
-                            <button type="submit">Add comment</button>
+                            <button type="submit">Add reply</button>
                         </form>
                         <br>
                     </div>

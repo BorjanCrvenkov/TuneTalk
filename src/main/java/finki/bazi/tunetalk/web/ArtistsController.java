@@ -93,7 +93,7 @@ public class ArtistsController {
 
         artistService.updateArtist(id,artistName,realName,age,description);
 
-        return "redirect:/artists";
+        return "redirect:/artists/"+id;
     }
 
     @PostMapping("/search")

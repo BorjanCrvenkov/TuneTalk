@@ -75,7 +75,12 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public void updateArtist(Integer id,String artistName, String realName, Integer age, String description) {
-        artistRepository.updateArtist(id, artistName, realName, age, description);
+        Artist artist = this.findArtistById(id);
+        artist.setArtistName(artistName);
+        artist.setRealName(realName);
+        artist.setAge(age);
+        artist.setDescription(description);
+        this.artistRepository.save(artist);
     }
 
     @Override

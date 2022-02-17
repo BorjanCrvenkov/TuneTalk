@@ -68,14 +68,16 @@
                 <th>Song Name</th>
                 <th>Date_Released</th>
                 <th>Rating</th>
-                <th th:text="'Delete this song from ' + ${album.getAlbumName()}"></th>
+                <th th:if="${session.user != null}" th:text="'Delete this song from ' + ${album.getAlbumName()}"></th>
+                <th th:if="${session.user == null && album.isVerified() == false}" th:text="'Log in to see available options'"></th>
+                <th th:if="${album.isVerified() == true}" th:text="'Album is verified. Cant make changes.'"></th>
             </tr>
 
             <tr th:each="song : ${songs}">
                 <th><a th:text="${song.getTitle()}" th:href="@{'/songs/{id}' (id=${song.getSongId()})}"></a></th>
                 <th th:text="${song.getDateReleased()}">Date_Released</th>
                 <th th:text="${song.getRating()}">Rating</th>
-                <th><a th:href="@{'/albums/deleteSongFromAlbum/{albumId}/{songId}' (albumId=${album.getAlbumId()},songId=${song.getSongId()})}">Delete this song</a></th>
+                <th><a th:if="${session.user != null && album.isVerified() == false}" th:href="@{'/albums/deleteSongFromAlbum/{albumId}/{songId}' (albumId=${album.getAlbumId()},songId=${song.getSongId()})}">Delete this song</a></th>
             </tr>
         </table>
     </div>
@@ -124,7 +126,7 @@
                  th:unless="${#lists.isEmpty(comment.getReplies())}" style="border: 5px solid blue; margin-top: 20px">
                 <h4>Replies</h4>
 
-                <div th:each="reply : ${comment.getReplies()}" th:inline="text">
+                <div th:each="reply : ${reply.getReplies()}" th:inline="text">
 
                         <p><b th:text="'Date posted: ' + ${reply.getDatePosted()}"></b></p>
 

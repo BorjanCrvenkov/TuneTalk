@@ -75,7 +75,6 @@ public class SongServiceImpl implements SongService {
     public List<Song> findSongsByGenreId(Integer genreId) {
         List<Integer> songIds = songRepository.findSongsByGenreId(genreId);
         return this.songRepository.findAllById(songIds);
-
     }
 
     @Override

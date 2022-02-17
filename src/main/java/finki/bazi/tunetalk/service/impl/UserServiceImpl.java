@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
         Users user = this.getUserByUsernameAndPassword(username, password);
 
         if(user == null){
-            throw new UserWithCredentialsDoesNotExistsException(username,password);
+            throw new UserWithCredentialsDoesNotExistsException();
         }
 
         user.setAdmin(checkIfUserIsAdmin(username));
@@ -97,9 +97,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users findUserByCommentId(Integer commentId) {
-
         Integer id = userRepository.findByCommentId(commentId);
-        return findByUserId(id);
+        return this.findByUserId(id);
     }
 
     @Override

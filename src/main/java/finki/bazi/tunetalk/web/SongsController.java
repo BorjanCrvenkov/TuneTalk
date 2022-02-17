@@ -97,7 +97,7 @@ public class SongsController {
                                @RequestParam(required = false) String lyrics){
 
         songService.updateSong(id,title,dateReleased,rating,lyrics);
-        return "redirect:/albums";
+        return "redirect:/albums/"+id;
     }
 
     @PostMapping("/search")
@@ -126,7 +126,7 @@ public class SongsController {
                                 @RequestParam Integer artistId){
 
         artistService.addArtistToSong(id,artistId);
-        return "redirect:/home";
+        return "redirect:/songs/"+id;
     }
 
     @GetMapping("/deleteArtistFromSong/{songId}/{artistId}")
@@ -151,7 +151,7 @@ public class SongsController {
                                 @RequestParam Integer genreId){
 
         songService.addGenreToSong(genreId,id);
-        return "redirect:/home";
+        return "redirect:/songs/"+id;
     }
 
     @GetMapping("/deleteGenreFromSong/{songId}/{genreId}")
