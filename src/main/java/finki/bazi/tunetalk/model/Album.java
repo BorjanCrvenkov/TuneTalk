@@ -59,9 +59,11 @@ public class Album implements Serializable {
     public LocalDate getDateReleased() {
         return dateReleased;
     }
+    
 
     public void setDateReleased(LocalDate dateReleased) {
         this.dateReleased = dateReleased;
+        
     }
 
     public float getRating() {

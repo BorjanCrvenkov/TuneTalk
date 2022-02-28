@@ -37,7 +37,7 @@ select {
 
 .title-container {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 200px auto auto;
     align-items: center;
     margin: 0px 50px 0px 50px;
 }
@@ -62,7 +62,7 @@ select {
 }
 
 .spacer-title {
-    height: 1px;
+    height: 0.5px;
     width: 50vw;
     background-color: var(--white);
 }
@@ -108,8 +108,36 @@ select {
     gap: 40px 0px;
 }
 
+.content-container-vertical {
+    display: grid;
+    grid-template-columns: auto;
+    margin: 70px 50px 100px 50px;
+    gap: 40px 0px;
+}
+
 .album-item {
     display: grid;
     grid-template-columns: auto auto;
+}
 
+.song-item {
+    width: 90vw;
+    height: 70px;
+    background-color: var(--card);
+    border-radius: 300px;
+    display: grid;
+    grid-template-columns: 150px auto;
+}
+
+.song-item .content {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    align-items: center;
+
+}
+
+
+.song-item img {
+    height: 70px;
+    width: 70px;
 }

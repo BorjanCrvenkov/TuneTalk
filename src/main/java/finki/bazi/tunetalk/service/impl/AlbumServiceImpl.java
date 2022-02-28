@@ -1,6 +1,5 @@
 package finki.bazi.tunetalk.service.impl;
 
-
 import finki.bazi.tunetalk.model.Album;
 import finki.bazi.tunetalk.repository.AlbumRepository;
 import finki.bazi.tunetalk.service.AlbumService;
@@ -45,12 +44,12 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Album createNewAlbum(String albumName, LocalDate dateReleased, float rating, int artistId) {
-        Album album = new Album(albumName,dateReleased,rating,false);
+        Album album = new Album(albumName, dateReleased, rating, false);
+        albumRepository.save(album);
 
-        Integer albumId = albumRepository.findAlbumIdByAlbumNameDateReleasedAndRating(albumName,dateReleased,rating);
-        artistService.addArtistToAlbum(artistId,albumId);
-
-        return albumRepository.save(album);
+        Integer albumId = albumRepository.findAlbumIdByAlbumNameDateReleasedAndRating(albumName, dateReleased, rating);
+        artistService.addArtistToAlbum(artistId, albumId);
+        return album;
     }
 
     @Override
@@ -60,7 +59,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public void deleteSongFromAlbum(Integer songId, Integer albumId) {
-        albumRepository.deleteSongFromAlbum(songId,albumId);
+        albumRepository.deleteSongFromAlbum(songId, albumId);
     }
 
     @Override
@@ -70,11 +69,11 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public void deleteGenreFromAlbum(Integer genreId, Integer albumId) {
-        albumRepository.deleteGenreFromAlbum(genreId,albumId);
+        albumRepository.deleteGenreFromAlbum(genreId, albumId);
     }
 
     @Override
-    public void updateAlbum(Integer albumId,String albumName, LocalDate dateReleased, float rating) {
+    public void updateAlbum(Integer albumId, String albumName, LocalDate dateReleased, float rating) {
         albumRepository.updateAlbum(albumId, albumName, dateReleased, rating);
     }
 
@@ -94,6 +93,5 @@ public class AlbumServiceImpl implements AlbumService {
     public void unverifyAlbum(Integer albumId) {
         albumRepository.unverifyAlbum(albumId);
     }
-
 
 }
