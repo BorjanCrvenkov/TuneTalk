@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- <div xmlns:th="http://www.w3.org/1999/xhtml">
 
     <h1>Genres</h1>
 
@@ -10,4 +10,98 @@
         </li>
     </ul>
 
-</div>
+</div> -->
+
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{styles/base.css}">
+    <link rel="stylesheet" th:href="@{styles/elements.css}">
+
+    <link rel="stylesheet" th:href="@{styles/list-content.css}">
+
+</head>
+
+<body>
+    <div class="title-container">
+        <h4>All genres</h4>
+        <div class="spacer-title"></div>
+        <div class="search-container">
+            <input type="text">
+            <img th:src="@{icons/search.svg}">
+        </div>
+    </div>
+    <div class="filters-container">
+        <div class="filter-picker">
+            <select>
+                <option>Option 1</option>
+            </select>
+        </div>
+        <div class="filter-picker">
+            <select>
+                <option>Option 1</option>
+            </select>
+        </div>
+        <div class="filter-picker">
+            <select>
+                <option>Option 1</option>
+            </select>
+        </div>
+        <div class="add-new-button">
+            <p>Add Album</p>
+            <img th:src="@{icons/add.svg}">
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="album-item">
+             <img th:src="@{images/album.png}">
+            <div class="content">
+                <p><b>Mechanicall Bull</b></p>
+                <p>Kings of Leon</p>
+                <p>Released - 2013</p>
+                <br>
+                <p>30 comments</p>
+            </div>
+        </div>
+        <div class="album-item">
+             <img th:src="@{images/album.png}">
+            <div class="content">
+                <p><b>Mechanicall Bull</b></p>
+                <p>Kings of Leon</p>
+                <p>Released - 2013</p>
+                <br>
+                <p>30 comments</p>
+            </div>
+        </div>
+        <div class="album-item">
+             <img th:src="@{images/album.png}">
+            <div class="content">
+                <p><b>Mechanicall Bull</b></p>
+                <p>Kings of Leon</p>
+                <p>Released - 2013</p>
+                <br>
+                <p>30 comments</p>
+            </div>
+        </div>
+        <div class="album-item">
+             <img th:src="@{images/album.png}">
+            <div class="content">
+                <p><b>Mechanicall Bull</b></p>
+                <p>Kings of Leon</p>
+                <p>Released - 2013</p>
+                <br>
+                <p>30 comments</p>
+            </div>
+        </div>
+        <div class="album-item">
+             <img th:src="@{images/album.png}">
+            <div class="content">
+                <p><b>Mechanicall Bull</b></p>
+                <p>Kings of Leon</p>
+                <p>Released - 2013</p>
+                <br>
+                <p>30 comments</p>
+            </div>
+        </div>
+    </div>
+</body>

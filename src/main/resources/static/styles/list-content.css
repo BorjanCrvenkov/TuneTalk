@@ -1,0 +1,115 @@
+body {
+    overflow-x: hidden;
+    background-color: var(--dark-gray);
+}
+
+input {
+    border: none;
+    background-image: none;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    color: white;
+    font-weight: 100;
+}
+
+
+select {
+    border: none;
+    background-image: none;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    color: white;
+    font-weight: 100;
+}
+
+
+.head-container {
+    display: grid;
+    padding-top: 10vh;
+    grid-template-columns: 50vw 40vw;
+}
+
+.title-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    margin: 0px 50px 0px 50px;
+}
+
+.search-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    border: 1px solid var(--red);
+    border-radius: 100px;
+    background-color: var(--card);
+    width: 250px;
+    height: 40px;
+    align-content: center;
+}
+
+.search-container input {
+    padding: 0px 10px 0px 10px;
+}
+
+.search-container img {
+    cursor: pointer;
+}
+
+.spacer-title {
+    height: 1px;
+    width: 50vw;
+    background-color: var(--white);
+}
+
+.filters-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    margin: 30px 50px 30px 50px;
+}
+
+.filter-picker {
+    display: grid;
+    border: 1px solid var(--red);
+    border-radius: 100px;
+    background-color: var(--card);
+    width: 250px;
+    height: 40px;
+    align-content: center;
+}
+
+.filter-picker select {
+    width: 230px;
+    padding: 0px 10px 0px 10px;
+}
+
+.add-new-button {
+    width: 200px;
+    height: 40px;
+    padding: 0px 20px 0px 20px;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 150px 50px;
+    border: 1px solid var(--red);
+    border-radius: 100px;
+    background-color: var(--action-red);
+    cursor: pointer;
+}
+
+.content-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 70px 50px 100px 50px;
+    gap: 40px 0px;
+}
+
+.album-item {
+    display: grid;
+    grid-template-columns: auto auto;
+
+}
