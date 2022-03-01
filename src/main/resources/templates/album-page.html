@@ -1,28 +1,39 @@
-<style>
-    .dela {
-        display: inline-block;
-        margin-top: 30px;
-        margin-left: 150px;
-        width: 500px;
-        border: 2px dotted lightblue;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .dela {
+            display: inline-block;
+            margin-top: 30px;
+            margin-left: 150px;
+            width: 500px;
+            border: 2px dotted lightblue;
+        }
 
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-    td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-    }
-</style>
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+</head>
 
 
-
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div>
     <h1 id="albumName" th:text="${album.getAlbumName()}"></h1>
 
     <div th:if="${session.user != null}">
@@ -94,11 +105,11 @@
 
     <div id="comments" style="border: 1px solid black; width: 700px">
         <h4>Comments</h4>
-        <th:block th:each="comment : ${comments}">
+        <th:block th:each="comment : ${album.comments}">
             <div style="border: 5px solid red; margin-top: 20px">
                 <h4>Comment</h4>
 
-                <p th:text="'Comment by: ' +${comment.getUser().getUsername()} ">
+                <p th:text="'Comment by: ' +${comment.userPostedBy.username} ">
 
                 <p><b th:text="'Date posted: ' + ${comment.getDatePosted()}"></b></p>
 
@@ -126,9 +137,10 @@
                  th:unless="${#lists.isEmpty(comment.getReplies())}" style="border: 5px solid blue; margin-top: 20px">
                 <h4>Replies</h4>
 
-                <div th:each="reply : ${reply.getReplies()}" th:inline="text">
+                <div th:each="reply : ${comment.getReplies()}" th:inline="text">
 
-                        <p><b th:text="'Date posted: ' + ${reply.getDatePosted()}"></b></p>
+                    <p th:text="'Comment by: ' +${comment.userPostedBy.username} ">
+                    <p><b th:text="'Date posted: ' + ${reply.getDatePosted()}"></b></p>
 
                     <p th:text="'Comment text: ' + ${reply.getText()}"></p>
                     <span th:if="${session.user != null}">
@@ -154,3 +166,10 @@
         </th:block>
     </div>
 </div>
+</body>
+
+
+
+
+</body>
+</html>
