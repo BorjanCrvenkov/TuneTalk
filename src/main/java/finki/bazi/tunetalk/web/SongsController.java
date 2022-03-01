@@ -68,9 +68,6 @@ public class SongsController {
 
         model.addAttribute("genres", genreService.findGenresBySongId(id));
 
-        List<Comment> comments = commentsService.findCommentsBySongId(id);
-        model.addAttribute("comments",comments);
-
         model.addAttribute("bodyContent", "song-page");
 
         return "master-template";

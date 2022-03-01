@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-//@Table(name="genre", schema = "public")
+@Table(name="genre")
 public class Genre implements Serializable {
 
     @Id
@@ -18,6 +18,14 @@ public class Genre implements Serializable {
 
     private String genreName;
 
+    @ManyToMany(mappedBy = "songGenres")
+    private List<Song> songs;
+
+    @ManyToMany(mappedBy = "albumGenres")
+    private List<Album> albums;
+
+    @ManyToMany(mappedBy = "genresLiked")
+    private List<Users> users;
 
     public Genre(String genreName) {
         this.genreName = genreName;
@@ -25,22 +33,6 @@ public class Genre implements Serializable {
 
     public Genre() {
 
-    }
-
-    public Integer getGenreId() {
-        return genreId;
-    }
-
-    public void setGenreId(Integer genreId) {
-        this.genreId = genreId;
-    }
-
-    public String getGenreName() {
-        return genreName;
-    }
-
-    public void setGenreName(String genreName) {
-        this.genreName = genreName;
     }
 
 }

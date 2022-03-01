@@ -79,9 +79,6 @@ public class AlbumsController {
 
         model.addAttribute("genres", genreService.findGenresByAlbumId(id));
 
-        List<Comment> comments = commentsService.findCommentsByAlbumId(id);
-        model.addAttribute("comments",comments);
-
         model.addAttribute("bodyContent", "album-page");
         return "master-template";
     }
