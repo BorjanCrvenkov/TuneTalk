@@ -5,9 +5,14 @@ body {
     background-color: var(--dark-gray);
 }
 
-.title{
+::-webkit-calendar-picker-indicator {
+    filter: invert(0.5);
+}
+
+.title {
     padding-bottom: 10px;
 }
+
 .main-container {
     background-color: var(--card);
     height: 70vh;

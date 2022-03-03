@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
     input{
         text-align: center;
     }
@@ -40,4 +40,37 @@
 
 
 
-</div>
+</div> -->
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{/styles/base.css}">
+    <link rel="stylesheet" th:href="@{/styles/elements.css}">
+    <link rel="stylesheet" th:href="@{/styles/input-form.css}">
+
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="title-container">
+            <h4 th:text="(${artist} != null ? 'Edit Artist' : 'Add Artist')">[Title]</h4>
+            <div class="spacer-title"></div>
+            <p>
+                Submit an artist in our database
+            </p>
+        </div>
+        <div>
+            <form method="post" class="input-form-artist" action="/artists/create">
+                <input name="realName" th:value="(${artist} != null ? ${artist.getRealName()} : '')" id="realName"
+                    type="text" class="text-input" placeholder="Artist name" required>
+                <input name="artistName" th:value="(${artist} != null ? ${artist.getRealName()} : '')" id="artistName"
+                    class="text-input" type="text" placeholder="Artist real name" required>
+                <input name="age" th:value="(${artist} != null ? ${artist.getAge()} : '')" id="age" min="0" max="125"
+                    class="text-input" type="number" placeholder="Artist age" required>
+                <input name="description" th:value="(${artist} != null ? ${artist.getDescription()} : '')"
+                    id="description" class="text-input" type="text" placeholder="Artist description" required>
+                <button class="button-input" type="submit">Confirm</button>
+            </form>
+        </div>
+    </div>
+</body>

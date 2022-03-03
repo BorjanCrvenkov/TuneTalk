@@ -62,11 +62,11 @@ public class SongsController {
 
         model.addAttribute("song",songService.findById(id));
 
-        model.addAttribute("album",albumService.findAlbumBySongId(id));
+        // model.addAttribute("album",albumService.findAlbumBySongId(id));
 
-        model.addAttribute("artists",artistService.findArtistsBySongId(id));
+        // model.addAttribute("artists",artistService.findArtistsBySongId(id));
 
-        model.addAttribute("genres", genreService.findGenresBySongId(id));
+        // model.addAttribute("genres", genreService.findGenresBySongId(id));
 
         List<Comment> comments = commentsService.findCommentsBySongId(id);
         model.addAttribute("comments",comments);

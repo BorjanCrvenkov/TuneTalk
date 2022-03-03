@@ -37,8 +37,19 @@
         <h4>All artists</h4>
         <div class="spacer-title"></div>
         <div class="search-container">
-            <input type="text">
-            <img th:src="@{icons/search.svg}">
+            <div class="search-container">
+                <form th:method="post" action="/artists/search">
+                    <input th:name="artistId" list="search" id="answerInput">
+                    <datalist id="search">
+                        <option th:each="artist : ${artistsList}" th:text="${artist.getArtistName()}"
+                            th:value="${artist.getArtistId()}">
+                        </option>
+                    </datalist>
+                    <button type="submit">
+                        <img th:src="@{icons/search.svg}">
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
     <div class="filters-container">
@@ -66,16 +77,17 @@
         </a>
     </div>
     <div class="content-container">
-        <div class="album-item" th:each="artist : ${artistsList}">
-            <img th:src="@{images/album.png}">
-            <div class="content">
-                <p><b th:text="${artist.getArtistName()}"></b></p>
-                <p>Kings of Leon</p>
-                <p>Released - 2013</p>
-                <br>
-                <p>30 comments</p>
+        <a th:each="artist : ${artistsList}" th:href="@{/artists/{id} (id=${artist.getArtistId()})}">
+            <div class="album-item">
+                <img th:src="@{images/album.png}">
+                <div class="content">
+                    <p><b th:text="${artist.getArtistName()}"></b></p>
+                    <p th:if="${artist.getAge() != null }" th:text="${'Age: ' + artist.getAge()}"></p>
+                    <br>
+                    <p>0 comments</p>
+                </div>
             </div>
-        </div>
+        </a>
 
     </div>
 </body>

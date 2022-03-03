@@ -85,6 +85,15 @@ h4 {
     margin: 0px;
 }
 
+h5 {
+    color: white;
+    font-family: MontserratSB;
+    font-weight: 500;
+    font-size: 20px;
+    padding: 0px;
+    margin: 0px;
+}
+
 p {
     color: white;
     font-family: MontserratL;
@@ -92,4 +101,3 @@ p {
     padding: 0px;
     margin: 0px;
 }
-

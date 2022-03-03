@@ -1,4 +1,4 @@
-<div style="border: 2px dotted lightgray;width: 80%;margin-left: 150px;margin-top: 20px;" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- <div style="border: 2px dotted lightgray;width: 80%;margin-left: 150px;margin-top: 20px;" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <h1 th:text="(${genre} != null ? 'Edit Genre' : 'Create New Genre')"></h1>
 
@@ -12,4 +12,32 @@
         <button type="submit" style="margin-bottom: 40px;" class="btn btn-block btn-primary">Confirm</button>
     </form>
 
-</div>
+</div> -->
+
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{/styles/base.css}">
+    <link rel="stylesheet" th:href="@{/styles/elements.css}">
+    <link rel="stylesheet" th:href="@{/styles/input-form.css}">
+
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="title-container">
+            <h4 th:text="(${genre} != null ? 'Edit Genre' : 'Add Genre')">[Title]</h4>
+            <div class="spacer-title"></div>
+            <p>
+                Submit a genre in our database
+            </p>
+        </div>
+        <div>
+            <form method="post" class="input-form-genre" action="/genres/create">
+                <input name="title" th:value="(${genre} != null ? ${genre.getGenreName()} : '')" id="title" type="text"
+                    class="text-input" placeholder="Genre name" required>
+                <button class="button-input" type="submit">Confirm</button>
+            </form>
+        </div>
+    </div>
+</body>

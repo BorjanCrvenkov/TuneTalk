@@ -39,8 +39,17 @@
         <h4>All albums</h4>
         <div class="spacer-title"></div>
         <div class="search-container">
-            <input type="text">
-            <img th:src="@{icons/search.svg}">
+            <form th:method="post" action="/albums/search">
+                <input th:name="albumId" list="search" id="answerInput">
+                <datalist id="search">
+                    <option th:each="album : ${albumList}" th:text="${album.getAlbumName()}"
+                        th:value="${album.getAlbumId()}">
+                    </option>
+                </datalist>
+                <button type="submit">
+                    <img th:src="@{icons/search.svg}">
+                </button>
+            </form>
         </div>
     </div>
     <div class="filters-container">
@@ -70,16 +79,17 @@
 
     </div>
     <div class="content-container">
-        <div class="album-item" th:each="album : ${albumList}">
-            <img th:src="@{images/album.png}">
-            <div class="content">
-                <p><b th:text="${album.getAlbumName()}"></b></p>
-                <p>Kings of Leon</p>
-                <p th:text ="${'Released: ' + album.getDateReleased().getYear()}"></p>
-                <br>
-                <p>0 comments</p>
+        <a th:each="album : ${albumList}" th:href="@{/albums/{id} (id=${album.getAlbumId()})}">
+            <div class="album-item">
+                <img th:src="@{images/album.png}">
+                <div class="content">
+                    <p><b th:text="${album.getAlbumName()}"></b></p>
+                    <p th:text="${'Released: ' + album.getDateReleased().getYear()}"></p>
+                    <br>
+                    <p>0 comments</p>
+                </div>
             </div>
-        </div>
+        </a>
 
 
     </div>
