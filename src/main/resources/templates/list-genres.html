@@ -45,6 +45,7 @@
         </a>
     </div>
     <div class="content-container">
+        <p class="empty-container-center" th:if="${#lists.isEmpty(genres)}">No Results</p>
         <h5 th:each="genre : ${genres}" th:text="${genre.getGenreName()}"></h5>
     </div>
 </body>

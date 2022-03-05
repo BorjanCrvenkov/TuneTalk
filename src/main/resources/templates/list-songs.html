@@ -82,8 +82,8 @@
         </div>
     </form>
     <div class="content-container-vertical">
+        <p class="empty-container-center" th:if="${#lists.isEmpty(songsList)}">No Results</p>
         <a th:each="song : ${songsList}" th:href="@{/songs/{id} (id=${song.getSongId()})}">
-
             <div class="song-item">
                 <img th:src="@{images/album.png}">
                 <div class="content">
