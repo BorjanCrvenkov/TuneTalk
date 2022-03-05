@@ -6,9 +6,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
+@Table(name="song")
 public class Song implements Serializable {
 
     @Id
@@ -26,7 +28,27 @@ public class Song implements Serializable {
 
     private boolean verified;
 
-       public Song(String title, LocalDate dateReleased, float rating, String lyrics, boolean verified) {
+    @ManyToMany
+    @JoinTable(
+            name = "song_released",
+            joinColumns = @JoinColumn(name = "artist_id"),
+            inverseJoinColumns = @JoinColumn(name = "song_id"))
+    private List<Artist> artistsReleasedBy;
+
+    @ManyToMany(mappedBy = "songsInAlbum")
+    private List<Album> albumsIn;
+
+    @ManyToMany
+    @JoinTable(
+            name = "song_genre",
+            joinColumns = @JoinColumn(name = "song_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private List<Genre> songGenres;
+
+    @OneToMany(mappedBy = "songCommented")
+    private List<Comment> comments;
+
+    public Song(String title, LocalDate dateReleased, float rating, String lyrics, boolean verified) {
         this.title = title;
         this.dateReleased = dateReleased;
         this.rating = rating;

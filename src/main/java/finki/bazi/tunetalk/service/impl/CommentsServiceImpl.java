@@ -26,69 +26,10 @@ public class CommentsServiceImpl implements CommentsService {
     }
 
     @Override
-    public List<Comment> findAllCommentRepliesByCommentId(Integer commentId) {
-        List<Integer> commentIds = commentRepository.findAllCommentRepliesByCommentId(commentId);
-        return this.commentRepository.findAllById(commentIds);
-    }
-
-    @Override
-    public List<Comment> findAllMainComments() {
-        List<Integer> commentIds = commentRepository.findAllMainComments();
-        return this.commentRepository.findAllById(commentIds);
-    }
-
-    private void rekurzija(Integer id){
-        List<Comment> replies = findAllCommentRepliesByCommentId(id);
-
-        for(Comment r : replies){
-            r.setUser(userService.findUserByCommentId(r.getCommentId()));
-            rekurzija(r.getCommentId());
-        }
-
-        Comment comment = findCommentById(id);
-        comment.setReplies(replies);
-    }
-
-    @Override
-    public List<Comment> findCommentsByAlbumId(Integer albumId) {
-        List<Integer> commentIds = commentRepository.findAllCommentsByAlbumId(albumId);
-        List<Comment> comments = new ArrayList<>();
-
-        for(Integer id : commentIds){
-            Comment comment = this.findCommentById(id);
-            comment.setUser(userService.findUserByCommentId(id));
-            if(comment.getFirstCommentId() == null){
-                rekurzija(id);
-                comments.add(comment);
-            }
-
-        }
-
-        return comments;
-    }
-
-    @Override
-    public List<Comment> findCommentsBySongId(Integer songId) {
-        List<Integer> commentIds = commentRepository.findAllCommentsBySongId(songId);
-        List<Comment> comments = new ArrayList<>();
-
-        for(Integer id : commentIds){
-            Comment comment = this.findCommentById(id);
-            comment.setUser(userService.findUserByCommentId(id));
-            if(comment.getFirstCommentId() == null){
-                rekurzija(id);
-                comments.add(comment);
-            }
-        }
-
-        return comments;
-    }
-
-    @Override
-    public Comment createNewComment(String text, Integer firstCommentId, Integer userId, Integer albumId, Integer songId) {
-        Comment comment = new Comment(text, LocalDate.now(),firstCommentId,userId,albumId,songId);
+    public Comment createNewComment(String text, Integer firstCommentId, Integer userId, Integer albumId,
+            Integer songId) {
+        Comment comment = new Comment(text, LocalDate.now(), firstCommentId, userId, albumId, songId);
         return commentRepository.save(comment);
     }
-
 
 }

@@ -4,9 +4,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
+@Table(name="artist")
 public class Artist implements Serializable {
 
     @Id
@@ -22,6 +24,12 @@ public class Artist implements Serializable {
     private String description;
 
     private boolean verified;
+
+    @ManyToMany(mappedBy = "artistReleasedBy")
+    private List<Album> albumsReleased;
+
+    @ManyToMany(mappedBy = "artistsReleasedBy")
+    private List<Song> songsReleased;
 
     public Artist(String artistName, String realName, Integer age, String description) {
         this.artistName = artistName;

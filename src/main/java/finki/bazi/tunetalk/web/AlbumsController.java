@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -91,8 +90,7 @@ public class AlbumsController {
 
         model.addAttribute("genres", genreService.findGenresByAlbumId(id));
 
-        List<Comment> comments = commentsService.findCommentsByAlbumId(id);
-        model.addAttribute("comments", comments);
+   
 
         model.addAttribute("bodyContent", "album-page");
         return "master-template";

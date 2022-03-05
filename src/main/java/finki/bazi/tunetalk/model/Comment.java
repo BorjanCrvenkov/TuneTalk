@@ -12,6 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name="comment")
 public class Comment implements Serializable {
 
     @Id
@@ -23,28 +24,43 @@ public class Comment implements Serializable {
 
     private String text;
 
-    private Integer firstCommentId;
+    @ManyToOne
+    @JoinColumn(name = "first_comment_id")
+    private Comment firstComment;
 
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users userPostedBy;
 
-    private Integer albumId;
+    @ManyToOne
+    @JoinColumn(name="album_id")
+    private Album albumCommented;
 
-    private Integer songId;
+    @ManyToOne
+    @JoinColumn(name="song_id")
+    private Song songCommented;
 
-
-    @ElementCollection
+    @OneToMany(mappedBy = "firstComment")
     private List<Comment> replies;
 
-    @Transient
-    private Users user;
+    @ManyToMany
+    @JoinTable(
+            name = "likes",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id"))
+    private List<Users> likedBy;
+
+    @ManyToMany
+    @JoinTable(
+            name = "likes",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id"))
+    private List<Users> dislikedBy;
 
     public Comment(String text,LocalDate datePosted, Integer firstCommentId, Integer userId, Integer albumId, Integer songId) {
         this.datePosted = datePosted;
         this.text = text;
-        this.firstCommentId = firstCommentId;
-        this.userId = userId;
-        this.albumId = albumId;
-        this.songId = songId;
+//        this.firstCommentId = firstCommentId;
         this.replies = new ArrayList<>();
     }
 
@@ -52,76 +68,5 @@ public class Comment implements Serializable {
 
     }
 
-    public Integer getCommentId() {
-        return commentId;
-    }
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
-    }
-
-    public LocalDate getDatePosted() {
-        return datePosted;
-    }
-
-    public void setDatePosted(LocalDate datePosted) {
-        this.datePosted = datePosted;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Integer getFirstCommentId() {
-        return firstCommentId;
-    }
-
-    public void setFirstCommentId(Integer firstCommentId) {
-        this.firstCommentId = firstCommentId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getAlbumId() {
-        return albumId;
-    }
-
-    public void setAlbumId(Integer albumId) {
-        this.albumId = albumId;
-    }
-
-    public Integer getSongId() {
-        return songId;
-    }
-
-    public void setSongId(Integer songId) {
-        this.songId = songId;
-    }
-
-
-    public List<Comment> getReplies() {
-        return replies;
-    }
-
-    public void setReplies(List<Comment> replies) {
-        this.replies = replies;
-    }
-
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
-    }
 }

@@ -1,6 +1,5 @@
 package finki.bazi.tunetalk.service.impl;
 
-import finki.bazi.tunetalk.model.Artist;
 import finki.bazi.tunetalk.model.Song;
 import finki.bazi.tunetalk.model.metamodel.Song_;
 import finki.bazi.tunetalk.repository.SongRepository;

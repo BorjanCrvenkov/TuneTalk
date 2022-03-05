@@ -2,7 +2,6 @@ package finki.bazi.tunetalk.web;
 
 
 import finki.bazi.tunetalk.model.Users;
-import finki.bazi.tunetalk.model.exceptions.UserWithCredentialsDoesNotExistsException;
 import finki.bazi.tunetalk.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

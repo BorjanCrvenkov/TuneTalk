@@ -3,7 +3,6 @@ package finki.bazi.tunetalk.web;
 import finki.bazi.tunetalk.model.*;
 import finki.bazi.tunetalk.service.*;
 
-import org.hibernate.dialect.identity.GetGeneratedKeysDelegate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,9 +78,6 @@ public class SongsController {
         // model.addAttribute("artists",artistService.findArtistsBySongId(id));
 
         // model.addAttribute("genres", genreService.findGenresBySongId(id));
-
-        List<Comment> comments = commentsService.findCommentsBySongId(id);
-        model.addAttribute("comments", comments);
 
         List<Integer> years = IntStream.rangeClosed(1940, Calendar.getInstance().get(Calendar.YEAR)).boxed()
                 .collect(Collectors.toList());
