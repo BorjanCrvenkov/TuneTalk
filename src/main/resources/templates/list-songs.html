@@ -39,49 +39,48 @@
 </head>
 
 <body>
-    <div class="title-container">
-        <h4>All songs</h4>
-        <div class="spacer-title"></div>
-        <div class="search-container">
+    <form th:method="get" th:action="@{/songs}">
+        <div class="title-container">
+            <h4>All songs</h4>
+            <div class="spacer-title"></div>
             <div class="search-container">
-                <form th:method="post" action="/songs/search">
-                    <input th:name="songId" list="search" id="answerInput">
-                    <datalist id="search">
-                        <option th:each="song : ${songsList}" th:text="${song.getTitle()}"
-                            th:value="${song.getSongId()}">
-                        </option>
-                    </datalist>
+                <div class="search-container">
+                    <input th:name="songSearch" placeholder="Search song" id="answerInput">
                     <button type="submit">
                         <img th:src="@{icons/search.svg}">
                     </button>
-                </form>
+
+                </div>
             </div>
         </div>
-    </div>
-    <div class="filters-container">
-        <div class="filter-picker">
-            <select>
-                <option>Option 1</option>
-            </select>
-        </div>
-        <div class="filter-picker">
-            <select>
-                <option>Option 1</option>
-            </select>
-        </div>
-        <div class="filter-picker">
-            <select>
-                <option>Option 1</option>
-            </select>
-        </div>
-        <a href="/songs/create">
-            <!-- <a th:if="${session.user != null}" href="/albums/create"> -->
-            <div class="add-new-button">
-                <p>Add Song</p>
-                <img th:src="@{icons/add.svg}">
+        <div class="filters-container">
+            <div class="filter-picker">
+                <select>
+                    <option value="" selected>Last updated</option>
+                    <option>Top</option>
+                    <option>Least popular</option>
+                </select>
             </div>
-        </a>
-    </div>
+            <div class="filter-picker">
+                <select name="yearReleased">
+                    <option value="" selected>All years</option>
+                    <option th:each="year:${years}" th:value="${year}" th:text="${year}"></option>
+                </select>
+            </div>
+            <div class="filter-picker">
+                <select>
+                    <option value="" selected>All genres</option>
+                </select>
+            </div>
+            <a href="/songs/create">
+                <!-- <a th:if="${session.user != null}" href="/albums/create"> -->
+                <div class="add-new-button">
+                    <p>Add Song</p>
+                    <img th:src="@{icons/add.svg}">
+                </div>
+            </a>
+        </div>
+    </form>
     <div class="content-container-vertical">
         <a th:each="song : ${songsList}" th:href="@{/songs/{id} (id=${song.getSongId()})}">
 

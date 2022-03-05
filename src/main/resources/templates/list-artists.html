@@ -33,49 +33,49 @@
 </head>
 
 <body>
-    <div class="title-container">
-        <h4>All artists</h4>
-        <div class="spacer-title"></div>
-        <div class="search-container">
+    <form th:method="get" th:action="@{/artists}">
+        <div class="title-container">
+            <h4>All artists</h4>
+            <div class="spacer-title"></div>
             <div class="search-container">
-                <form th:method="post" action="/artists/search">
-                    <input th:name="artistId" list="search" id="answerInput">
-                    <datalist id="search">
-                        <option th:each="artist : ${artistsList}" th:text="${artist.getArtistName()}"
-                            th:value="${artist.getArtistId()}">
-                        </option>
-                    </datalist>
+                <div class="search-container">
+                    <input th:name="artistSearch" placeholder="Search artist" id="answerInput" type="text">
                     <button type="submit">
                         <img th:src="@{icons/search.svg}">
                     </button>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="filters-container">
-        <div class="filter-picker">
-            <select>
-                <option>Option 1</option>
-            </select>
-        </div>
-        <div class="filter-picker">
-            <select>
-                <option>Option 1</option>
-            </select>
-        </div>
-        <div class="filter-picker">
-            <select>
-                <option>Option 1</option>
-            </select>
-        </div>
-        <a href="/artists/create">
-            <!-- <a th:if="${session.user != null}" href="/albums/create"> -->
-            <div class="add-new-button">
-                <p>Add Artist</p>
-                <img th:src="@{icons/add.svg}">
+        <div class="filters-container">
+            <div class="filter-picker">
+                <select th:name="sort">
+                    <option value="lastUpdated" selected>Last updated</option>
+                    <option value="top">Top</option>
+                    <option value="least">Least popular</option>
+                </select>
             </div>
-        </a>
-    </div>
+            <div class="filter-picker">
+                <select th:name="artistAge">
+                    <option value="" selected>All ages</option>
+                    <option th:each="age:${ages}" th:value="${age}" th:text="${age}"></option>
+                </select>
+            </div>
+            <div class="filter-picker">
+                <select th:name="genre">
+                    <option value="" selected>All genres</option>
+                    <option th:each="genre : ${genres}" th:value="${genre.getGenreName()}"
+                        th:text="${genre.getGenreName()}"></option>
+                </select>
+            </div>
+            <a href="/artists/create">
+                <!-- <a th:if="${session.user != null}" href="/albums/create"> -->
+                <div class="add-new-button">
+                    <p>Add Artist</p>
+                    <img th:src="@{icons/add.svg}">
+                </div>
+            </a>
+        </div>
+    </form>
     <div class="content-container">
         <a th:each="artist : ${artistsList}" th:href="@{/artists/{id} (id=${artist.getArtistId()})}">
             <div class="album-item">

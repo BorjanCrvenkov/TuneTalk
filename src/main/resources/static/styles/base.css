@@ -61,6 +61,10 @@
     font-size: 12px;
 }
 
+option{
+    background-color: var(--card);
+}
+
 h2 {
     color: white;
     font-family: MontserratSB;

@@ -1,15 +1,17 @@
 package finki.bazi.tunetalk.service.impl;
 
-
 import finki.bazi.tunetalk.model.Album;
 import finki.bazi.tunetalk.model.Artist;
 import finki.bazi.tunetalk.model.Song;
 import finki.bazi.tunetalk.model.exceptions.ArtistNameAlreadyExistsException;
+import finki.bazi.tunetalk.model.metamodel.Artist_;
 import finki.bazi.tunetalk.repository.ArtistRepository;
 import finki.bazi.tunetalk.service.ArtistService;
+
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ArtistServiceImpl implements ArtistService {
@@ -28,6 +30,22 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     public Artist findArtistById(int artistId) {
         return artistRepository.findByArtistId(artistId);
+    }
+
+    @Override
+    public List<Artist> findAllFiltered(String artistNameContains, Integer artistAge, String genre) {
+        Specification<Artist> artistFilterSpecification = nameContains(
+                artistNameContains == null ? "" : artistNameContains);
+        if (artistAge != null) {
+            artistFilterSpecification = artistFilterSpecification.and(artistAgeIs(artistAge));
+        }
+        // if (genre != null) {
+        //     artistFilterSpecification = artistFilterSpecification.and(artistGenreContains(artistGenre));
+        // }
+        var artists = artistRepository.findAll(artistFilterSpecification);
+        System.out.println(artists);
+        return artists;
+
     }
 
     @Override
@@ -65,15 +83,15 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public Artist createNewArtist(String artistName, String realName, Integer age, String description) {
-        Artist artist = new Artist(artistName,realName,age,description);
-        if(this.checkIfArtistNameExists(artistName)){
+        Artist artist = new Artist(artistName, realName, age, description);
+        if (this.checkIfArtistNameExists(artistName)) {
             throw new ArtistNameAlreadyExistsException(artistName);
         }
         return artistRepository.save(artist);
     }
 
     @Override
-    public void updateArtist(Integer id,String artistName, String realName, Integer age, String description) {
+    public void updateArtist(Integer id, String artistName, String realName, Integer age, String description) {
         Artist artist = this.findArtistById(id);
         artist.setArtistName(artistName);
         artist.setRealName(realName);
@@ -84,13 +102,12 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public void addArtistToSong(Integer songId, Integer artistId) {
-        artistRepository.addArtistToSong(songId,artistId);
+        artistRepository.addArtistToSong(songId, artistId);
     }
 
-
     @Override
-    public void addArtistToAlbum(Integer artistId,Integer albumId) {
-        artistRepository.addAlbumToArtist(artistId,albumId);
+    public void addArtistToAlbum(Integer artistId, Integer albumId) {
+        artistRepository.addAlbumToArtist(artistId, albumId);
     }
 
     @Override
@@ -109,4 +126,16 @@ public class ArtistServiceImpl implements ArtistService {
         artistRepository.unverifyArtist(artistId);
     }
 
+    @Override
+    public Specification<Artist> nameContains(String text) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(
+                criteriaBuilder.upper(root.get(Artist_.ARTISTNAME)),
+                "%" + text.toUpperCase() + "%");
+    }
+
+    @Override
+    public Specification<Artist> artistAgeIs(Integer artistAge) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(
+                root.get(Artist_.AGE), artistAge);
+    }
 }

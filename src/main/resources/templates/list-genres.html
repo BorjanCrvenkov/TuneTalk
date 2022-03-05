@@ -23,30 +23,20 @@
 </head>
 
 <body>
-    <div class="title-container">
-        <h4>All genres</h4>
-        <div class="spacer-title"></div>
-        <div class="search-container">
-            <input type="text">
-            <img th:src="@{icons/search.svg}">
+    <form th:method="get" th:action="@{/genres}">
+        <div class="title-container">
+            <h4>All genres</h4>
+            <div class="spacer-title"></div>
+            <div class="search-container">
+                <input th:name="genreSearch" placeholder="Search genre" type="text">
+                <button type="submit">
+                    <img th:src="@{icons/search.svg}">
+                </button>
+            </div>
         </div>
-    </div>
+    </form>
     <div class="filters-container">
-        <div class="filter-picker">
-            <select>
-                <option>Option 1</option>
-            </select>
-        </div>
-        <div class="filter-picker">
-            <select>
-                <option>Option 1</option>
-            </select>
-        </div>
-        <div class="filter-picker">
-            <select>
-                <option>Option 1</option>
-            </select>
-        </div>
+
         <a href="/genres/create">
             <div class="add-new-button">
                 <p>Add Genre</p>

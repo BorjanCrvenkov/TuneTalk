@@ -1,6 +1,5 @@
 package finki.bazi.tunetalk.web;
 
-
 import finki.bazi.tunetalk.model.*;
 import finki.bazi.tunetalk.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,7 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/albums")
@@ -23,7 +27,8 @@ public class AlbumsController {
     private final CommentsService commentsService;
     private final UserService userService;
 
-    public AlbumsController(AlbumService albumService, ArtistService artistService, SongService songService, GenreService genreService, CommentsService commentsService, UserService userService) {
+    public AlbumsController(AlbumService albumService, ArtistService artistService, SongService songService,
+            GenreService genreService, CommentsService commentsService, UserService userService) {
         this.albumService = albumService;
         this.artistService = artistService;
         this.songService = songService;
@@ -33,20 +38,27 @@ public class AlbumsController {
     }
 
     @GetMapping
-    public String getAllAlbumsPage(Model model, HttpServletRequest req){
+    public String getAllAlbumsPage(@RequestParam(required = false) String albumSearch,
+            @RequestParam(required = false) Integer yearReleased, @RequestParam(required = false) String genre,
+            Model model,
+            HttpServletRequest req) {
         Users user = (Users) req.getSession().getAttribute("user");
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
 
-        model.addAttribute("albumList",albumService.findAllAlbums());
+        model.addAttribute("albumList", albumService.findAllFiltered(albumSearch, yearReleased, genre));
+
+        List<Integer> years = IntStream.rangeClosed(1940, Calendar.getInstance().get(Calendar.YEAR)).boxed()
+                .collect(Collectors.toList());
+        Collections.reverse(years);
+        model.addAttribute("years", years);
 
         model.addAttribute("bodyContent", "list-albums");
         return "master-template";
     }
 
     @GetMapping("/create")
-    public String getCreateNewAlbumPage(Model model){
-        model.addAttribute("artistList",artistService.findAll());
-
+    public String getCreateNewAlbumPage(Model model) {
+        model.addAttribute("artistList", artistService.findAll());
 
         model.addAttribute("bodyContent", "create-album");
         return "master-template";
@@ -54,42 +66,42 @@ public class AlbumsController {
 
     @PostMapping("/create")
     public String createNewAlbum(@RequestParam String albumName,
-                                 @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
-                                 @RequestParam float rating,
-                                 @RequestParam int artistId){
+            @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
+            @RequestParam float rating,
+            @RequestParam int artistId) {
 
-        albumService.createNewAlbum(albumName,dateReleased,rating,artistId);
+        albumService.createNewAlbum(albumName, dateReleased, rating, artistId);
 
         return "redirect:/artists";
     }
 
     @GetMapping("/{id}")
-    public String getAlbumPage(Model model, @PathVariable int id){
+    public String getAlbumPage(Model model, @PathVariable int id) {
         Album album = albumService.findById(id);
-        if(album == null){
+        if (album == null) {
             return "redirect:/home";
         }
-        model.addAttribute("album",album);
+        model.addAttribute("album", album);
 
         List<Artist> artists = artistService.getArtistsByAlbumId(id);
-        model.addAttribute("artists",artists);
+        model.addAttribute("artists", artists);
 
         List<Song> songs = songService.findAllSongsByAlbumId(id);
-        model.addAttribute("songs",songs);
+        model.addAttribute("songs", songs);
 
         model.addAttribute("genres", genreService.findGenresByAlbumId(id));
 
         List<Comment> comments = commentsService.findCommentsByAlbumId(id);
-        model.addAttribute("comments",comments);
+        model.addAttribute("comments", comments);
 
         model.addAttribute("bodyContent", "album-page");
         return "master-template";
     }
 
     @GetMapping("/edit/{id}")
-    public String getAlbumEditPage(Model model, @PathVariable int id){
+    public String getAlbumEditPage(Model model, @PathVariable int id) {
         Album album = albumService.findById(id);
-        model.addAttribute("album",album);
+        model.addAttribute("album", album);
 
         model.addAttribute("artists", artistService.getArtistsByAlbumId(id));
 
@@ -103,27 +115,27 @@ public class AlbumsController {
 
     @PostMapping("/edit/{id}")
     public String AlbumEditPage(@PathVariable Integer id,
-                                @RequestParam String albumName,
-                                @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
-                                @RequestParam float rating){
+            @RequestParam String albumName,
+            @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
+            @RequestParam float rating) {
         albumService.updateAlbum(id, albumName, dateReleased, rating);
         return "redirect:/albums/" + id;
     }
 
     @PostMapping("/search")
-    public String albumSearch(@RequestParam int albumId){
+    public String albumSearch(@RequestParam int albumId) {
         Album album = albumService.findById(albumId);
-        if(album != null){
-            return "redirect:/albums/"+albumId;
-        }else{
+        if (album != null) {
+            return "redirect:/albums/" + albumId;
+        } else {
             return "redirect:/albums";
         }
     }
 
     @GetMapping("/addArtist/{id}")
-    public String addAlbum(@PathVariable int id,Model model){
+    public String addAlbum(@PathVariable int id, Model model) {
         Album album = albumService.findById(id);
-        model.addAttribute("album",album);
+        model.addAttribute("album", album);
 
         model.addAttribute("artistsList", artistService.findAll());
 
@@ -133,29 +145,29 @@ public class AlbumsController {
 
     @PostMapping("/addArtist/{id}")
     public String addAlbumPost(@PathVariable int id,
-                                @RequestParam Integer artistId){
+            @RequestParam Integer artistId) {
 
-        artistService.addArtistToAlbum(artistId,id);
-        return "redirect:/albums/"+id;
+        artistService.addArtistToAlbum(artistId, id);
+        return "redirect:/albums/" + id;
     }
 
     @GetMapping("/deleteArtistFromAlbum/{albumId}/{artistId}")
-    public String deleteArtistInAlbum(@PathVariable Integer albumId,@PathVariable Integer artistId){
-        albumService.deleteArtistFromAlbum(artistId,albumId);
-        return "redirect:/albums/"+albumId;
+    public String deleteArtistInAlbum(@PathVariable Integer albumId, @PathVariable Integer artistId) {
+        albumService.deleteArtistFromAlbum(artistId, albumId);
+        return "redirect:/albums/" + albumId;
     }
 
     @GetMapping("/deleteSongFromAlbum/{albumId}/{songId}")
-    public String deleteSongFromAlbum(@PathVariable Integer albumId,@PathVariable Integer songId){
-        albumService.deleteSongFromAlbum(songId,albumId);
-        return "redirect:/albums/"+albumId;
+    public String deleteSongFromAlbum(@PathVariable Integer albumId, @PathVariable Integer songId) {
+        albumService.deleteSongFromAlbum(songId, albumId);
+        return "redirect:/albums/" + albumId;
     }
 
     @GetMapping("/addGenre/{id}")
-    public String addGenre(@PathVariable int id,Model model){
+    public String addGenre(@PathVariable int id, Model model) {
 
         Album album = albumService.findById(id);
-        model.addAttribute("album",album);
+        model.addAttribute("album", album);
 
         model.addAttribute("genres", genreService.listAllGenres());
 
@@ -165,45 +177,45 @@ public class AlbumsController {
 
     @PostMapping("/addGenre/{id}")
     public String addGenrePost(@PathVariable int id,
-                                @RequestParam Integer genreId){
+            @RequestParam Integer genreId) {
 
-        albumService.addGenreToAlbum(genreId,id);
-        return "redirect:/albums/"+id;
+        albumService.addGenreToAlbum(genreId, id);
+        return "redirect:/albums/" + id;
     }
 
-
     @GetMapping("/deleteGenreFromAlbum/{albumId}/{genreId}")
-    public String deleteGenreFromAlbum(@PathVariable Integer albumId,@PathVariable Integer genreId){
-        albumService.deleteGenreFromAlbum(genreId,albumId);
-        return "redirect:/albums/"+albumId;
+    public String deleteGenreFromAlbum(@PathVariable Integer albumId, @PathVariable Integer genreId) {
+        albumService.deleteGenreFromAlbum(genreId, albumId);
+        return "redirect:/albums/" + albumId;
     }
 
     @GetMapping("/addComment/{albumId}")
     public String addAlbumComment(@PathVariable Integer albumId,
-                                  @RequestParam String text,HttpServletRequest req){
+            @RequestParam String text, HttpServletRequest req) {
         Users user = (Users) req.getSession().getAttribute("user");
-        commentsService.createNewComment(text,null,user.getUserId(),albumId,null);
-        return "redirect:/albums/"+albumId;
+        commentsService.createNewComment(text, null, user.getUserId(), albumId, null);
+        return "redirect:/albums/" + albumId;
     }
 
     @GetMapping("/addComment/{albumId}/{firstCommentId}")
-    public String addAlbumCommentReply(@PathVariable Integer albumId, @PathVariable(required = false) Integer firstCommentId,
-                                  @RequestParam String text,HttpServletRequest req){
+    public String addAlbumCommentReply(@PathVariable Integer albumId,
+            @PathVariable(required = false) Integer firstCommentId,
+            @RequestParam String text, HttpServletRequest req) {
         Users user = (Users) req.getSession().getAttribute("user");
-        commentsService.createNewComment(text,firstCommentId,user.getUserId(),albumId,null);
-        return "redirect:/albums/"+albumId;
+        commentsService.createNewComment(text, firstCommentId, user.getUserId(), albumId, null);
+        return "redirect:/albums/" + albumId;
     }
 
     @GetMapping("/verify/{albumId}")
-    public String verifyAlbum(@PathVariable Integer albumId){
+    public String verifyAlbum(@PathVariable Integer albumId) {
         albumService.verifyAlbum(albumId);
-        return "redirect:/albums/"+albumId;
+        return "redirect:/albums/" + albumId;
     }
 
     @GetMapping("/unverify/{albumId}")
-    public String unverifyAlbum(@PathVariable Integer albumId){
+    public String unverifyAlbum(@PathVariable Integer albumId) {
         albumService.unverifyAlbum(albumId);
-        return "redirect:/albums/"+albumId;
+        return "redirect:/albums/" + albumId;
     }
 
 }

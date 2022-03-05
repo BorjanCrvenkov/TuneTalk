@@ -70,10 +70,20 @@
             <form method="post" class="input-form-album" action="/albums/create">
                 <input name="albumName" th:value="(${album} != null ? ${album.getAlbumName()} : '')" id="albumName"
                     type="text" class="text-input" placeholder="Album name" required>
-                <input name="dateReleased" th:value="(${album} != null ? ${album.getDateReleased()} : '')" id="dateReleased"
-                    class="text-input" type="date" placeholder="Date released" required>
-                <input name="rating" th:value="(${album} != null ? ${album.getRating()} : '')" id="rating" min="0" max="10"
-                    class="text-input" type="number" placeholder="Album rating" required>
+                <input name="dateReleased" th:value="(${album} != null ? ${album.getDateReleased()} : '')"
+                    id="dateReleased" class="text-input" type="date" placeholder="Date released" required>
+                <input name="rating" th:value="(${album} != null ? ${album.getRating()} : '')" id="rating" min="0"
+                    max="10" class="text-input" type="number" placeholder="Album rating" required>
+                <input th:name="artistId" list="search" id="answerInput" class="datalist-search"
+                    placeholder="Select Artist" required>
+                <div>
+                    <datalist id="search">
+                        <option th:each="artist : ${artistList}" th:text="${artist.getArtistName()}"
+                            th:value="${artist.getArtistId()}">
+                        </option>
+                    </datalist>
+                    <a href="/artists/create">Add missing artist</a>
+                </div>
                 <button class="button-input" type="submit">Confirm</button>
             </form>
         </div>

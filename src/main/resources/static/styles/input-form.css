@@ -3,6 +3,16 @@ body {
     background-color: var(--dark-gray);
 }
 
+.datalist-search{
+    height: 50px;
+    padding: 10px;
+    background-color: var(--card);
+    border: 1px solid var(--red);
+    border-radius: 30px;
+    color: white;
+}
+
+
 .main-container {
     width: 70vw;
     height: 70vh;
