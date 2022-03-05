@@ -1,3 +1,30 @@
+<<<<<<< HEAD
+<!-- <style>
+    .dela {
+        display: inline-block;
+        margin-top: 30px;
+        margin-left: 150px;
+        width: 500px;
+        border: 2px dotted lightblue;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+
+
+
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +61,7 @@
 
 <body>
 <div>
+>>>>>>> master
     <h1 id="albumName" th:text="${album.getAlbumName()}"></h1>
 
     <div th:if="${session.user != null}">
@@ -165,11 +193,41 @@
             </div>
         </th:block>
     </div>
-</div>
+</div> -->
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{/styles/base.css}">
+    <link rel="stylesheet" th:href="@{/styles/elements.css}">
+    <link rel="stylesheet" th:href="@{/styles/artist.css}">
+
+</head>
+
+<body>
+    <div class="main-container">
+        <div>
+            <div class="item-meta-info">
+                <img th:src="@{/images/album.png}">
+                <div>
+                    <p><b th:text="${album.getAlbumName()}">[Album name]</b></p>
+                    <p
+                        th:text="(${album.getDateReleased()} != null ? 'Released: ' + ${album.getDateReleased().getYear()} : 'Released: Unknown')">
+                    </p>
+                    <p
+                        th:text="(${album.getRating()} != null ? 'Rating: ' + ${album.getRating()} : 'Rating: No rating yet')">
+                    </p>
+                </div>
+            </div>
+            <div class="parent-items-container">
+                <h5>Songs</h5>
+                <div class="item-pill" th:each="song : ${songs}">
+                    <p th:text="${song.getTitle()}">[Album name]</p>
+                    <p>0 comments</p>
+                </div>
+            </div>
+        </div>
+        <div class="comments-container">
+
+        </div>
+    </div>
 </body>
-
-
-
-
-</body>
-</html>

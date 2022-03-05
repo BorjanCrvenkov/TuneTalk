@@ -28,25 +28,24 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String register(@RequestParam String name,
-                           @RequestParam String surname,
-                           @RequestParam("birthday") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthday,
-                           @RequestParam String email,
-                           @RequestParam(required = false) String mobilePhone,
-                           @RequestParam String username,
-                           @RequestParam String password,
-                           @RequestParam String repeatedPassword,
-                           @RequestParam(required = false) String aboutUser,Model model){
+    public String register(@RequestParam String fullName,
+            @RequestParam("birthday") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthday,
+            @RequestParam String email,
+            @RequestParam(required = false) String mobilePhone,
+            @RequestParam String username,
+            @RequestParam String password,
+            @RequestParam String repeatedPassword,
+            @RequestParam(required = false) String aboutUser, Model model) {
 
-        try{
-            userService.createNewUser(name, surname, birthday, email, mobilePhone, username, password, repeatedPassword, aboutUser);
+        try {
+            userService.createNewUser(fullName, fullName, birthday, email, mobilePhone, username, password, repeatedPassword,
+                    aboutUser);
             return "redirect:/login";
-        }catch (Exception ex){
+        } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             model.addAttribute("bodyContent", "register");
             return "master-template";
         }
-
 
     }
 }

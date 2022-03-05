@@ -1,21 +1,20 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-        <form method="post" action="/home/search">
-            <input name="text" class="form-control mr-sm-2" type="search" placeholder="Search for artists, albums, songs" aria-label="Search">
-            <br>
-            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
-        </form>
+<form method="post" action="/home/search">
+    <input name="text" class="form-control mr-sm-2" type="search" placeholder="Search for artists, albums, songs"
+        aria-label="Search">
+    <br>
+    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+</form>
 
-    </div>
+</div>
 
 <ul>
     <li th:each="object : ${objects}">
         <span th:if="${object instanceof T(finki.bazi.tunetalk.model.Album)}">
-
-
             <p>
-            <a th:href="@{'/albums/{id}' (id=${object.getAlbumId()})}" th:text="${object.getAlbumName()}"></a> Album
+                <a th:href="@{'/albums/{id}' (id=${object.getAlbumId()})}" th:text="${object.getAlbumName()}"></a> Album
             </p>
         </span>
 
@@ -31,4 +30,46 @@
 </ul>
 
 
-</div>
+</div> -->
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{styles/base.css}">
+    <link rel="stylesheet" th:href="@{styles/elements.css}">
+    <link rel="stylesheet" th:href="@{styles/main.css}">
+
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="head-container">
+            <div class="latest-discussions">
+                <h4>Latest discussions by genre</h4>
+                <div class="genres-picker">
+                    <p>Pop</p>
+                    <h4>Rock</h4>
+                    <p>Punk</p>
+                </div>
+                <div class="song-item-temp">
+                    <div class="img-container"></div>
+                    <div>
+                        <h4>Yellow Ledbetter</h4>
+                        <p>Pearl Jam</p>
+                        <div class="horizontal-divider"></div>
+                        <p class="caption-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam..</p>
+                    </div>
+                </div>
+            </div>
+            <div class="search">
+                <h3>Tune Talk</h3>
+                <p>Music from an insightful perspective</p>
+                <div class="horizontal-divider"></div>
+                <input class="text-input" type="text" placeholder="Pick Artist">
+                <input class="text-input" type="text" placeholder="Pick Song">
+                <input class="button-input" type="button" value="Join Discussion">
+                <p class="caption-p">Start a new discussion</p>
+            </div>
+        </div>
+    </div>
+</body>

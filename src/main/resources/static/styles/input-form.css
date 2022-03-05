@@ -1,0 +1,71 @@
+body {
+    overflow-x: hidden;
+    background-color: var(--dark-gray);
+}
+
+.datalist-search{
+    height: 50px;
+    padding: 10px;
+    background-color: var(--card);
+    border: 1px solid var(--red);
+    border-radius: 30px;
+    color: white;
+}
+
+
+.main-container {
+    width: 70vw;
+    height: 70vh;
+    margin: 50px 0 50px 0;
+    padding: 50px;
+    position: relative;
+    left: 15vw;
+    background-color: var(--card);
+    border-radius: 30px;
+}
+
+.title-container {
+    display: grid;
+    grid-template-columns: 200px 120px auto;
+    align-items: center;
+    margin: 30px 80px 60px 80px;
+}
+
+.spacer-title {
+    height: 0.5px;
+    width: 50px;
+    background-color: var(--white);
+}
+
+.input-form-artist {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding-left: 50px;
+    gap: 10px 50px;
+    justify-content: start;
+}
+
+
+.input-form-album {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding-left: 50px;
+    gap: 10px 50px;
+    justify-content: start;
+}
+
+.input-form-song {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding-left: 50px;
+    gap: 10px 50px;
+    justify-content: start;
+}
+
+.input-form-genre {
+    display: grid;
+    grid-template-columns: auto;
+    padding-left: 50px;
+    gap: 10px 50px;
+    justify-content: start;
+}

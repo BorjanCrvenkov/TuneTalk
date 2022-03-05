@@ -1,0 +1,65 @@
+body {
+    overflow-x: hidden;
+}
+
+
+.main-container {
+    background-color: var(--dark-gray);
+    height: 70vh;
+    width: 100vw;
+}
+
+.head-container {
+    display: grid;
+    padding-top: 10vh;
+    grid-template-columns: 50vw 40vw;
+}
+
+
+/* Latest Discussions */
+
+.latest-discussions {
+    height: 50vh;
+    width: 40vw;
+    display: grid;
+    padding: 20px 0 20px 0;
+    border-radius: 0px 50px 50px 0px;
+    background-color: var(--card);
+    justify-items: center;
+}
+
+.genres-picker {
+    height: min-content;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 0 30px;
+    align-items: center;
+}
+
+.song-item-temp {
+    display: grid;
+    grid-template-columns: auto 20vw;
+    gap: 0px 30px;
+}
+
+.img-container {
+    content: "";
+    background-color: var(--gray);
+    width: 100px;
+    height: 100px;
+    border-radius: 300px;
+}
+
+/* Search  */
+
+.search {
+    display: grid;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+
+
+.caption-p:hover {
+    columns: var(--gray);
+    cursor: pointer;
+}

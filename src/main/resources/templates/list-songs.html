@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
     li{
         list-style-type: none;
     }
@@ -27,4 +27,77 @@
         </li>
     </ul>
 
-</div>
+</div> -->
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{styles/base.css}">
+    <link rel="stylesheet" th:href="@{styles/elements.css}">
+
+    <link rel="stylesheet" th:href="@{styles/list-content.css}">
+
+</head>
+
+<body>
+    <form th:method="get" th:action="@{/songs}">
+        <div class="title-container">
+            <h4>All songs</h4>
+            <div class="spacer-title"></div>
+            <div class="search-container">
+                <div class="search-container">
+                    <input th:name="songSearch" placeholder="Search song" id="answerInput">
+                    <button type="submit">
+                        <img th:src="@{icons/search.svg}">
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <div class="filters-container">
+            <div class="filter-picker">
+                <select>
+                    <option value="" selected>Last updated</option>
+                    <option>Top</option>
+                    <option>Least popular</option>
+                </select>
+            </div>
+            <div class="filter-picker">
+                <select name="yearReleased">
+                    <option value="" selected>All years</option>
+                    <option th:each="year:${years}" th:value="${year}" th:text="${year}"></option>
+                </select>
+            </div>
+            <div class="filter-picker">
+                <select>
+                    <option value="" selected>All genres</option>
+                </select>
+            </div>
+            <a href="/songs/create">
+                <!-- <a th:if="${session.user != null}" href="/albums/create"> -->
+                <div class="add-new-button">
+                    <p>Add Song</p>
+                    <img th:src="@{icons/add.svg}">
+                </div>
+            </a>
+        </div>
+    </form>
+    <div class="content-container-vertical">
+        <p class="empty-container-center" th:if="${#lists.isEmpty(songsList)}">No Results</p>
+        <a th:each="song : ${songsList}" th:href="@{/songs/{id} (id=${song.getSongId()})}">
+            <div class="song-item">
+                <img th:src="@{images/album.png}">
+                <div class="content">
+                    <div class="inline">
+                        <p th:text="${'[Artist]' + ' - ' + song.getTitle()}"></p>
+                    </div>
+                    <div class="dot-divider"></div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing el</p>
+                    <div class="dot-divider"></div>
+                    <p th:text="${'Released: ' + song.getDateReleased().getYear()}"></p>
+                    <div class="dot-divider"></div>
+                    <p>Comment by: Lua</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</body>

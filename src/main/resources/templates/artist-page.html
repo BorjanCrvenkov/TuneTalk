@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
   .dela {
     display: inline-block;
     margin-top: 30px;
@@ -81,4 +81,41 @@
     </table>
   </div>
 
-</div>
+</div> -->
+
+
+
+<head xmlns:th="http://www.thymeleaf.org">
+  <title>TuneTalk</title>
+  <link rel="stylesheet" th:href="@{/styles/base.css}">
+  <link rel="stylesheet" th:href="@{/styles/elements.css}">
+  <link rel="stylesheet" th:href="@{/styles/artist.css}">
+
+</head>
+
+<body>
+  <div class="main-container">
+    <div>
+      <div class="item-meta-info">
+        <img th:src="@{/images/album.png}">
+        <div>
+          <p><b th:text="${artist.getArtistName()}">[Artist name]</b></p>
+          <p th:text="(${artist.getAge()} != null ? 'Age: ' + ${artist.getAge()} : 'Age: Unknown')"></p>
+          <p
+            th:text="(${artist.getDescription()} != null ? 'Artist description: ' + ${artist.getDescription()} : 'Artist description: No description')">
+          </p>
+        </div>
+      </div>
+      <div class="parent-items-container">
+        <h5>Albums</h5>
+        <div class="item-pill" th:each="album : ${albums}">
+          <p th:text="${album.getAlbumName()}">[Album name]</p>
+          <p>0 comments</p>
+        </div>
+      </div>
+    </div>
+    <div class="comments-container">
+
+    </div>
+  </div>
+</body>

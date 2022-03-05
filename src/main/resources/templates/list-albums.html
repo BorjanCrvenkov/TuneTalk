@@ -1,4 +1,4 @@
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <a th:if="${session.user != null}" class="btn btn-primary"  href="/albums/create">Add new album</a>
     <br>
     <form th:method="post" action="/albums/search">
@@ -22,4 +22,74 @@
         <br>
     </span>
 
-</div>
+</div> -->
+
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{styles/base.css}">
+    <link rel="stylesheet" th:href="@{styles/elements.css}">
+
+    <link rel="stylesheet" th:href="@{styles/list-content.css}">
+
+</head>
+
+<body>
+    <form th:method="get" th:action="@{/albums}">
+        <div class="title-container">
+            <h4>All albums</h4>
+            <div class="spacer-title"></div>
+            <div class="search-container">
+                <input th:name="albumSearch" placeholder="Search album" id="answerInput" type="text">
+                <button type="submit">
+                    <img th:src="@{icons/search.svg}">
+                </button>
+
+            </div>
+        </div>
+        <div class="filters-container">
+            <div class="filter-picker">
+                <select>
+                    <option value="" selected>Last updated</option>
+                    <option>Top</option>
+                    <option>Least popular</option>
+                </select>
+            </div>
+            <div class="filter-picker">
+                <select name="yearReleased">
+                    <option value="" selected>All years</option>
+                    <option th:each="year:${years}" th:value="${year}" th:text="${year}"></option>
+                </select>
+            </div>
+            <div class="filter-picker">
+                <select>
+                    <option value="" selected>All genres</option>
+                </select>
+            </div>
+            <a href="/albums/create">
+                <!-- <a th:if="${session.user != null}" href="/albums/create"> -->
+                <div class="add-new-button">
+                    <p>Add Album</p>
+                    <img th:src="@{icons/add.svg}">
+                </div>
+            </a>
+
+
+        </div>
+    </form>
+
+    <div class="content-container">
+        <p class="empty-container-center" th:if="${#lists.isEmpty(albumList)}">No Results</p>
+        <a th:each="album : ${albumList}" th:href="@{/albums/{id} (id=${album.getAlbumId()})}">
+            <div class="album-item">
+                <img th:src="@{images/album.png}">
+                <div class="content">
+                    <p><b th:text="${album.getAlbumName()}"></b></p>
+                    <p th:text="${'Released: ' + album.getDateReleased().getYear()}"></p>
+                    <br>
+                    <p>0 comments</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</body>

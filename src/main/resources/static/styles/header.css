@@ -1,0 +1,85 @@
+a {
+    padding: 0px;
+    margin: 0px;
+    font-family: MontserratM;
+    font-size: 18px;
+    line-height: 18px;
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #CDCDCD;
+    font-family: MontserratM;
+    text-decoration: none;
+}
+
+.navbar-container {
+    width: 100vw;
+    background-color: #1D1D1D;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    align-items: center;
+    height: 100px;
+}
+
+.navbar-auth-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+}
+
+.logo-icon-a {
+    margin-left: 50px;
+}
+
+.logo-icon-a img {
+    height: 60px;
+    width: 60px;
+}
+
+.menu-p {
+    color: white;
+}
+
+.menu-p:hover {
+    color: var(--gray);
+}
+
+.btn {
+    align-self: center;
+    width: 120px;
+    font-family: MontserratSB;
+    background-color: #451C1A;
+    color: white;
+    border-width: 0px;
+    border-radius: 200px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    color: #451C1A;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-secondary {
+    width: 120px;
+    font-family: MontserratSB;
+    background-color: transparent;
+    color: var(--red);
+    border-width: 0px;
+    border-radius: 200px;
+    transition: 0.3s;
+}
+
+.btn-secondary:hover {
+    color: white;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+/* .navbar-auth {} */

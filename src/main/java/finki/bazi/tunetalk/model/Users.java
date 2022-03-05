@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class Users implements Serializable {
 
     @Id
@@ -38,10 +38,7 @@ public class Users implements Serializable {
     private String aboutMe;
 
     @ManyToMany
-    @JoinTable(
-            name = "likes_genres",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @JoinTable(name = "likes_genres", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genresLiked;
 
     @OneToMany(mappedBy = "userPostedBy")
@@ -56,7 +53,8 @@ public class Users implements Serializable {
     @Transient
     private boolean admin;
 
-    public Users(String username, String password, String name, String surname, String email, String mobilePhone, LocalDate birthday, String aboutMe) {
+    public Users(String username, String password, String name, String surname, String email, String mobilePhone,
+            LocalDate birthday, String aboutMe) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -71,6 +69,14 @@ public class Users implements Serializable {
 
     public Users() {
 
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    public Integer getUserId() {
+        return userId;
     }
 
 }

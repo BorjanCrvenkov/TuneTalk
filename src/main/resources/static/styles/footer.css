@@ -1,0 +1,22 @@
+.footer {
+    width: 100vw;
+    background-color: var(--dark-red);
+    display: grid;
+    grid-template-columns: 30vw 30vw 30vw;
+    padding: 30px 10vw 30px 10vw;
+    align-items: center;
+}
+
+.footer-column {
+    display: grid;
+    justify-items: center;
+}
+
+.dot-divider {
+    content: "";
+    height: 3px;
+    width: 3px;
+    margin: 5px 0 5px 0;
+    background-color: white;
+    border-radius: 500px;
+}

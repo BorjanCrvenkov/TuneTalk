@@ -1,4 +1,4 @@
-<div style="border: 2px dotted lightgray;width: 80%;margin-left: 150px;margin-top: 20px;" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- <div style="border: 2px dotted lightgray;width: 80%;margin-left: 150px;margin-top: 20px;" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <h1 th:text="(${album} != null ? 'Edit Album' : 'Create New Album')"></h1>
 
@@ -28,7 +28,7 @@
             <li th:each="artist : ${artists}" th:text="${artist.getArtistName()}"></li>
         </ul>
 
-<!--        <span th:text="(${album} != null ? 'Current Artist: ' + ${artist.getArtistName()} : '')"></span><br><br>-->
+       <span th:text="(${album} != null ? 'Current Artist: ' + ${artist.getArtistName()} : '')"></span><br><br>
 
         <div class="mb-3">
                 <label for="search">Search artist:</label>
@@ -46,4 +46,46 @@
         <button type="submit" style="margin-bottom: 40px;" class="btn btn-block btn-primary">Confirm</button>
     </form>
 
-</div>
+</div> -->
+
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{/styles/base.css}">
+    <link rel="stylesheet" th:href="@{/styles/elements.css}">
+    <link rel="stylesheet" th:href="@{/styles/input-form.css}">
+
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="title-container">
+            <h4 th:text="(${album} != null ? 'Edit Album' : 'Add Album')">[Title]</h4>
+            <div class="spacer-title"></div>
+            <p>
+                Submit an album in our database
+            </p>
+        </div>
+        <div>
+            <form method="post" class="input-form-album" action="/albums/create">
+                <input name="albumName" th:value="(${album} != null ? ${album.getAlbumName()} : '')" id="albumName"
+                    type="text" class="text-input" placeholder="Album name" required>
+                <input name="dateReleased" th:value="(${album} != null ? ${album.getDateReleased()} : '')"
+                    id="dateReleased" class="text-input" type="date" placeholder="Date released" required>
+                <input name="rating" th:value="(${album} != null ? ${album.getRating()} : '')" id="rating" min="0"
+                    max="10" class="text-input" type="number" placeholder="Album rating" required>
+                <input th:name="artistId" list="search" id="answerInput" class="datalist-search"
+                    placeholder="Select Artist" required>
+                <div>
+                    <datalist id="search">
+                        <option th:each="artist : ${artistList}" th:text="${artist.getArtistName()}"
+                            th:value="${artist.getArtistId()}">
+                        </option>
+                    </datalist>
+                    <a href="/artists/create">Add missing artist</a>
+                </div>
+                <button class="button-input" type="submit">Confirm</button>
+            </form>
+        </div>
+    </div>
+</body>

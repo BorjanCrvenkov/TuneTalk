@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- <div xmlns:th="http://www.w3.org/1999/xhtml">
 
     <h1>Genres</h1>
 
@@ -10,4 +10,42 @@
         </li>
     </ul>
 
-</div>
+</div> -->
+
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{styles/base.css}">
+    <link rel="stylesheet" th:href="@{styles/elements.css}">
+
+    <link rel="stylesheet" th:href="@{styles/list-content.css}">
+
+</head>
+
+<body>
+    <form th:method="get" th:action="@{/genres}">
+        <div class="title-container">
+            <h4>All genres</h4>
+            <div class="spacer-title"></div>
+            <div class="search-container">
+                <input th:name="genreSearch" placeholder="Search genre" type="text">
+                <button type="submit">
+                    <img th:src="@{icons/search.svg}">
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="filters-container">
+
+        <a href="/genres/create">
+            <div class="add-new-button">
+                <p>Add Genre</p>
+                <img th:src="@{icons/add.svg}">
+            </div>
+        </a>
+    </div>
+    <div class="content-container">
+        <p class="empty-container-center" th:if="${#lists.isEmpty(genres)}">No Results</p>
+        <h5 th:each="genre : ${genres}" th:text="${genre.getGenreName()}"></h5>
+    </div>
+</body>

@@ -1,4 +1,4 @@
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- <div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <a th:if="${session.user != null}" class="btn btn-primary"  href="/artists/create">Add new artist</a>
 
     <br>
@@ -21,4 +21,74 @@
         <br>
     </span>
 
-</div>
+</div> -->
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>TuneTalk</title>
+    <link rel="stylesheet" th:href="@{styles/base.css}">
+    <link rel="stylesheet" th:href="@{styles/elements.css}">
+
+    <link rel="stylesheet" th:href="@{styles/list-content.css}">
+
+</head>
+
+<body>
+    <form th:method="get" th:action="@{/artists}">
+        <div class="title-container">
+            <h4>All artists</h4>
+            <div class="spacer-title"></div>
+            <div class="search-container">
+                <div class="search-container">
+                    <input th:name="artistSearch" placeholder="Search artist" id="answerInput" type="text">
+                    <button type="submit">
+                        <img th:src="@{icons/search.svg}">
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="filters-container">
+            <div class="filter-picker">
+                <select th:name="sort">
+                    <option value="lastUpdated" selected>Last updated</option>
+                    <option value="top">Top</option>
+                    <option value="least">Least popular</option>
+                </select>
+            </div>
+            <div class="filter-picker">
+                <select th:name="artistAge">
+                    <option value="" selected>All ages</option>
+                    <option th:each="age:${ages}" th:value="${age}" th:text="${age}"></option>
+                </select>
+            </div>
+            <div class="filter-picker">
+                <select th:name="genre">
+                    <option value="" selected>All genres</option>
+                    <option th:each="genre : ${genres}" th:value="${genre.getGenreName()}"
+                        th:text="${genre.getGenreName()}"></option>
+                </select>
+            </div>
+            <a href="/artists/create">
+                <!-- <a th:if="${session.user != null}" href="/albums/create"> -->
+                <div class="add-new-button">
+                    <p>Add Artist</p>
+                    <img th:src="@{icons/add.svg}">
+                </div>
+            </a>
+        </div>
+    </form>
+    <div class="content-container">
+        <p class="empty-container-center" th:if="${#lists.isEmpty(artistsList)}">No Results</p>
+        <a th:each="artist : ${artistsList}" th:href="@{/artists/{id} (id=${artist.getArtistId()})}">
+            <div class="album-item">
+                <img th:src="@{images/album.png}">
+                <div class="content">
+                    <p><b th:text="${artist.getArtistName()}"></b></p>
+                    <p th:if="${artist.getAge() != null }" th:text="${'Age: ' + artist.getAge()}"></p>
+                    <br>
+                    <p>0 comments</p>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</body>
