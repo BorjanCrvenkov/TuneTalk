@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -25,6 +26,9 @@ public class Album implements Serializable {
     private float rating;
 
     private boolean verified;
+
+    @JoinColumn(name = "album_image")
+    private String albumImage;
 
     @ManyToMany
     @JoinTable(
@@ -50,62 +54,21 @@ public class Album implements Serializable {
     @OneToMany(mappedBy = "albumCommented")
     private List<Comment> comments;
 
-    public Album(String albumName, LocalDate dateReleased, float rating, boolean verified) {
+    public Album(String albumName, LocalDate dateReleased, float rating, String albumImage) {
         this.albumName = albumName;
         this.dateReleased = dateReleased;
         this.rating = rating;
-        this.verified = verified;
+        this.verified = false;
+        this.albumImage = albumImage;
+        this.artistReleasedBy = new ArrayList<>();
+        this.songsInAlbum = new ArrayList<>();
+        this.albumGenres = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public Album() {
 
     }
 
-    @Override
-    public String toString() {
-        return "Album{}";
-    }
-
-    public Integer getAlbumId() {
-        return albumId;
-    }
-
-    public void setAlbumId(Integer albumId) {
-        this.albumId = albumId;
-    }
-
-    public String getAlbumName() {
-        return albumName;
-    }
-
-    public void setAlbumName(String albumName) {
-        this.albumName = albumName;
-    }
-
-    public LocalDate getDateReleased() {
-        return dateReleased;
-    }
-    
-
-    public void setDateReleased(LocalDate dateReleased) {
-        this.dateReleased = dateReleased;
-        
-    }
-
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
-
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
-    }
 
 }

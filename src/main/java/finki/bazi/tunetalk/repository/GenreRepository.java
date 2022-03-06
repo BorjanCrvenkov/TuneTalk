@@ -18,8 +18,6 @@ public interface GenreRepository extends JpaRepository<Genre, Integer>, JpaSpeci
 
     Genre findByGenreId(int genreId);
 
-    List<Genre> findAllByGenreNameLike(String genreName);
-
     Genre findGenreByGenreName(String name);
 
     @Query(value = "select genre_id from album_genre where album_id = :id", nativeQuery = true)

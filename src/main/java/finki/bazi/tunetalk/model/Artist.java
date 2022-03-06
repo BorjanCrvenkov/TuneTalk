@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,13 +19,16 @@ public class Artist implements Serializable {
 
     private String artistName;
 
-    private Integer age;
-
     private String realName;
 
     private String description;
 
     private boolean verified;
+
+    private LocalDate birthday;
+
+    @JoinColumn(name = "artist_image")
+    private String artistImage;
 
     @ManyToMany(mappedBy = "artistReleasedBy")
     private List<Album> albumsReleased;
@@ -31,64 +36,18 @@ public class Artist implements Serializable {
     @ManyToMany(mappedBy = "artistsReleasedBy")
     private List<Song> songsReleased;
 
-    public Artist(String artistName, String realName, Integer age, String description) {
+    public Artist(String artistName, String realName, String description, LocalDate birthday, String artistImage) {
         this.artistName = artistName;
-        this.age = age;
         this.realName = realName;
         this.description = description;
-        this.verified = false;
+        this.birthday = birthday;
+        this.artistImage = artistImage;
     }
 
     public Artist() {
 
     }
 
-    public Integer getArtistId() {
-        return artistId;
-    }
 
-    public void setArtistId(Integer artistId) {
-        this.artistId = artistId;
-    }
-
-    public String getArtistName() {
-        return artistName;
-    }
-
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
-    }
 
 }

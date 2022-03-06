@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -28,6 +29,9 @@ public class Song implements Serializable {
 
     private boolean verified;
 
+    @JoinColumn(name = "song_image")
+    private String songImage;
+
     @ManyToMany
     @JoinTable(
             name = "song_released",
@@ -48,69 +52,22 @@ public class Song implements Serializable {
     @OneToMany(mappedBy = "songCommented")
     private List<Comment> comments;
 
-    public Song(String title, LocalDate dateReleased, float rating, String lyrics, boolean verified) {
+    public Song(String title, LocalDate dateReleased, float rating, String lyrics,String songImage) {
         this.title = title;
         this.dateReleased = dateReleased;
         this.rating = rating;
         this.lyrics = lyrics;
-        this.verified = verified;
+        this.verified = false;
+        this.songImage = songImage;
+        this.artistsReleasedBy = new ArrayList<>();
+        this.albumsIn = new ArrayList<>();
+        this.songGenres = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public Song() {
 
     }
 
-    @Override
-    public String toString() {
-        return "Song{}";
-    }
-
-    public Integer getSongId() {
-        return songId;
-    }
-
-    public void setSongId(Integer songId) {
-        this.songId = songId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public LocalDate getDateReleased() {
-        return dateReleased;
-    }
-
-    public void setDateReleased(LocalDate dateReleased) {
-        this.dateReleased = dateReleased;
-    }
-
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
-
-    public String getLyrics() {
-        return lyrics;
-    }
-
-    public void setLyrics(String lyrics) {
-        this.lyrics = lyrics;
-    }
-
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
-    }
 
 }

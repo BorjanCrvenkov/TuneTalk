@@ -63,12 +63,11 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public Album createNewAlbum(String albumName, LocalDate dateReleased, float rating, int artistId) {
-        Album album = new Album(albumName, dateReleased, rating, false);
-        albumRepository.save(album);
+    public Album createNewAlbum(String albumName, LocalDate dateReleased, float rating, String albumImage, Integer artistId) {
+        Album album = new Album(albumName,dateReleased,rating,albumImage);
+        Album album1 = albumRepository.save(album);
 
-        Integer albumId = albumRepository.findAlbumIdByAlbumNameDateReleasedAndRating(albumName, dateReleased, rating);
-        artistService.addArtistToAlbum(artistId, albumId);
+        this.artistService.addArtistToAlbum(artistId, album1.getAlbumId());
         return album;
     }
 
@@ -93,8 +92,14 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public void updateAlbum(Integer albumId, String albumName, LocalDate dateReleased, float rating) {
-        albumRepository.updateAlbum(albumId, albumName, dateReleased, rating);
+    public Album updateAlbum(Integer albumId, String albumName, LocalDate dateReleased, float rating,
+                            String albumImage) {
+        Album album = this.findById(albumId);
+        album.setAlbumName(albumName);
+        album.setDateReleased(dateReleased);
+        album.setRating(rating);
+        album.setAlbumImage(albumImage);
+        return this.albumRepository.save(album);
     }
 
     @Override

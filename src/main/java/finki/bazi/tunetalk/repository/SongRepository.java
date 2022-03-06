@@ -18,13 +18,7 @@ public interface SongRepository extends JpaRepository<Song, Integer>, JpaSpecifi
 
     Song findBySongId(int songId);
 
-    List<Song> findAllByTitle(String title);
-
     List<Song> findAllByDateReleased(LocalDate dateReleased);
-
-    List<Song> findAllByRating(float rating);
-
-    List<Song> findAllByVerified(boolean verified);
 
     @Query(value = "select song_id from song_released where song_released.artist_id = :id",nativeQuery = true)
     List<Integer> findAllSongsIdByArtistId(@Param("id") Integer artistId);

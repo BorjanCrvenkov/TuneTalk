@@ -10,9 +10,9 @@ public interface UserService {
 
     Users getUserByUsernameAndPassword(String username, String password);
 
-    Users createNewUser(String name, String surname, LocalDate birthday, String email,
-                       String mobilePhone, String username, String password,
-                       String repeatedPassword, String aboutUser);
+    Users createNewUser(String username, String password,  String repeatedPassword, String fullName,
+                        String email, String mobilePhone, LocalDate birthday,
+                        String aboutMe, String userImage);
 
     Users logIn(String username,String password);
 

@@ -17,23 +17,13 @@ public interface AlbumRepository extends JpaRepository<Album, Integer>, JpaSpeci
 
     Album findByAlbumId(int albumId);
 
-    List<Album> findAllByAlbumNameLike(String albumName);
-
     List<Album> findAllByDateReleased(LocalDate dateReleased);
-
-    List<Album> findAllByRating(float rating);
-
-    List<Album> findAllByVerified(boolean verified);
 
     @Query(value = "select album_id from album_released where album_released.artist_id = :id", nativeQuery = true)
     List<Integer> findAllAlbumsIdByArtistId(@Param("id") Integer artistId);
 
     @Query(value = "select album_id from is_in where is_in.song_id = :id", nativeQuery = true)
     Integer findAlbumIdBySongId(@Param("id") Integer song);
-
-    @Query(value = "select album_id from album where album_name = :albumName and date_released = :localDate and rating = :rating", nativeQuery = true)
-    Integer findAlbumIdByAlbumNameDateReleasedAndRating(@Param("albumName") String albumName,
-            @Param("localDate") LocalDate localDate, @Param("rating") float rating);
 
     @Transactional
     @Modifying(clearAutomatically = true)
@@ -54,14 +44,6 @@ public interface AlbumRepository extends JpaRepository<Album, Integer>, JpaSpeci
     @Modifying(clearAutomatically = true)
     @Query(value = "delete from album_genre where album_id = :albumId and genre_id = :genreId", nativeQuery = true)
     void deleteGenreFromAlbum(@Param("genreId") Integer genreId, @Param("albumId") Integer albumId);
-
-    @Transactional
-    @Modifying(clearAutomatically = true)
-    @Query(value = "update album set album_name = :albumName, date_released = :dateReleased, rating = :rating where album_id = :albumId", nativeQuery = true)
-    void updateAlbum(@Param("albumId") Integer albumId,
-            @Param("albumName") String albumName,
-            @Param("dateReleased") LocalDate dateReleased,
-            @Param("rating") float rating);
 
     @Query(value = "select album_id from album_genre where genre_id = :genreId", nativeQuery = true)
     List<Integer> findAlbumsByGenreId(@Param("genreId") Integer genreId);

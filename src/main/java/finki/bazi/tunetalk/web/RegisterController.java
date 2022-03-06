@@ -35,11 +35,13 @@ public class RegisterController {
             @RequestParam String username,
             @RequestParam String password,
             @RequestParam String repeatedPassword,
-            @RequestParam(required = false) String aboutUser, Model model) {
+            @RequestParam(required = false) String aboutUser,
+            @RequestParam String userImage,
+                           Model model) {
 
         try {
-            userService.createNewUser(fullName, fullName, birthday, email, mobilePhone, username, password, repeatedPassword,
-                    aboutUser);
+            userService.createNewUser(username,password,repeatedPassword, fullName, email, mobilePhone,
+                    birthday, aboutUser, userImage);
             return "redirect:/login";
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());

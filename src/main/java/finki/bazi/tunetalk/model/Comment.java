@@ -57,11 +57,16 @@ public class Comment implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "comment_id"))
     private List<Users> dislikedBy;
 
-    public Comment(String text,LocalDate datePosted, Integer firstCommentId, Integer userId, Integer albumId, Integer songId) {
+    public Comment(String text,LocalDate datePosted, Comment firstComment, Users userPostedBy, Album albumCommented, Song songCommented) {
         this.datePosted = datePosted;
         this.text = text;
-//        this.firstCommentId = firstCommentId;
+        this.firstComment = firstComment;
+        this.userPostedBy = userPostedBy;
+        this.albumCommented = albumCommented;
+        this.songCommented = songCommented;
         this.replies = new ArrayList<>();
+        this.likedBy = new ArrayList<>();
+        this.dislikedBy = new ArrayList<>();
     }
 
     public Comment() {

@@ -104,8 +104,8 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Song createNewSong(String title, LocalDate dateReleased, float rating, String lyrics) {
-        Song song = new Song(title, dateReleased, rating, lyrics, false);
+    public Song createNewSong(String title, LocalDate dateReleased, float rating, String lyrics,String songImage) {
+        Song song = new Song(title, dateReleased, rating, lyrics, songImage);
         return this.songRepository.save(song);
     }
 

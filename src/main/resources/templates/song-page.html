@@ -73,68 +73,68 @@
         <br>
     </div>
 
-    <div id="comments" style="border: 1px solid black; width: 700px">
-        <h4>Comments</h4>
-        <th:block th:each="comment : ${song.comments}">
-            <div style="border: 5px solid red; margin-top: 20px">
-                <h4>Comment</h4>
+<!--    <div id="comments" style="border: 1px solid black; width: 700px">-->
+<!--        <h4>Comments</h4>-->
+<!--        <th:block th:each="comment : ${song.comments}">-->
+<!--            <div style="border: 5px solid red; margin-top: 20px">-->
+<!--                <h4>Comment</h4>-->
 
-                <p th:text="'Comment by: ' +${comment.userPostedBy.username} ">
+<!--                <p th:text="'Comment by: ' +${comment.userPostedBy.username} ">-->
 
-                <p><b th:text="'Date posted: ' + ${comment.getDatePosted()}"></b></p>
+<!--                <p><b th:text="'Date posted: ' + ${comment.getDatePosted()}"></b></p>-->
 
-                <p th:text="'Comment text: ' + ${comment.getText()}"></p>
-                <span th:if="${session.user != null}">
-                    <a th:href="@{'/user/album/{albumId}/like/{commentId}' (albumId=${album.getAlbumId()},commentId=${comment.getCommentId()})}">Like</a>
-                    <a th:href="@{'/user/album/{albumId}/dislike/{commentId}' (albumId=${album.getAlbumId()},commentId=${comment.getCommentId()})}">Dislike</a>
-                </span>
+<!--                <p th:text="'Comment text: ' + ${comment.getText()}"></p>-->
+<!--                <span th:if="${session.user != null}">-->
+<!--                    <a th:href="@{'/user/album/{albumId}/like/{commentId}' (albumId=${album.getAlbumId()},commentId=${comment.getCommentId()})}">Like</a>-->
+<!--                    <a th:href="@{'/user/album/{albumId}/dislike/{commentId}' (albumId=${album.getAlbumId()},commentId=${comment.getCommentId()})}">Dislike</a>-->
+<!--                </span>-->
 
-                <div th:if="${session.user != null}" style="border: 2px solid yellow">
-                    <form th:method="get" th:action="@{'/songs/addComment/{albumId}/{firstCommentId}' (albumId=${album.getAlbumId()},firstCommentId=${comment.getCommentId()})}">
-                        <h4>Add reply comment</h4>
-                        <p>Comment text:</p>
-                        <input name="text" type="text">
-                        <button type="submit">Add comment</button>
-                    </form>
-                    <br>
-                </div>
+<!--                <div th:if="${session.user != null}" style="border: 2px solid yellow">-->
+<!--                    <form th:method="get" th:action="@{'/songs/addComment/{albumId}/{firstCommentId}' (albumId=${album.getAlbumId()},firstCommentId=${comment.getCommentId()})}">-->
+<!--                        <h4>Add reply comment</h4>-->
+<!--                        <p>Comment text:</p>-->
+<!--                        <input name="text" type="text">-->
+<!--                        <button type="submit">Add comment</button>-->
+<!--                    </form>-->
+<!--                    <br>-->
+<!--                </div>-->
 
-            </div>
-
-
-
-            <div th:fragment="f_call(comment)"
-                 th:unless="${#lists.isEmpty(comment.getReplies())}" style="border: 5px solid blue; margin-top: 20px">
-                <h4>Replies</h4>
-
-                <div th:each="reply : ${comment.getReplies()}" th:inline="text">
-
-                    <p th:text="'Comment by: ' +${comment.userPostedBy.username} ">
-                    <p><b th:text="'Date posted: ' + ${reply.getDatePosted()}"></b></p>
-
-                    <p th:text="'Comment text: ' + ${reply.getText()}"></p>
-                    <span th:if="${session.user != null}">
-                        <a th:href="@{'/user/album/{albumId}/like/{commentId}' (albumId=${album.getAlbumId()},commentId=${comment.getCommentId()})}">Like</a>
-                        <a th:href="@{'/user/album/{albumId}/dislike/{commentId}' (albumId=${album.getAlbumId()},commentId=${comment.getCommentId()})}">Dislike</a>
-                    </span>
+<!--            </div>-->
 
 
 
-                    <div  th:if="${session.user != null}" style="border: 2px solid yellow">
-                        <form method="get" th:action="@{'/albums/addComment/{albumId}/{firstCommentId}' (albumId=${album.getAlbumId()},firstCommentId=${reply.getFirstCommentId})}">
-                            <h4>Add reply comment</h4>
-                            <p>Comment text:</p>
-                            <input name="text"  type="text">
-                            <button type="submit">Add comment</button>
-                        </form>
-                        <br>
-                    </div>
+<!--            <div th:fragment="f_call(comment)"-->
+<!--                 th:unless="${#lists.isEmpty(comment.getReplies())}" style="border: 5px solid blue; margin-top: 20px">-->
+<!--                <h4>Replies</h4>-->
 
-                    <div th:replace="this::f_call(${reply})"></div>
-                </div>
-            </div>
-        </th:block>
-    </div>
+<!--                <div th:each="reply : ${comment.getReplies()}" th:inline="text">-->
+
+<!--                    <p th:text="'Comment by: ' +${comment.userPostedBy.username} ">-->
+<!--                    <p><b th:text="'Date posted: ' + ${reply.getDatePosted()}"></b></p>-->
+
+<!--                    <p th:text="'Comment text: ' + ${reply.getText()}"></p>-->
+<!--                    <span th:if="${session.user != null}">-->
+<!--                        <a th:href="@{'/user/album/{albumId}/like/{commentId}' (albumId=${album.getAlbumId()},commentId=${comment.getCommentId()})}">Like</a>-->
+<!--                        <a th:href="@{'/user/album/{albumId}/dislike/{commentId}' (albumId=${album.getAlbumId()},commentId=${comment.getCommentId()})}">Dislike</a>-->
+<!--                    </span>-->
+
+
+
+<!--                    <div  th:if="${session.user != null}" style="border: 2px solid yellow">-->
+<!--                        <form method="get" th:action="@{'/albums/addComment/{albumId}/{firstCommentId}' (albumId=${album.getAlbumId()},firstCommentId=${reply.getFirstCommentId})}">-->
+<!--                            <h4>Add reply comment</h4>-->
+<!--                            <p>Comment text:</p>-->
+<!--                            <input name="text"  type="text">-->
+<!--                            <button type="submit">Add comment</button>-->
+<!--                        </form>-->
+<!--                        <br>-->
+<!--                    </div>-->
+
+<!--                    <div th:replace="this::f_call(${reply})"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </th:block>-->
+<!--    </div>-->
 
 
 </div>

@@ -67,9 +67,10 @@ public class AlbumsController {
     public String createNewAlbum(@RequestParam String albumName,
             @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
             @RequestParam float rating,
-            @RequestParam int artistId) {
+            @RequestParam int artistId,
+            @RequestParam String albumImage) {
 
-        albumService.createNewAlbum(albumName, dateReleased, rating, artistId);
+        albumService.createNewAlbum(albumName, dateReleased, rating, albumImage, artistId);
 
         return "redirect:/artists";
     }
@@ -90,7 +91,7 @@ public class AlbumsController {
 
         model.addAttribute("genres", genreService.findGenresByAlbumId(id));
 
-   
+
 
         model.addAttribute("bodyContent", "album-page");
         return "master-template";
@@ -115,8 +116,9 @@ public class AlbumsController {
     public String AlbumEditPage(@PathVariable Integer id,
             @RequestParam String albumName,
             @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
-            @RequestParam float rating) {
-        albumService.updateAlbum(id, albumName, dateReleased, rating);
+            @RequestParam float rating,
+            @RequestParam String albumImage) {
+        albumService.updateAlbum(id, albumName, dateReleased, rating, albumImage);
         return "redirect:/albums/" + id;
     }
 

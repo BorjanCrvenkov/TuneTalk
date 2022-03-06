@@ -16,14 +16,6 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>, JpaSpe
 
     Artist findByArtistId(Integer id);
 
-    List<Artist> findAllByAge(int age);
-
-    List<Artist> findAllByArtistNameContainingIgnoreCase(String text);
-
-    List<Artist> findAllByRealName(String realName);
-
-    List<Artist> findAllByVerified(boolean verified);
-
     @Query(value = "select artist_id from album_released where album_released.album_id = :id", nativeQuery = true)
     List<Integer> findArtistsIdByAlbumId(@Param("id") Integer albumId);
 
@@ -31,12 +23,6 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer>, JpaSpe
     List<Integer> findArtistIdBySongId(@Param("id") Integer songId);
 
     Artist getArtistByArtistName(String name);
-
-    @Transactional
-    @Modifying(clearAutomatically = true)
-    @Query(value = "update artist set artist_name = :artistName,age = :age, real_name = :realName, description = :description where artist_id = :id", nativeQuery = true)
-    void updateArtist(@Param("id") Integer id, @Param("artistName") String artistName,
-            @Param("realName") String realName, @Param("age") Integer age, @Param("description") String description);
 
     @Transactional
     @Modifying(clearAutomatically = true)

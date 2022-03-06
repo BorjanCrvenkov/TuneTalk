@@ -11,6 +11,7 @@ import finki.bazi.tunetalk.service.ArtistService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -82,8 +83,8 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public Artist createNewArtist(String artistName, String realName, Integer age, String description) {
-        Artist artist = new Artist(artistName, realName, age, description);
+    public Artist createNewArtist(String artistName, String realName, String description, LocalDate birthday, String artistImage) {
+        Artist artist = new Artist(artistName, realName, description, birthday, artistImage);
         if (this.checkIfArtistNameExists(artistName)) {
             throw new ArtistNameAlreadyExistsException(artistName);
         }
@@ -91,12 +92,12 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public void updateArtist(Integer id, String artistName, String realName, Integer age, String description) {
+    public void updateArtist(Integer id, String artistName, String realName, String description, LocalDate birthday, String artistImage) {
         Artist artist = this.findArtistById(id);
         artist.setArtistName(artistName);
         artist.setRealName(realName);
-        artist.setAge(age);
         artist.setDescription(description);
+        artist.setArtistImage(artistImage);
         this.artistRepository.save(artist);
     }
 

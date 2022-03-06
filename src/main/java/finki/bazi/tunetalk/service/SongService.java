@@ -35,7 +35,7 @@ public interface SongService {
 
     void unverifySong(Integer songId);
 
-    Song createNewSong(String title, LocalDate dateReleased, float rating, String lyrics);
+    Song createNewSong(String title, LocalDate dateReleased, float rating, String lyrics, String songImage);
 
     Specification<Song> nameContains(String text);
 

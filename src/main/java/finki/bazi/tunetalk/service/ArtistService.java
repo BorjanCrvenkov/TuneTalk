@@ -4,6 +4,7 @@ import finki.bazi.tunetalk.model.Album;
 import finki.bazi.tunetalk.model.Artist;
 import finki.bazi.tunetalk.model.Song;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -26,9 +27,9 @@ public interface ArtistService {
 
     List<Artist> findArtistsBySongId(Integer songId);
 
-    Artist createNewArtist(String artistName, String realName, Integer age, String description);
+    Artist createNewArtist(String artistName, String realName, String description, LocalDate birthday, String artistImage);
 
-    void updateArtist(Integer id, String artistName, String realName, Integer age, String description);
+    void updateArtist(Integer id, String artistName, String realName, String description, LocalDate birthday, String artistImage);
 
     void addArtistToSong(Integer songId, Integer artistId);
 

@@ -8,11 +8,13 @@ import finki.bazi.tunetalk.service.AlbumService;
 import finki.bazi.tunetalk.service.ArtistService;
 import finki.bazi.tunetalk.service.GenreService;
 import finki.bazi.tunetalk.service.SongService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -61,10 +63,11 @@ public class ArtistsController {
     @PostMapping("/create")
     public String createNewArtist(@RequestParam String artistName,
             @RequestParam(required = false) String realName,
-            @RequestParam(required = false) Integer age,
-            @RequestParam(required = false) String description) {
+            @RequestParam("birthday") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthday,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) String artistImage) {
 
-        artistService.createNewArtist(artistName, realName, age, description);
+        artistService.createNewArtist(artistName, realName, description, birthday,artistImage);
         return "redirect:/artists";
     }
 
@@ -98,10 +101,11 @@ public class ArtistsController {
     public String ArtistEditPage(@PathVariable Integer id,
             @RequestParam String artistName,
             @RequestParam(required = false) String realName,
-            @RequestParam(required = false) Integer age,
-            @RequestParam(required = false) String description) {
+                                 @RequestParam("birthday") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthday,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) String artistImage) {
 
-        artistService.updateArtist(id, artistName, realName, age, description);
+        artistService.updateArtist(id, artistName, realName, description, birthday, artistImage);
 
         return "redirect:/artists/" + id;
     }

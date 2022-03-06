@@ -49,7 +49,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Users createNewUser(String name, String surname, LocalDate birthday, String email, String mobilePhone, String username, String password, String repeatedPassword, String aboutUser) {
+    public Users createNewUser(String username, String password,  String repeatedPassword, String fullName,
+                               String email, String mobilePhone, LocalDate birthday,
+                               String aboutMe, String userImage) {
         if(checkIfUsernameExists(username)){
             throw new UsernameAlreadyExistsException(username);
         }
@@ -71,7 +73,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordsDoNotMatchException();
         }
 
-        Users user = new Users(username, password, name, surname, email, mobilePhone, birthday, aboutUser);
+        Users user = new Users(username, password, fullName, email,mobilePhone, birthday, aboutMe, userImage);
         return userRepository.save(user);
     }
 

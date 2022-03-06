@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -28,6 +29,9 @@ public class Genre implements Serializable {
 
     public Genre(String genreName) {
         this.genreName = genreName;
+        this.songs = new ArrayList<>();
+        this.albums = new ArrayList<>();
+        this.users = new ArrayList<>();
     }
 
     public Genre() {

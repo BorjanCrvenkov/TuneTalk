@@ -62,8 +62,9 @@ public class SongsController {
     public String createNewSong(@RequestParam String title,
             @RequestParam("dateReleased") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateReleased,
             @RequestParam float rating,
-            @RequestParam String lyrics) {
-        this.songService.createNewSong(title, dateReleased, rating, lyrics);
+            @RequestParam String lyrics,
+            @RequestParam String songImage) {
+        this.songService.createNewSong(title, dateReleased, rating, lyrics, songImage);
 
         return "redirect:/songs";
     }
