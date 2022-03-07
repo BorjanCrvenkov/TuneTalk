@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Users createNewUser(String username, String password,  String repeatedPassword, String fullName,
+    public Users createNewUser(String username, String password, String repeatedPassword, String fullName,
                                String email, String mobilePhone, LocalDate birthday,
                                String aboutMe, String userImage) {
         if(checkIfUsernameExists(username)){

@@ -60,6 +60,10 @@
                 <input name="rating" th:value="(${song} != null ? ${song.getRating()} : '')" id="rating" min="0"
                     max="10" class="text-input" type="number" placeholder="Song rating" required>
                 <input name="lyrics" id="lyrics" class="text-input" type="text" placeholder="Lyrics" required>
+
+                <input name="songImage" th:value="(${song} != null ? ${song.songImage} : '')"
+                       id="songImage" class="text-input" type="text" placeholder="Song image link" >
+
                 <button class="button-input" type="submit">Confirm</button>
             </form>
         </div>

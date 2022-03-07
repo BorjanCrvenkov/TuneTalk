@@ -11,7 +11,7 @@ import finki.bazi.tunetalk.service.SongService;
 import finki.bazi.tunetalk.service.UserService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 public class CommentsServiceImpl implements CommentsService {
@@ -41,7 +41,7 @@ public class CommentsServiceImpl implements CommentsService {
         Song song = this.songService.findById(songId);
         Comment firstComment = this.findCommentById(firstCommentId);
 
-        Comment comment = new Comment(text, LocalDate.now(), firstComment, user, album, song);
+        Comment comment = new Comment(text, LocalDateTime.now(), firstComment, user, album, song);
         return commentRepository.save(comment);
     }
 

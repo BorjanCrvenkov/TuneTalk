@@ -70,6 +70,7 @@
             <div class="filter-picker">
                 <select>
                     <option value="" selected>All genres</option>
+                    <option th:each="genre : ${genres}" th:text="${genre.genreName}" th:value="${genre.genreId}"></option>
                 </select>
             </div>
             <a href="/songs/create">
@@ -85,10 +86,10 @@
         <p class="empty-container-center" th:if="${#lists.isEmpty(songsList)}">No Results</p>
         <a th:each="song : ${songsList}" th:href="@{/songs/{id} (id=${song.getSongId()})}">
             <div class="song-item">
-                <img th:src="@{images/album.png}">
+                <img th:src="${song.songImage}">
                 <div class="content">
                     <div class="inline">
-                        <p th:text="${'[Artist]' + ' - ' + song.getTitle()}"></p>
+                        <p th:text="${song.getTitle()}"></p>
                     </div>
                     <div class="dot-divider"></div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing el</p>

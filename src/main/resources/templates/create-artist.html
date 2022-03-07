@@ -63,14 +63,19 @@
             <form method="post" class="input-form-artist" action="/artists/create">
                 <input name="realName" th:value="(${artist} != null ? ${artist.getRealName()} : '')" id="realName"
                     type="text" class="text-input" placeholder="Artist name" required>
+
                 <input name="artistName" th:value="(${artist} != null ? ${artist.getRealName()} : '')" id="artistName"
                     class="text-input" type="text" placeholder="Artist real name" required>
-                <input name="age" th:value="(${artist} != null ? ${artist.getAge()} : '')" id="age" min="0" max="125"
-                    class="text-input" type="number" placeholder="Artist age" required>
+
+                <input name="birthday" th:value="(${artist} != null ? ${artist.getBirthday()} : '')" id="birthday" class="text-input" type="date" placeholder="Artist birthday">
+
                 <input name="description" th:value="(${artist} != null ? ${artist.getDescription()} : '')"
-                    id="description" class="text-input" type="text" placeholder="Artist description" required>
+                    id="description" class="text-input" type="text" placeholder="Artist description">
+
+                <input name="artistImage" th:value="(${artist} != null ? ${artist.artistImage} : '')"
+                    id="artistImage" class="text-input" type="text" placeholder="Artist image link" >
+
                 <button class="button-input" type="submit">Confirm</button>
             </form>
-        </div>
-    </div>
+        </div>    </div>
 </body>

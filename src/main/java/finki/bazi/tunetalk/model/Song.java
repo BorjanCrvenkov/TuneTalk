@@ -20,7 +20,7 @@ public class Song implements Serializable {
 
     private String title;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateReleased;
 
     private float rating;

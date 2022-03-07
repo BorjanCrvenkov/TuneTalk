@@ -10,11 +10,11 @@ public interface UserService {
 
     Users getUserByUsernameAndPassword(String username, String password);
 
-    Users createNewUser(String username, String password,  String repeatedPassword, String fullName,
+    Users createNewUser(String username, String password, String repeatedPassword, String fullName,
                         String email, String mobilePhone, LocalDate birthday,
                         String aboutMe, String userImage);
 
-    Users logIn(String username,String password);
+    Users logIn(String username, String password);
 
     Users findUserByCommentId(Integer commentId);
 

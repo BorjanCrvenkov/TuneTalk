@@ -76,6 +76,10 @@
                     max="10" class="text-input" type="number" placeholder="Album rating" required>
                 <input th:name="artistId" list="search" id="answerInput" class="datalist-search"
                     placeholder="Select Artist" required>
+
+                <input name="albumImage" th:value="(${album} != null ? ${album.albumImage()} : '')"
+                       id="albumImage" class="text-input" type="text" placeholder="Album image link" >
+
                 <div>
                     <datalist id="search">
                         <option th:each="artist : ${artistList}" th:text="${artist.getArtistName()}"

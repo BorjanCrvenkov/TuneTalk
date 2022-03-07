@@ -44,7 +44,6 @@ public class ArtistServiceImpl implements ArtistService {
         //     artistFilterSpecification = artistFilterSpecification.and(artistGenreContains(artistGenre));
         // }
         var artists = artistRepository.findAll(artistFilterSpecification);
-        System.out.println(artists);
         return artists;
 
     }

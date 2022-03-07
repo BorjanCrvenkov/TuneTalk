@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "public")
 public class Users implements Serializable {
 
     @Id
@@ -22,17 +22,17 @@ public class Users implements Serializable {
 
     private String password;
 
-    @JoinColumn(name = "fullname")
+    @Column(name = "fullname")
     private String fullName;
 
     private String email;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateCreated;
 
     private String mobilePhone;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate birthday;
 
     private String aboutMe;

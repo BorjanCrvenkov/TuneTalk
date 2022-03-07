@@ -47,6 +47,8 @@ public class SongsController {
         Collections.reverse(years);
         model.addAttribute("years", years);
 
+        model.addAttribute("genres", this.genreService.listAllGenres());
+
         model.addAttribute("songsList", songs);
         model.addAttribute("bodyContent", "list-songs");
         return "master-template";

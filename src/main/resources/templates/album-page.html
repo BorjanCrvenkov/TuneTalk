@@ -211,18 +211,32 @@
                 <div>
                     <p><b th:text="${album.getAlbumName()}">[Album name]</b></p>
                     <p
-                        th:text="(${album.getDateReleased()} != null ? 'Released: ' + ${album.getDateReleased().getYear()} : 'Released: Unknown')">
+                        th:text="(${album.getDateReleased()} != null ? 'Released: ' + ${album.getDateReleased()} : 'Released: Unknown')">
                     </p>
                     <p
                         th:text="(${album.getRating()} != null ? 'Rating: ' + ${album.getRating()} : 'Rating: No rating yet')">
                     </p>
+
+                    <div th:if="${session.user.isAdmin() == true}">
+                        <a th:if="${album.isVerified() == false}" th:href="@{'/albums/verify/{albumId}' (albumId=${album.getAlbumId()})}">Verify</a>
+                        <a th:if="${album.isVerified() == true}" th:href="@{'/albums/unverify/{albumId}' (albumId=${album.getAlbumId()})}">Unverify</a>
+                    </div>
+
+                    <div th:if="${album.isVerified() == false}">
+                        <a th:href="@{'/albums/edit/{id}' (id=${album.getAlbumId()})}">Edit page</a>
+                    </div>
+
                 </div>
+
+
+
+
             </div>
             <div class="parent-items-container">
                 <h5>Songs</h5>
                 <div class="item-pill" th:each="song : ${songs}">
-                    <p th:text="${song.getTitle()}">[Album name]</p>
-                    <p>0 comments</p>
+                    <p><a th:text="${song.getTitle()}" th:href="@{'/songs/{id}' (id=${song.getSongId()})}"></a></p>
+<!--                    <p>0 comments</p>-->
                 </div>
             </div>
         </div>

@@ -20,7 +20,7 @@ public class Album implements Serializable {
 
     private String albumName;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateReleased;
 
     private float rating;

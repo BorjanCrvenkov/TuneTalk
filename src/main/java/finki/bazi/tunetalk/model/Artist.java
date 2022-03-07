@@ -1,6 +1,7 @@
 package finki.bazi.tunetalk.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Artist implements Serializable {
 
     private boolean verified;
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate birthday;
 
     @JoinColumn(name = "artist_image")
@@ -47,7 +49,5 @@ public class Artist implements Serializable {
     public Artist() {
 
     }
-
-
 
 }

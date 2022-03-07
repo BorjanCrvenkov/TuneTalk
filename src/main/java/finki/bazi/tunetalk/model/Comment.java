@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +19,8 @@ public class Comment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
 
-    @DateTimeFormat(pattern = "dd-M-yyyy hh:mm:ss")
-    private LocalDate datePosted;
+    @DateTimeFormat(pattern = "dd-MM-yyyy hh:mm:ss")
+    private LocalDateTime datePosted;
 
     private String text;
 
@@ -57,7 +57,7 @@ public class Comment implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "comment_id"))
     private List<Users> dislikedBy;
 
-    public Comment(String text,LocalDate datePosted, Comment firstComment, Users userPostedBy, Album albumCommented, Song songCommented) {
+    public Comment(String text, LocalDateTime datePosted, Comment firstComment, Users userPostedBy, Album albumCommented, Song songCommented) {
         this.datePosted = datePosted;
         this.text = text;
         this.firstComment = firstComment;

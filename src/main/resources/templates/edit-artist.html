@@ -23,9 +23,9 @@
                    id="realName" type="text" class="form-control" placeholder="Enter artist real name">
         </div>
         <div class="mb-3">
-            <label for="age" class="form-label">Age:</label>
-            <input name="age" th:value="(${artist} != null ? ${artist.getAge()} : '')"
-                   id="age" type="number" class="form-control" placeholder="Enter artist age"  min="0" max="125">
+            <label for="age" class="form-label">Birthday:</label>
+            <input name="birthday" th:value="(${artist} != null ? ${artist.birthday} : '')"
+                   id="birthday" type="date" class="form-control">
         </div>
 
         <div class="mb-3">

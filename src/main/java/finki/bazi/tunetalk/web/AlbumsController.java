@@ -51,6 +51,8 @@ public class AlbumsController {
         Collections.reverse(years);
         model.addAttribute("years", years);
 
+        model.addAttribute("genres", this.genreService.listAllGenres());
+
         model.addAttribute("bodyContent", "list-albums");
         return "master-template";
     }

@@ -1,90 +1,3 @@
-<!-- <style>
-  .dela {
-    display: inline-block;
-    margin-top: 30px;
-    margin-left: 150px;
-    width: 500px;
-    border: 2px dotted lightblue;
-  }
-
-  table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-</style>
-
-<div xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
-  <h1 id="artistName" th:text="${artist.getArtistName()}"></h1>
-
-
-  <div th:if="${session.user != null}">
-
-    <div th:if="${session.user.isAdmin() == true}">
-      <a th:if="${artist.isVerified() == false}" th:href="@{'/artists/verify/{artistId}' (artistId=${artist.getArtistId()})}">Verify</a>
-      <a th:if="${artist.isVerified() == true}" th:href="@{'/artists/unverify/{artistId}' (artistId=${artist.getArtistId()})}">Unverify</a>
-    </div>
-
-    <div th:if="${artist.isVerified() == false}">
-      <a th:href="@{'/artists/edit/{id}' (id=${artist.getArtistId()})}">Edit page</a>
-    </div>
-
-
-  </div>
-
-  <div id="basic-info">
-    <p th:text="(${artist.getRealName()} != null ? 'Real name: ' + ${artist.getRealName()} : 'Real name: Unknown')"></p>
-    <p th:text="(${artist.getAge()} != null ? 'Age: ' + ${artist.getAge()} : 'Age: Unknown')"></p>
-    <p th:text="(${artist.getDescription()} != null ? 'Artist description: ' + ${artist.getDescription()} : 'Artist description: No description')"></p>
-  </div>
-
-
-  <div class="dela">
-    <h4>Artist Albums</h4>
-    <table>
-      <tr>
-        <th>Album Name</th>
-        <th>Date_Released</th>
-        <th>Rating</th>
-      </tr>
-
-      <tr th:each="album : ${albums}">
-        <th><a th:text="${album.getAlbumName()}" th:href="@{'/albums/{id}' (id=${album.getAlbumId()})}"></a></th>
-        <th th:text="${album.getDateReleased()}"></th>
-        <th th:text="${album.getRating()}"></th>
-      </tr>
-
-    </table>
-  </div>
-
-  <div class="dela">
-    <h4>Artist Songs</h4>
-    <table>
-      <tr>
-        <th>Song Name</th>
-        <th>Date_Released</th>
-        <th>Rating</th>
-      </tr>
-
-      <tr th:each="song : ${songs}">
-        <th><a th:text="${song.getTitle()}" th:href="@{'/songs/{id}' (id=${song.getSongId()})}"></a></th>
-        <th th:text="${song.getDateReleased()}"></th>
-        <th th:text="${song.getRating()}"></th>
-      </tr>
-
-    </table>
-  </div>
-
-</div> -->
-
-
-
 <head xmlns:th="http://www.thymeleaf.org">
   <title>TuneTalk</title>
   <link rel="stylesheet" th:href="@{/styles/base.css}">
@@ -97,20 +10,44 @@
   <div class="main-container">
     <div>
       <div class="item-meta-info">
-        <img th:src="@{/images/album.png}">
+        <img th:src="${artist.artistImage}" style="width: 150px; height: 150px">
         <div>
           <p><b th:text="${artist.getArtistName()}">[Artist name]</b></p>
-          <p th:text="(${artist.getAge()} != null ? 'Age: ' + ${artist.getAge()} : 'Age: Unknown')"></p>
+          <p th:text="'Birthday: ' + (${artist.birthday} != null ? ${artist.birthday} : 'Unknown')"></p>
           <p
             th:text="(${artist.getDescription()} != null ? 'Artist description: ' + ${artist.getDescription()} : 'Artist description: No description')">
           </p>
+
+          <div id="verify-edit-buttons">
+            <div th:if="${session.user != null}">
+              <div th:if="${session.user.isAdmin() == true}">
+                <a th:if="${artist.isVerified() == false}" th:href="@{'/artists/verify/{artistId}' (artistId=${artist.getArtistId()})}">Verify</a>
+                <a th:if="${artist.isVerified() == true}" th:href="@{'/artists/unverify/{artistId}' (artistId=${artist.getArtistId()})}">Unverify</a>
+              </div>
+              <div th:if="${artist.isVerified() == false}">
+                <a th:href="@{'/artists/edit/{id}' (id=${artist.getArtistId()})}">Edit page</a>
+              </div>
+            </div>
+
+          </div>
+
+
+          </div>
+
         </div>
       </div>
       <div class="parent-items-container">
         <h5>Albums</h5>
         <div class="item-pill" th:each="album : ${albums}">
-          <p th:text="${album.getAlbumName()}">[Album name]</p>
-          <p>0 comments</p>
+          <a th:text="${album.getAlbumName()}" th:href="@{'/albums/{id}' (id=${album.getAlbumId()})}"></a>
+<!--          <p th:text="${#lists.size(album.comments)}">0 comments</p>-->
+        </div>
+      </div>
+      <div class="parent-items-container">
+        <h5>Songs</h5>
+        <div class="item-pill" th:each="song : ${songs}" >
+          <a th:text="${song.getTitle()}" th:href="@{'/songs/{id}' (id=${song.getSongId()})}"></a>
+          <!--          <p th:text="${#lists.size(song.comments)}">0 comments</p>-->
         </div>
       </div>
     </div>

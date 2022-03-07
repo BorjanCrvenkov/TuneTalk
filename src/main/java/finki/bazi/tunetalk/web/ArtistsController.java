@@ -63,7 +63,7 @@ public class ArtistsController {
     @PostMapping("/create")
     public String createNewArtist(@RequestParam String artistName,
             @RequestParam(required = false) String realName,
-            @RequestParam("birthday") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthday,
+            @RequestParam(value = "birthday",required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthday,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) String artistImage) {
 

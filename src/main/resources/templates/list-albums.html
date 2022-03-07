@@ -25,7 +25,7 @@
 </div> -->
 
 
-<head xmlns:th="http://www.thymeleaf.org">
+<head xmlns:th="http://www.thymeleaf.org" >
     <title>TuneTalk</title>
     <link rel="stylesheet" th:href="@{styles/base.css}">
     <link rel="stylesheet" th:href="@{styles/elements.css}">
@@ -34,7 +34,7 @@
 
 </head>
 
-<body>
+<body xmlns:th="http://www.w3.org/1999/xhtml">
     <form th:method="get" th:action="@{/albums}">
         <div class="title-container">
             <h4>All albums</h4>
@@ -64,6 +64,7 @@
             <div class="filter-picker">
                 <select>
                     <option value="" selected>All genres</option>
+                    <option th:each="genre : ${genres}" th:text="${genre.genreName}" th:value="${genre.genreId}"></option>
                 </select>
             </div>
             <a href="/albums/create">
@@ -82,7 +83,7 @@
         <p class="empty-container-center" th:if="${#lists.isEmpty(albumList)}">No Results</p>
         <a th:each="album : ${albumList}" th:href="@{/albums/{id} (id=${album.getAlbumId()})}">
             <div class="album-item">
-                <img th:src="@{images/album.png}">
+                <img th:src="${album.albumImage}">
                 <div class="content">
                     <p><b th:text="${album.getAlbumName()}"></b></p>
                     <p th:text="${'Released: ' + album.getDateReleased().getYear()}"></p>

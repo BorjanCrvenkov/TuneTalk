@@ -56,8 +56,7 @@
             </div>
             <div class="filter-picker">
                 <select th:name="artistAge">
-                    <option value="" selected>All ages</option>
-                    <option th:each="age:${ages}" th:value="${age}" th:text="${age}"></option>
+                    <option value="" selected>Nekoj filter</option>
                 </select>
             </div>
             <div class="filter-picker">
@@ -80,10 +79,10 @@
         <p class="empty-container-center" th:if="${#lists.isEmpty(artistsList)}">No Results</p>
         <a th:each="artist : ${artistsList}" th:href="@{/artists/{id} (id=${artist.getArtistId()})}">
             <div class="album-item">
-                <img th:src="@{images/album.png}">
+                <img th:src="${artist.artistImage}">
                 <div class="content">
                     <p><b th:text="${artist.getArtistName()}"></b></p>
-                    <p th:if="${artist.getAge() != null }" th:text="${'Age: ' + artist.getAge()}"></p>
+<!--                    <p th:if="${artist.getAge() != null }" th:text="${'Age: ' + artist.getAge()}"></p>-->
                     <br>
                     <p>0 comments</p>
                 </div>
