@@ -65,7 +65,7 @@
                     type="text" class="text-input" placeholder="Artist name" required>
 
                 <input name="artistName" th:value="(${artist} != null ? ${artist.getRealName()} : '')" id="artistName"
-                    class="text-input" type="text" placeholder="Artist real name" required>
+                    class="text-input" type="text" placeholder="Artist real name">
 
                 <input name="birthday" th:value="(${artist} != null ? ${artist.getBirthday()} : '')" id="birthday" class="text-input" type="date" placeholder="Artist birthday">
 

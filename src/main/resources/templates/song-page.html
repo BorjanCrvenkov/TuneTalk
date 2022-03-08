@@ -153,7 +153,7 @@
     <div class="main-container">
         <div>
             <div class="item-meta-info">
-                <img th:src="@{/images/album.png}">
+                <img th:src="${song.songImage}">
                 <div>
                     <p><b th:text="${song.getTitle()}">[Album name]</b></p>
                     <p

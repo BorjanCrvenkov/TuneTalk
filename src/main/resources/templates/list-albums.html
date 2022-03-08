@@ -56,13 +56,24 @@
                 </select>
             </div>
             <div class="filter-picker">
-                <select name="yearReleased">
-                    <option value="" selected>All years</option>
-                    <option th:each="year:${years}" th:value="${year}" th:text="${year}"></option>
-                </select>
+                <form method="get" action="/albums">
+                    <select name="period">
+                        <option value="" selected>All year periods</option>
+                        <option value="2020">2020s</option>
+                        <option value="2010">2010s</option>
+                        <option value="2000">2000s</option>
+                        <option value="1990">1990s</option>
+                        <option value="1980">1980s</option>
+                        <option value="1970">1970s</option>
+                        <option value="1960">1960s</option>
+                        <option value="1950">1950s</option>
+                        <option value="1940">1940s</option>
+                    </select>
+                </form>
+
             </div>
             <div class="filter-picker">
-                <select>
+                <select name="genreId">
                     <option value="" selected>All genres</option>
                     <option th:each="genre : ${genres}" th:text="${genre.genreName}" th:value="${genre.genreId}"></option>
                 </select>

@@ -13,14 +13,26 @@
 
             <label for="dateReleased" class="form-label">Song Release Date:</label>
             <input name="dateReleased" th:value="(${song} != null ? ${song.getDateReleased()} : '')"
-                   id="dateReleased" type="date" class="form-control" required>
+                   id="dateReleased" type="date" class="form-control">
 
         </div>
 
         <div class="mb-3">
             <label for="rating" class="form-label">Song Rating:</label>
             <input name="rating" th:value="(${song} != null ? ${song.getRating()} : '')"
-                   id="rating" type="number" step=".1" class="form-control" placeholder="Enter song rating"  min="0" max="10" required>
+                   id="rating" type="number" step=".1" class="form-control" placeholder="Enter song rating"  min="0" max="10">
+        </div>
+
+        <div class="mb-3">
+            <label for="lyrics" class="form-label">Lyrics:</label>
+            <input name="lyrics" th:value="(${song} != null ? ${song.lyrics} : '')"
+                   id="lyrics" type="text" class="form-control" placeholder="Enter song lyrics">
+        </div>
+
+        <div class="mb-3">
+            <label for="songImage" class="form-label">Link to song image:</label>
+            <input name="songImage" th:value="(${song} != null ? ${song.songImage} : '')"
+                   id="songImage" type="text" class="form-control" placeholder="Enter link to song image">
         </div>
 
         <div class="mb-3">
@@ -48,13 +60,6 @@
             <a th:href="@{'/songs/addGenre/{id}' (id=${song.getSongId()})}">Add another genre to song</a>
         </div>
 
-        <h5>Further information is optional</h5>
-
-        <div class="mb-3">
-            <label for="lyrics" class="form-label">Lyrics:</label>
-            <input name="lyrics"
-                   id="lyrics" type="text" class="form-control" placeholder="Enter song lyrics">
-        </div>
 
         <button type="submit" style="margin-bottom: 40px;" class="btn btn-block btn-primary">Confirm</button>
     </form>

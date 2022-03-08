@@ -1,11 +1,13 @@
 package finki.bazi.tunetalk.service.impl;
 
 import finki.bazi.tunetalk.model.Album;
+import finki.bazi.tunetalk.model.Genre;
 import finki.bazi.tunetalk.model.metamodel.Album_;
 import finki.bazi.tunetalk.repository.AlbumRepository;
 import finki.bazi.tunetalk.service.AlbumService;
 import finki.bazi.tunetalk.service.ArtistService;
 
+import finki.bazi.tunetalk.service.GenreService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
@@ -21,10 +23,12 @@ public class AlbumServiceImpl implements AlbumService {
 
     private final AlbumRepository albumRepository;
     private final ArtistService artistService;
+    private final GenreService genreService;
 
-    public AlbumServiceImpl(AlbumRepository albumRepository, ArtistService artistService) {
+    public AlbumServiceImpl(AlbumRepository albumRepository, ArtistService artistService, GenreService genreService) {
         this.albumRepository = albumRepository;
         this.artistService = artistService;
+        this.genreService = genreService;
     }
 
     @Override
@@ -104,8 +108,8 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public List<Album> findAlbumsByGenreId(Integer genreId) {
-        List<Integer> albumIds = albumRepository.findAlbumsByGenreId(genreId);
-        return albumRepository.findAllById(albumIds);
+        Genre genre = this.genreService.findGenreById(genreId);
+        return albumRepository.findAllByAlbumGenresContaining(genre);
 
     }
 
@@ -143,6 +147,24 @@ public class AlbumServiceImpl implements AlbumService {
                 lastDay));
 
         return specification;
+    }
+
+    @Override
+    public List<Album> findByPeriod(Integer period) {
+        LocalDate from = LocalDate.parse(""+period+"-01-01");
+        LocalDate to = LocalDate.parse(""+(period + 9)+"-12-31");
+        return this.albumRepository.findByDateReleasedBetween(from,to);
+    }
+
+    @Override
+    public List<Album> findByGenreAndPeriod(Integer genreId, Integer period) {
+        LocalDate from = LocalDate.parse(""+period+"-01-01");
+        LocalDate to = LocalDate.parse(""+(period + 9)+"-12-31");
+
+        Genre genre = this.genreService.findGenreById(genreId);
+
+        return this.albumRepository.findAllByDateReleasedBetweenAndAlbumGenresContaining(from,to,genre);
+
     }
 
 }

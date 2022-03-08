@@ -1,6 +1,7 @@
 package finki.bazi.tunetalk.repository;
 
 import finki.bazi.tunetalk.model.Album;
+import finki.bazi.tunetalk.model.Genre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -59,4 +60,11 @@ public interface AlbumRepository extends JpaRepository<Album, Integer>, JpaSpeci
     @Modifying(clearAutomatically = true)
     @Query(value = "update album set verified = false where album_id = :albumId", nativeQuery = true)
     void unverifyAlbum(@Param("albumId") Integer albumId);
+
+    List<Album> findByDateReleasedBetween(LocalDate from, LocalDate to);
+
+    List<Album> findAllByAlbumGenresContaining(Genre genre);
+
+    List<Album> findAllByDateReleasedBetweenAndAlbumGenresContaining(LocalDate from, LocalDate to,Genre genre);
+
 }

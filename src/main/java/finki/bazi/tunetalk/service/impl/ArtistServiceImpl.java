@@ -97,6 +97,7 @@ public class ArtistServiceImpl implements ArtistService {
         artist.setRealName(realName);
         artist.setDescription(description);
         artist.setArtistImage(artistImage);
+        artist.setBirthday(birthday);
         this.artistRepository.save(artist);
     }
 

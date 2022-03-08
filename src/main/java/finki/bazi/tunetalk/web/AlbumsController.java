@@ -38,18 +38,23 @@ public class AlbumsController {
 
     @GetMapping
     public String getAllAlbumsPage(@RequestParam(required = false) String albumSearch,
-            @RequestParam(required = false) Integer yearReleased, @RequestParam(required = false) String genre,
+            @RequestParam(required = false) Integer period,
+            @RequestParam(required = false) Integer genreId,
             Model model,
             HttpServletRequest req) {
         Users user = (Users) req.getSession().getAttribute("user");
         model.addAttribute("user", user);
 
-        model.addAttribute("albumList", albumService.findAllFiltered(albumSearch, yearReleased, genre));
+        if(period != null && genreId != null){
+            model.addAttribute("albumList",this.albumService.findByGenreAndPeriod(genreId,period));
+        }else if(period != null){
+            model.addAttribute("albumList",this.albumService.findByPeriod(period));
+        }else if(genreId != null){
+            model.addAttribute("albumList",this.albumService.findAlbumsByGenreId(genreId));
+        }else{
+            model.addAttribute("albumList",this.albumService.findAllAlbums());
+        }
 
-        List<Integer> years = IntStream.rangeClosed(1940, Calendar.getInstance().get(Calendar.YEAR)).boxed()
-                .collect(Collectors.toList());
-        Collections.reverse(years);
-        model.addAttribute("years", years);
 
         model.addAttribute("genres", this.genreService.listAllGenres());
 

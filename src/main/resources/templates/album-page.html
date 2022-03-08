@@ -207,7 +207,7 @@
     <div class="main-container">
         <div>
             <div class="item-meta-info">
-                <img th:src="@{/images/album.png}">
+                <img th:src="${album.albumImage}">
                 <div>
                     <p><b th:text="${album.getAlbumName()}">[Album name]</b></p>
                     <p
@@ -217,7 +217,7 @@
                         th:text="(${album.getRating()} != null ? 'Rating: ' + ${album.getRating()} : 'Rating: No rating yet')">
                     </p>
 
-                    <div th:if="${session.user.isAdmin() == true}">
+                    <div th:if="${session.user!= null && session.user.isAdmin() == true}">
                         <a th:if="${album.isVerified() == false}" th:href="@{'/albums/verify/{albumId}' (albumId=${album.getAlbumId()})}">Verify</a>
                         <a th:if="${album.isVerified() == true}" th:href="@{'/albums/unverify/{albumId}' (albumId=${album.getAlbumId()})}">Unverify</a>
                     </div>

@@ -40,4 +40,8 @@ public interface AlbumService {
     Specification<Album> nameContains(String text);
 
     Specification<Album> yearReleased(Integer yearReleased);
+
+    List<Album> findByPeriod(Integer period);
+
+    List<Album> findByGenreAndPeriod(Integer genreId, Integer period);
 }

@@ -55,11 +55,15 @@
             <form method="post" class="input-form-song" action="/songs/create">
                 <input name="title" th:value="(${song} != null ? ${song.getTitle()} : '')" id="title" type="text"
                     class="text-input" placeholder="Song name" required>
+
                 <input name="dateReleased" th:value="(${song} != null ? ${song.getDateReleased()} : '')"
-                    id="dateReleased" class="text-input" type="date" placeholder="Date released" required>
+                    id="dateReleased" class="text-input" type="date" placeholder="Date released">
+
                 <input name="rating" th:value="(${song} != null ? ${song.getRating()} : '')" id="rating" min="0"
-                    max="10" class="text-input" type="number" placeholder="Song rating" required>
-                <input name="lyrics" id="lyrics" class="text-input" type="text" placeholder="Lyrics" required>
+                    max="10" class="text-input" type="number" placeholder="Song rating">
+
+                <input name="lyrics" id="lyrics" class="text-input" type="text" placeholder="Lyrics">
+
 
                 <input name="songImage" th:value="(${song} != null ? ${song.songImage} : '')"
                        id="songImage" class="text-input" type="text" placeholder="Song image link" >

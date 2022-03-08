@@ -70,10 +70,13 @@
             <form method="post" class="input-form-album" action="/albums/create">
                 <input name="albumName" th:value="(${album} != null ? ${album.getAlbumName()} : '')" id="albumName"
                     type="text" class="text-input" placeholder="Album name" required>
+
                 <input name="dateReleased" th:value="(${album} != null ? ${album.getDateReleased()} : '')"
-                    id="dateReleased" class="text-input" type="date" placeholder="Date released" required>
+                    id="dateReleased" class="text-input" type="date" placeholder="Date released">
+
                 <input name="rating" th:value="(${album} != null ? ${album.getRating()} : '')" id="rating" min="0"
-                    max="10" class="text-input" type="number" placeholder="Album rating" required>
+                    max="10" class="text-input" type="number" placeholder="Album rating">
+
                 <input th:name="artistId" list="search" id="answerInput" class="datalist-search"
                     placeholder="Select Artist" required>
 
