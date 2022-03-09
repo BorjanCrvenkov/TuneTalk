@@ -44,4 +44,15 @@ public interface AlbumService {
     List<Album> findByPeriod(Integer period);
 
     List<Album> findByGenreAndPeriod(Integer genreId, Integer period);
+
+    List<Album> findByNameLike(String nameLike);
+
+    List<Album> findByNameLikeAndPeriod(String nameLike, Integer period);
+
+    List<Album> findByNameLikeAndGenre(String nameLike, Integer genreId);
+
+    List<Album> findByNameLikeAndGenreAndPeriod(String nameLike, Integer genreId, Integer period);
+
+
+
 }

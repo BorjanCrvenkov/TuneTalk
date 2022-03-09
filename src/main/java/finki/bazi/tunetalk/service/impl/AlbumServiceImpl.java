@@ -1,6 +1,7 @@
 package finki.bazi.tunetalk.service.impl;
 
 import finki.bazi.tunetalk.model.Album;
+import finki.bazi.tunetalk.model.Artist;
 import finki.bazi.tunetalk.model.Genre;
 import finki.bazi.tunetalk.model.metamodel.Album_;
 import finki.bazi.tunetalk.repository.AlbumRepository;
@@ -56,9 +57,9 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public List<Album> findAllAlbumsByArtistId(Integer artistId) {
-        List<Integer> albumsIds = albumRepository.findAllAlbumsIdByArtistId(artistId);
+        Artist artist = this.artistService.findArtistById(artistId);
 
-        return albumRepository.findAllById(albumsIds);
+        return artist.getAlbumsReleased();
     }
 
     @Override
@@ -165,6 +166,43 @@ public class AlbumServiceImpl implements AlbumService {
 
         return this.albumRepository.findAllByDateReleasedBetweenAndAlbumGenresContaining(from,to,genre);
 
+    }
+
+    @Override
+    public List<Album> findByNameLike(String nameLike) {
+        String nameLike1 = "%"+nameLike+"%";
+        return this.albumRepository.findAllByAlbumNameLike(nameLike1);
+    }
+
+    @Override
+    public List<Album> findByNameLikeAndPeriod(String nameLike, Integer period) {
+        LocalDate from = LocalDate.parse(""+period+"-01-01");
+        LocalDate to = LocalDate.parse(""+(period + 9)+"-12-31");
+
+        String nameLike1 = "%"+nameLike+"%";
+
+        return this.albumRepository.findAllByAlbumNameLikeAndDateReleasedBetween(nameLike1,from,to);
+    }
+
+    @Override
+    public List<Album> findByNameLikeAndGenre(String nameLike, Integer genreId) {
+        String nameLike1 = "%"+nameLike+"%";
+
+        Genre genre = this.genreService.findGenreById(genreId);
+
+        return this.albumRepository.findAllByAlbumNameLikeAndAlbumGenresContaining(nameLike1,genre);
+    }
+
+    @Override
+    public List<Album> findByNameLikeAndGenreAndPeriod(String nameLike, Integer genreId, Integer period) {
+        String nameLike1 = "%"+nameLike+"%";
+
+        LocalDate from = LocalDate.parse(""+period+"-01-01");
+        LocalDate to = LocalDate.parse(""+(period + 9)+"-12-31");
+
+        Genre genre = this.genreService.findGenreById(genreId);
+
+        return this.albumRepository.findAllByAlbumNameLikeAndAlbumGenresContainingAndDateReleasedBetween(nameLike1,genre, from, to);
     }
 
 }

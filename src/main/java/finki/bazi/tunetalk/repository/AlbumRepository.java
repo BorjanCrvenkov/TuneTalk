@@ -20,9 +20,6 @@ public interface AlbumRepository extends JpaRepository<Album, Integer>, JpaSpeci
 
     List<Album> findAllByDateReleased(LocalDate dateReleased);
 
-    @Query(value = "select album_id from album_released where album_released.artist_id = :id", nativeQuery = true)
-    List<Integer> findAllAlbumsIdByArtistId(@Param("id") Integer artistId);
-
     @Query(value = "select album_id from is_in where is_in.song_id = :id", nativeQuery = true)
     Integer findAlbumIdBySongId(@Param("id") Integer song);
 
@@ -66,5 +63,17 @@ public interface AlbumRepository extends JpaRepository<Album, Integer>, JpaSpeci
     List<Album> findAllByAlbumGenresContaining(Genre genre);
 
     List<Album> findAllByDateReleasedBetweenAndAlbumGenresContaining(LocalDate from, LocalDate to,Genre genre);
+
+    List<Album> findAllByAlbumNameLike(String nameLike);
+
+    List<Album> findAllByAlbumNameLikeAndAlbumGenresContainingAndDateReleasedBetween(String nameLike,
+                                                                                     Genre genre,
+                                                                                     LocalDate from,
+                                                                                     LocalDate to);
+
+    List<Album> findAllByAlbumNameLikeAndAlbumGenresContaining(String nameLike, Genre genre);
+
+    List<Album> findAllByAlbumNameLikeAndDateReleasedBetween(String nameLike, LocalDate from, LocalDate to);
+
 
 }

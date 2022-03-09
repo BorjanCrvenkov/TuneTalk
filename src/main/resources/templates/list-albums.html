@@ -32,6 +32,53 @@
 
     <link rel="stylesheet" th:href="@{styles/list-content.css}">
 
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+    <script>
+
+        $(document).ready(function (){
+
+            findSelectedPeriod();
+            findSelectedGenre();
+
+            document.getElementById("albumSearch").value = '[[${albumSearch}]]'
+
+            function findSelectedPeriod(){
+                var selectedPeriod = '[[${selectedPeriod}]]' || null;
+                $("#period option").each(function (){
+                    if(selectedPeriod === this.value){
+                        $(this).attr("selected",true)
+                    }
+                })
+            }
+
+            function findSelectedGenre(){
+                var selectedGenreId = '[[${selectedGenreId}]]' || null;
+                $("#genreId option").each(function (){
+                    if(selectedGenreId === this.value){
+                        $(this).attr("selected",true)
+                    }
+                })
+            }
+
+            function callAlbumSearch(){
+                var genreId = document.getElementById("genreId").value
+                var albumSearch = document.getElementById("albumSearch").value
+                var period = document.getElementById("period").value
+                window.location = '/albums?albumSearch='+albumSearch+'&period='+period+'&genreId='+genreId
+            }
+
+            $('#genreId').change(callAlbumSearch);
+            $('#period').change(callAlbumSearch);
+            // $('#albumSearch').keypress(callAlbumSearch);
+
+        })
+
+    </script>
+
+
+
 </head>
 
 <body xmlns:th="http://www.w3.org/1999/xhtml">
@@ -40,7 +87,7 @@
             <h4>All albums</h4>
             <div class="spacer-title"></div>
             <div class="search-container">
-                <input th:name="albumSearch" placeholder="Search album" id="answerInput" type="text">
+                <input th:name="albumSearch" placeholder="Search album" id="albumSearch" type="text">
                 <button type="submit">
                     <img th:src="@{icons/search.svg}">
                 </button>
@@ -50,15 +97,15 @@
         <div class="filters-container">
             <div class="filter-picker">
                 <select>
-                    <option value="" selected>Last updated</option>
+                    <option value="">Last updated</option>
                     <option>Top</option>
                     <option>Least popular</option>
                 </select>
             </div>
             <div class="filter-picker">
                 <form method="get" action="/albums">
-                    <select name="period">
-                        <option value="" selected>All year periods</option>
+                    <select name="period" id="period">
+                        <option value="">All year periods</option>
                         <option value="2020">2020s</option>
                         <option value="2010">2010s</option>
                         <option value="2000">2000s</option>
@@ -73,8 +120,8 @@
 
             </div>
             <div class="filter-picker">
-                <select name="genreId">
-                    <option value="" selected>All genres</option>
+                <select name="genreId" id="genreId">
+                    <option value="">All genres</option>
                     <option th:each="genre : ${genres}" th:text="${genre.genreName}" th:value="${genre.genreId}"></option>
                 </select>
             </div>

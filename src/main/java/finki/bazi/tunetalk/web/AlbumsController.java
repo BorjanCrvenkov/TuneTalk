@@ -45,16 +45,42 @@ public class AlbumsController {
         Users user = (Users) req.getSession().getAttribute("user");
         model.addAttribute("user", user);
 
-        if(period != null && genreId != null){
-            model.addAttribute("albumList",this.albumService.findByGenreAndPeriod(genreId,period));
-        }else if(period != null){
-            model.addAttribute("albumList",this.albumService.findByPeriod(period));
-        }else if(genreId != null){
-            model.addAttribute("albumList",this.albumService.findAlbumsByGenreId(genreId));
-        }else{
-            model.addAttribute("albumList",this.albumService.findAllAlbums());
-        }
+        List<Album> albumList = this.albumService.findAllAlbums();
 
+        if(albumSearch != null && period != null && genreId != null){
+
+            albumList = this.albumService.findByNameLikeAndGenreAndPeriod(albumSearch,genreId,period);
+
+        }else if(albumSearch != null && period != null){
+
+            albumList = this.albumService.findByNameLikeAndPeriod(albumSearch,period);
+
+        }else if(albumSearch != null && genreId != null){
+
+            albumList = this.albumService.findByNameLikeAndGenre(albumSearch,genreId);
+
+        }else if(period != null && genreId != null){
+
+            this.albumService.findByGenreAndPeriod(genreId,period);
+
+        }else if(period != null){
+
+            this.albumService.findByPeriod(period);
+
+        }else if(genreId != null){
+
+            this.albumService.findAlbumsByGenreId(genreId);
+
+        }else if(albumSearch != null){
+
+            albumList = this.albumService.findByNameLike(albumSearch);
+
+        }
+        model.addAttribute("albumList",albumList);
+
+        model.addAttribute("selectedGenreId",genreId);
+        model.addAttribute("selectedPeriod",period);
+        model.addAttribute("albumSearch",albumSearch);
 
         model.addAttribute("genres", this.genreService.listAllGenres());
 
