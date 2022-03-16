@@ -44,7 +44,7 @@ public class ArtistsController {
         Users user = (Users) req.getSession().getAttribute("user");
         model.addAttribute("user", user);
 
-        model.addAttribute("artistsList", artistService.findAllFiltered(artistSearch, artistAge, genre));
+        model.addAttribute("artistsList", artistService.findAll());
 
         model.addAttribute("genres", genreService.listAllGenres());
 

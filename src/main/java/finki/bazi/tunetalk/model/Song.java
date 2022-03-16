@@ -1,6 +1,7 @@
 package finki.bazi.tunetalk.model;
 
 import lombok.Data;
+import org.h2.engine.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -52,6 +53,20 @@ public class Song implements Serializable {
     @OneToMany(mappedBy = "songCommented")
     private List<Comment> comments;
 
+    @ManyToMany
+    @JoinTable(
+            name = "likes_song",
+            joinColumns = @JoinColumn(name = "song_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<Users> usersLikedBy;
+
+    @ManyToMany
+    @JoinTable(
+            name = "dislikes_song",
+            joinColumns = @JoinColumn(name = "song_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<Users> usersDislikedBy;
+
     public Song(String title, LocalDate dateReleased, float rating, String lyrics,String songImage) {
         this.title = title;
         this.dateReleased = dateReleased;
@@ -63,6 +78,8 @@ public class Song implements Serializable {
         this.albumsIn = new ArrayList<>();
         this.songGenres = new ArrayList<>();
         this.comments = new ArrayList<>();
+        this.usersLikedBy = new ArrayList<>();
+        this.usersDislikedBy = new ArrayList<>();
     }
 
     public Song() {

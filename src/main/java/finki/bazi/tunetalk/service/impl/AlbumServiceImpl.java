@@ -98,7 +98,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Album updateAlbum(Integer albumId, String albumName, LocalDate dateReleased, float rating,
-                            String albumImage) {
+                             String albumImage) {
         Album album = this.findById(albumId);
         album.setAlbumName(albumName);
         album.setDateReleased(dateReleased);

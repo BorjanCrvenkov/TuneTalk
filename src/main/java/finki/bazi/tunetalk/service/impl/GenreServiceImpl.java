@@ -19,16 +19,10 @@ import java.util.List;
 public class GenreServiceImpl implements GenreService {
 
     private final GenreRepository genreRepository;
-    private final AlbumRepository albumRepository;
-    private final SongRepository songRepository;
-    private final UserRepository userRepository;
 
     public GenreServiceImpl(GenreRepository genreRepository, AlbumRepository albumRepository,
             SongRepository songRepository, UserRepository userRepository) {
         this.genreRepository = genreRepository;
-        this.albumRepository = albumRepository;
-        this.songRepository = songRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -53,7 +47,8 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public List<Album> getAllAlbumsByGenreId(int genreId) {
-        return null;
+        Genre genre = this.findGenreById(genreId);
+        return genre.getAlbums();
     }
 
     @Override

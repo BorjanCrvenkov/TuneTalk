@@ -41,17 +41,43 @@ public class Users implements Serializable {
     private String userImage;
 
     @ManyToMany
-    @JoinTable(name = "likes_genres", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @JoinTable(name = "likes_genres",
+            joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genresLiked;
+
+    @ManyToMany
+    @JoinTable(name = "dislikes_genres",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private List<Genre> genresDisliked;
 
     @OneToMany(mappedBy = "userPostedBy")
     private List<Comment> commentsPosted;
 
-    @ManyToMany(mappedBy = "likedBy")
-    private List<Comment> likedComments;
+    @ManyToMany(mappedBy = "usersLikedBy")
+    private List<Comment> commentsLiked;
 
-    @ManyToMany(mappedBy = "dislikedBy")
-    private List<Comment> dislikedComments;
+    @ManyToMany(mappedBy = "usersLikedBy")
+    private List<Comment> commentsDisliked;
+
+    @ManyToMany(mappedBy = "usersLikedBy")
+    private List<Artist> artistsLiked;
+
+    @ManyToMany(mappedBy = "usersLikedBy")
+    private List<Artist> artistsDisliked;
+
+    @ManyToMany(mappedBy = "usersLikedBy")
+    private List<Album> albumsLiked;
+
+    @ManyToMany(mappedBy = "usersLikedBy")
+    private List<Album> albumsDisliked;
+
+    @ManyToMany(mappedBy = "usersLikedBy")
+    private List<Song> songsLiked;
+
+    @ManyToMany(mappedBy = "usersLikedBy")
+    private List<Song> songsDisliked;
 
     @Transient
     private boolean admin;
@@ -69,9 +95,16 @@ public class Users implements Serializable {
         this.admin = username.contains("ADMIN_193");
         this.userImage = userImage;
         this.genresLiked = new ArrayList<>();
+        this.genresDisliked = new ArrayList<>();
         this.commentsPosted = new ArrayList<>();
-        this.likedComments = new ArrayList<>();
-        this.dislikedComments = new ArrayList<>();
+        this.commentsLiked = new ArrayList<>();
+        this.commentsDisliked = new ArrayList<>();
+        this.artistsLiked = new ArrayList<>();
+        this.artistsDisliked = new ArrayList<>();
+        this.albumsLiked = new ArrayList<>();
+        this.albumsDisliked = new ArrayList<>();
+        this.songsLiked = new ArrayList<>();
+        this.songsDisliked = new ArrayList<>();
     }
 
     public Users() {

@@ -83,7 +83,7 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public Artist createNewArtist(String artistName, String realName, String description, LocalDate birthday, String artistImage) {
-        Artist artist = new Artist(artistName, realName, description, birthday, artistImage);
+        Artist artist = new Artist(artistName, realName, description, birthday, null, artistImage);
         if (this.checkIfArtistNameExists(artistName)) {
             throw new ArtistNameAlreadyExistsException(artistName);
         }

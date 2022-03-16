@@ -25,8 +25,8 @@ public class Comment implements Serializable {
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "first_comment_id")
-    private Comment firstComment;
+    @JoinColumn(name = "reply_to_comment_id")
+    private Comment replyToComment;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -40,33 +40,33 @@ public class Comment implements Serializable {
     @JoinColumn(name="song_id")
     private Song songCommented;
 
-    @OneToMany(mappedBy = "firstComment")
+    @OneToMany(mappedBy = "replyToComment")
     private List<Comment> replies;
 
     @ManyToMany
     @JoinTable(
-            name = "likes",
+            name = "likes_comment",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "comment_id"))
-    private List<Users> likedBy;
+    private List<Users> usersLikedBy;
 
     @ManyToMany
     @JoinTable(
-            name = "likes",
+            name = "dislikes_comment",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "comment_id"))
-    private List<Users> dislikedBy;
+    private List<Users> usersDislikedBy;
 
-    public Comment(String text, LocalDateTime datePosted, Comment firstComment, Users userPostedBy, Album albumCommented, Song songCommented) {
+    public Comment(String text, LocalDateTime datePosted, Comment replyToComment, Users userPostedBy, Album albumCommented, Song songCommented) {
         this.datePosted = datePosted;
         this.text = text;
-        this.firstComment = firstComment;
+        this.replyToComment = replyToComment;
         this.userPostedBy = userPostedBy;
         this.albumCommented = albumCommented;
         this.songCommented = songCommented;
         this.replies = new ArrayList<>();
-        this.likedBy = new ArrayList<>();
-        this.dislikedBy = new ArrayList<>();
+        this.usersLikedBy = new ArrayList<>();
+        this.usersDislikedBy = new ArrayList<>();
     }
 
     public Comment() {

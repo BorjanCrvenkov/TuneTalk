@@ -25,13 +25,17 @@ public class Genre implements Serializable {
     private List<Album> albums;
 
     @ManyToMany(mappedBy = "genresLiked")
-    private List<Users> users;
+    private List<Users> usersLikedBy;
+
+    @ManyToMany(mappedBy = "genresDisliked")
+    List<Users> usersDislikedBy;
 
     public Genre(String genreName) {
         this.genreName = genreName;
         this.songs = new ArrayList<>();
         this.albums = new ArrayList<>();
-        this.users = new ArrayList<>();
+        this.usersLikedBy = new ArrayList<>();
+        this.usersDislikedBy = new ArrayList<>();
     }
 
     public Genre() {
